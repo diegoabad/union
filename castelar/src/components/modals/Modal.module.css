@@ -1,0 +1,304 @@
+.overlay {
+	height: 100vh;
+	width: 100vw;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.753);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.modalContainer {
+	font-family: 'poppins';
+	background-color: #fff;
+	width: 500px;
+
+	min-height: 300px;
+	border-radius: 10px;
+	padding: 10px 20px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	font-size: 16px;
+}
+
+.modalAccept {
+	font-family: 'poppins';
+	background-color: #fff;
+	width: 500px;
+	border-radius: 10px;
+	padding: 20px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	font-size: 16px;
+}
+
+.containerBtn {
+	display: flex;
+	justify-content: space-around;
+	margin: 20px 40px 10px;
+}
+
+.btn {
+	border: none;
+	padding: 12px 30px;
+	text-transform: uppercase;
+	font-size: 16px;
+	font-weight: 700;
+	letter-spacing: 1px;
+	border-radius: 5px;
+	color: #fff;
+	cursor: pointer;
+}
+
+.btnAccept {
+	background-color: #00cc0a;
+}
+
+.btnAccept:hover {
+	background-color: #0cf132;
+}
+
+.btnCancel {
+	background-color: rgb(252, 70, 70);
+}
+
+.btnCancel:hover {
+	background-color: rgb(253, 25, 25);
+}
+
+.modalHeader {
+	display: flex;
+	justify-content: center;
+	border-bottom: 2px solid #e8e8e8;
+}
+
+.modalResume div {
+	margin-bottom: 10px;
+	font-weight: 600;
+}
+
+.modalResume div span {
+	margin-bottom: 10px;
+	margin-left: 5px;
+	font-weight: 400;
+	letter-spacing: 1px;
+}
+
+.modalResume {
+	text-transform: capitalize;
+
+	border-bottom: 2px solid #e8e8e8;
+}
+
+.modalResume div {
+	margin: 10px 0;
+}
+
+.modalHeader h3 {
+	text-transform: uppercase;
+	margin: 10px 0 20px;
+	font-size: 20px;
+}
+
+.close {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	cursor: pointer;
+	padding: 10px;
+}
+
+.close:hover {
+	background-color: rgba(255, 79, 79, 0.61);
+	border-top-right-radius: 10px;
+}
+
+.divForm {
+	width: 100%;
+	display: flex;
+	margin: 10px 0;
+	align-items: center;
+}
+
+.divForm select,
+.divForm input {
+	border: none;
+	outline: none;
+}
+
+.divForm input {
+	border-bottom: 1px solid rgb(48, 48, 48);
+	flex-grow: 1;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+.divForm input:focus {
+	border-bottom: 2px solid rgb(42, 161, 241);
+	outline: none;
+	transition: border-bottom 0.1s;
+}
+
+.divForm select {
+	text-transform: uppercase;
+}
+
+.divForm label,
+.divAreaForm label {
+	font-weight: 600;
+	margin-right: 10px;
+}
+
+.divAreaForm {
+	display: flex;
+	flex-direction: column;
+}
+
+.divAreaForm label {
+	margin-bottom: 10px;
+}
+
+.divAreaForm textarea {
+	padding: 10px;
+	font-size: 16px;
+	resize: none;
+}
+
+.divAreaForm textarea:focus {
+	box-sizing: border-box;
+	border: 2px solid rgb(42, 161, 241);
+	outline: none;
+	transition: border-bottom 0.1s;
+}
+
+.btnSendTurn {
+	background-color: #07991f;
+	color: #fff;
+	margin: 30px 0 10px;
+	border: none;
+	padding: 10px;
+	width: 100%;
+	text-transform: uppercase;
+	font-weight: 600;
+	letter-spacing: 1px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.btnSendTurnDisabled {
+	color: #fff;
+	margin: 30px 0 10px;
+	border: none;
+	padding: 10px;
+	width: 100%;
+	text-transform: uppercase;
+	font-weight: 600;
+	letter-spacing: 1px;
+	cursor: pointer;
+	border-radius: 5px;
+	background-color: #07991f46;
+	cursor: default;
+}
+
+.btnSendTurn:hover {
+	background-color: #04c524;
+}
+
+.search {
+	width: 22px;
+	height: 22px;
+	margin: 5px;
+	padding: 1px;
+	border-radius: 3px;
+	cursor: pointer;
+	background-color: rgb(6, 167, 241);
+}
+
+.createPatient {
+	background-color: rgb(6, 167, 241);
+	color: #fff;
+	padding: 5px 0;
+	border-radius: 5px;
+	cursor: pointer;
+	margin: 10px auto;
+	text-align: center;
+	width: 50%;
+	letter-spacing: 2px;
+	font-size: 12px;
+}
+
+.createPatient:hover {
+	background-color: rgb(54, 189, 252);
+}
+
+.notExist {
+	color: red;
+}
+
+.containerFiliatorio {
+	background-color: #ffffff;
+	height: 100vh;
+	width: 100vw;
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	top: 0;
+	left: 0;
+}
+
+.headerFiliatorio {
+	display: flex;
+	justify-content: end;
+	background-color: #e8e8e8;
+}
+
+.closeFiliatorio {
+	width: 25px;
+	height: 25px;
+	margin: 10px;
+	cursor: pointer;
+}
+
+.closeFiliatorio:hover {
+	background-color: rgba(255, 79, 79, 0.61);
+}
+
+.bodyFiliatorio {
+	overflow: scroll;
+}
+
+@media (max-width: 600px) {
+	.modalContainer {
+		background-color: #fff;
+		border-radius: 0px;
+		padding: 20px;
+		font-size: 14px;
+	}
+
+	.divForm input,
+	.divForm select {
+		font-size: 12px;
+	}
+
+	.close:hover {
+		border-top-right-radius: 0px;
+	}
+
+	.modalAccept .modalHeader h3 {
+		font-size: 16px;
+	}
+
+	.containerBtn {
+		margin: 20px 20px 15px;
+	}
+
+	.btn {
+		font-size: 14px;
+		padding: 12px 25px;
+	}
+}

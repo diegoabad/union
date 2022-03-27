@@ -1,0 +1,213 @@
+.containerPatient {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+.NavPatientContainer {
+	background-color: rgb(255, 255, 255);
+	box-shadow: 0px 0px 10px 0px rgba(32, 32, 32, 0.24);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'poppins';
+	font-size: 12px;
+	max-height: 60px;
+	color: rgb(63, 63, 63);
+	border-radius: 5px;
+	position: relative;
+}
+
+.BodyPatientContainer {
+	background-color: rgb(255, 255, 255);
+	padding: 30px;
+	box-shadow: 0px 0px 10px 0px rgba(32, 32, 32, 0.24);
+	font-family: 'poppins';
+	font-size: 14px;
+	border-radius: 5px;
+	margin: 10px 0;
+	flex-grow: 1;
+}
+
+.NavPatientContainer input {
+	font-family: 'poppins';
+	padding: 10px;
+	height: 40px;
+	text-transform: uppercase;
+	font-weight: 500;
+	font-size: 14px;
+	width: 600px;
+	letter-spacing: 1px;
+	word-spacing: 3px;
+	outline: none;
+	border: 2px solid rgb(2, 154, 255);
+}
+
+.NavPatientContainer .searchOk {
+	font-family: 'poppins';
+	border-color: rgb(93, 93, 94);
+	text-align: center;
+	background-color: rgb(93, 93, 94);
+	color: #fff;
+	font-size: 16px;
+	cursor: default;
+}
+
+.NavPatientContainer .notExist {
+	font-family: 'poppins';
+	border-color: rgb(93, 93, 94);
+	background-color: rgba(245, 31, 42, 0.822);
+	color: #fff;
+	text-align: center;
+	cursor: default;
+}
+
+.search {
+	width: 22px;
+	height: 22px;
+}
+
+.containerIcon {
+	cursor: pointer;
+	box-shadow: 0px 0px 10px 0px rgba(17, 17, 17, 0.164);
+	height: 100%;
+	min-width: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.searchActive {
+	background-color: rgb(34, 122, 255);
+}
+
+.searchActive:hover {
+	background-color: rgb(2, 154, 255);
+}
+
+.searchDisabled {
+	cursor: default;
+	background-color: rgb(168, 168, 168);
+}
+
+.searchCancel {
+	background-color: rgba(245, 31, 42, 0.822);
+}
+
+.searchCancel:hover {
+	background-color: rgb(245, 31, 42);
+}
+
+.createPatient {
+	position: absolute;
+	background-color: rgb(34, 122, 255);
+	color: #fff;
+	padding: 5px 0;
+	height: 40px;
+	cursor: pointer;
+	text-align: center;
+	width: 200px;
+	letter-spacing: 2px;
+	font-size: 14px;
+	bottom: -80px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 5px;
+	box-shadow: 0px 0px 10px 0px rgba(17, 17, 17, 0.164);
+}
+
+.createPatient:hover {
+	background-color: rgb(2, 154, 255);
+}
+
+.BodyPatientContainer {
+	display: flex;
+	padding: 0;
+}
+
+.containerMenuPatient {
+	flex-basis: 15%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	background-color: rgba(230, 27, 61, 0.705);
+	color: #fff;
+	padding: 0;
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+}
+.containerMenuPatient div {
+	cursor: pointer;
+	padding: 15px 0;
+	width: 100%;
+	text-align: center;
+}
+
+.containerMenuPatient div:hover {
+	background-color: rgba(230, 27, 61, 0.795);
+}
+
+.active {
+	background-color: rgba(230, 27, 61, 0.795);
+}
+
+.containerInfoPatient {
+	font-family: 'Poppins';
+	color: rgb(63, 63, 63);
+	flex-grow: 1;
+	overflow-y: scroll;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: relative;
+}
+
+.infoMainTitle {
+	font-size: 26px;
+	margin: 0 0 30px;
+}
+
+.containerMenuInfoPaciente {
+	position: absolute;
+	left: 30px;
+	top: 20px;
+	cursor: pointer;
+	padding: 5px;
+	border-radius: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.menuInfoPaciente {
+	width: 30px;
+	height: 30px;
+}
+
+.menuActive {
+	background-color: rgba(230, 25, 59, 0.938);
+}
+
+.menuActive:hover {
+	background-color: rgba(236, 39, 72, 0.808);
+}
+
+.menuDisabled {
+	background-color: rgba(236, 39, 72, 0.808);
+}
+
+.menuDisabled:hover {
+	background-color: rgba(230, 25, 59, 0.938);
+}
+
+@media (max-width: 600px) {
+	.NavPatientContainer input,
+	.NavPatientContainer .searchOk,
+	.NavPatientContainer .notExist {
+		font-size: 10px;
+	}
+}

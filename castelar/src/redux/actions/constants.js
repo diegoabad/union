@@ -1,0 +1,14 @@
+export const FILIATORIOS = 'FILIATORIOS';
+export const ESTADO = 'ESTADO';
+export const PAGE = 'PAGE';
+export const ADMISION = 'ADMISION';
+export const EDITAR_FILIATORIO = 'EDITAR_FILIATORIO';
+export const GET_TOKEN = 'GET_TOKEN';
+export const GET_CODE = 'GET_CODE';
+export const SEMIOLOGICA = 'SEMIOLOGICA';
+export const DNI_PACIENTE = 'DNI_PACIENTE';
+export const SOLAPA_PACIENTE = 'SOLAPA_PACIENTE';
+export const ACTIVE_SEARCH = 'ACTIVE_SEARCH';
+export const MENU_SOLAPA = 'MENU_SOLAPA';
+export const SET_PACIENTE = 'SET_PACIENTE';
+export const FORMULARIO = 'FORMULARIO';

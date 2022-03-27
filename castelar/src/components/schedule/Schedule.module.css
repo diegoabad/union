@@ -1,0 +1,309 @@
+.ScheduleContainer {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+h2 {
+	margin: 0;
+	letter-spacing: 1px;
+	word-spacing: 5px;
+	text-transform: capitalize;
+}
+
+.NavScheduleContainer {
+	background-color: rgb(255, 255, 255);
+	padding: 10px 60px;
+	box-shadow: 0px 0px 10px 0px rgba(32, 32, 32, 0.24);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-family: 'poppins';
+	font-size: 12px;
+	max-height: 60px;
+	color: rgb(63, 63, 63);
+	border-radius: 5px;
+}
+
+.NavScheduleContainer p {
+	font-size: 14px;
+}
+
+.NavScheduleContainer2 {
+	background-color: rgb(255, 255, 255);
+	padding: 20px;
+	box-shadow: 0px 0px 10px 0px rgba(32, 32, 32, 0.445);
+	display: none;
+	font-family: 'poppins';
+	font-size: 14px;
+	max-height: 60px;
+	color: rgb(63, 63, 63);
+	margin-bottom: 10px;
+}
+
+.NavScheduleMonthContainer {
+	display: flex;
+	width: 160px;
+	justify-content: flex-end;
+}
+
+.NavScheduleReturnContainer {
+	width: 160px;
+}
+
+.navLinkVolver {
+	text-decoration: none;
+	color: rgb(63, 63, 63);
+	display: flex;
+	justify-content: flex-start;
+}
+
+.off {
+	cursor: pointer;
+	width: 20px;
+	height: 20px;
+}
+
+.bodyScheduleContainer {
+	background-color: rgb(255, 255, 255);
+	padding: 30px;
+	box-shadow: 0px 0px 10px 0px rgba(32, 32, 32, 0.24);
+	font-family: 'poppins';
+	font-size: 14px;
+	color: rgb(63, 63, 63);
+	border-radius: 5px;
+	margin: 10px 0;
+}
+
+.bodyScheduleContainer::-webkit-scrollbar {
+	width: 7px;
+}
+
+.bodyScheduleContainer::-webkit-scrollbar-thumb {
+	background-color: rgb(88, 88, 88);
+	border-radius: 5px;
+}
+
+.scheduleGridBody {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+	grid-row-gap: 20px;
+}
+
+.scheduleCard {
+	display: flex;
+	box-shadow: 0px 0px 10px 0px rgba(19, 18, 18, 0.144);
+	border: 1px solid rgb(99, 99, 99);
+	justify-content: space-between;
+	align-items: center;
+	height: 45px;
+	border-radius: 2px;
+	width: 500px;
+	padding: 0 10px 0 15px;
+	justify-self: center;
+}
+
+.scheduleCardAvailable {
+	background-color: #9bf0a9;
+	letter-spacing: 1px;
+}
+
+.scheduleCardHour,
+.scheduleCardName,
+.scheduleCardNameBlock {
+	font-weight: 600;
+}
+
+.scheduleCardHour {
+	width: 45px;
+}
+
+.scheduleCardName {
+	cursor: pointer;
+	word-spacing: 4px;
+	text-transform: uppercase;
+	width: 220px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	text-align: center;
+}
+
+.scheduleCardNameBlock {
+	word-spacing: 4px;
+	text-transform: uppercase;
+	width: 220px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	text-align: center;
+	cursor: default;
+}
+
+.scheduleCardName:hover {
+	text-decoration: underline;
+}
+
+.scheduleCardState {
+	text-transform: uppercase;
+	font-size: 10px;
+	letter-spacing: 1px;
+	cursor: pointer;
+	box-shadow: 0px 0px 5px 2px rgba(19, 18, 18, 0.096);
+	padding: 5px 7px;
+	border-radius: 5px;
+	width: 73px;
+	text-align: center;
+}
+
+.pending {
+	background-color: #ffd392;
+}
+
+.absent {
+	background-color: #ffaaaa;
+}
+
+.waiting {
+	background-color: #fff388;
+}
+
+.present {
+	background-color: #9fecff;
+}
+
+.date {
+	letter-spacing: 1px;
+	width: 110px;
+	text-align: center;
+}
+
+.overturn {
+	text-transform: uppercase;
+	font-size: 12px;
+	background-color: #f197fd;
+	height: 26px;
+	width: 26px;
+	border-radius: 5px;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0px 0px 5px 2px rgba(19, 18, 18, 0.096);
+}
+
+.scheduleCardIcons {
+	display: flex;
+	align-items: center;
+}
+
+.scheduleCardIcons img {
+	padding: 5px;
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+}
+
+.scheduleCardIcons img:hover {
+	background-color: rgba(202, 202, 202, 0.568);
+	border-radius: 20px;
+}
+
+.scheduleCardAvailable {
+	background-color: #9bf0a9;
+	letter-spacing: 1px;
+}
+
+.scheduleCardLocked {
+	letter-spacing: 1px;
+	color: #fff;
+	background-color: #868585;
+}
+
+@media (max-width: 1300px) {
+	.scheduleGridBody {
+		grid-column-gap: 10px;
+		grid-row-gap: 10px;
+	}
+}
+
+@media (max-width: 600px) {
+	.NavScheduleContainer2 {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.NavScheduleContainer {
+		padding: 20px 15px;
+		border-radius: 0;
+		font-size: 10px;
+	}
+
+	.NavScheduleContainer p {
+		font-size: 12px;
+	}
+
+	.bodyScheduleContainer {
+		width: 100vw;
+	}
+
+	.scheduleCard {
+		width: 100%;
+		height: 45px;
+		padding: 0 10px;
+		font-size: 10px;
+		box-shadow: 0px 0px 5px 2px rgba(19, 18, 18, 0.199);
+	}
+
+	.scheduleGridBody {
+		grid-row-gap: 5px;
+	}
+
+	.h2D {
+		display: none;
+	}
+
+	.scheduleCardName {
+		width: 150px;
+	}
+
+	h2 {
+		font-size: 18px;
+	}
+
+	.bodyScheduleContainer {
+		border-radius: 0px;
+		padding: 15px 5px;
+	}
+
+	.scheduleCardState {
+		font-size: 8px;
+		width: 65px;
+	}
+
+	.overturn {
+		height: 22px;
+		font-size: 10px;
+	}
+
+	.scheduleGridBody {
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		grid-row-gap: 15px;
+	}
+
+	.scheduleCardIcons img {
+		width: 18px;
+		height: 18px;
+		padding: 0px;
+	}
+
+	.scheduleCardHour {
+		width: 35px;
+	}
+
+	.date {
+		width: 100px;
+	}
+}
