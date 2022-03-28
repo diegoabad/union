@@ -12,9 +12,14 @@ import {
 	MENU_SOLAPA,
 	SET_PACIENTE,
 	FORMULARIO,
+	PSIQUIATRICA,
+	PSICOLOGICA,
+	NUTRICIONAL,
+	SET_USER,
 } from '../actions/constants';
 
 const initialState = {
+	usuarioActual: {},
 	pacienteActual: {
 		filiatorios: {},
 		admision: [],
@@ -53,6 +58,13 @@ const rootReducer = (state = initialState, action) => {
 				},
 			};
 
+		case SET_USER: {
+			return {
+				...state,
+				usuarioActual: action.payload,
+			};
+		}
+
 		case FORMULARIO:
 			return {
 				...state,
@@ -62,6 +74,7 @@ const rootReducer = (state = initialState, action) => {
 						...state.pacienteActual.filiatorios,
 						...action.payload,
 					},
+					idPatient: action.payload.dni,
 				},
 			};
 
@@ -72,10 +85,12 @@ const rootReducer = (state = initialState, action) => {
 			};
 
 		case ADMISION:
-			const datos_admision = state.admision;
 			return {
 				...state,
-				admision: { ...datos_admision, ...action.payload },
+				pacienteActual: {
+					...state.pacienteActual,
+					admision: action.payload,
+				},
 			};
 
 		case SEMIOLOGICA:
@@ -83,10 +98,34 @@ const rootReducer = (state = initialState, action) => {
 				...state,
 				pacienteActual: {
 					...state.pacienteActual,
-					semiologia: {
-						...state.pacienteActual.semiologia,
-						...action.payload,
-					},
+					semiologia: [...state.pacienteActual.semiologia, action.payload],
+				},
+			};
+
+		case PSIQUIATRICA:
+			return {
+				...state,
+				pacienteActual: {
+					...state.pacienteActual,
+					psiquiatria: [...state.pacienteActual.psiquiatria, action.payload],
+				},
+			};
+
+		case PSICOLOGICA:
+			return {
+				...state,
+				pacienteActual: {
+					...state.pacienteActual,
+					psicologia: action.payload,
+				},
+			};
+
+		case NUTRICIONAL:
+			return {
+				...state,
+				pacienteActual: {
+					...state.pacienteActual,
+					nutricion: action.payload,
 				},
 			};
 

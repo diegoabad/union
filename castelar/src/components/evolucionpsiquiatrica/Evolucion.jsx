@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
 import EvolucionComponente from './componentes/EvolucionComponente'
 
-const Evolucion = () => {
+const Evolucion = ({psiquiatria, setPsiquiatria}) => {
 
   const initialStateValues = {
     evolucion: '',
@@ -16,6 +16,9 @@ const Evolucion = () => {
     setValues({...values, [name]: value})
   }
 
+  useEffect(() => {
+    setPsiquiatria({...psiquiatria,...values});
+  },[values])
 
   return (
     <EvolucionComponente titulo = 'Evolución' handleChange = { handleChange } value = { values.evolucion } name = 'evolucion' label = 'Evolución' minRows = {12} maxRows = {12}/>

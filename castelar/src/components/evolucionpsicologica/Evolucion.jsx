@@ -1,14 +1,18 @@
-import React from 'react'
+import React, { useEffect} from 'react'
 
 import EvolucionComponente from '../evolucionpsiquiatrica/componentes/EvolucionComponente'
 
-const Evolucion = () => {
+const Evolucion = ({psicologica, setPsicologica}) => {
 
   const initialStateValues = {
     evolucion: '',
   }
 
   const [values, setValues] = React.useState(initialStateValues)
+
+  useEffect(() => {
+    setPsicologica({ ...psicologica, ...values})
+  },[values])
 
   const handleChange = (event) => {
     const { name, value } = event.target;

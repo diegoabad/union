@@ -8,40 +8,40 @@ export default function NavBar({ user }) {
 	return (
 		<div className={s.navbarContainer}>
 			<NavLink
-				className={({ isActive }) =>
-					isActive ? `${s.active}` : `${s.navLinks}`
+				className={(navData) =>
+					navData.isActive ? `${s.active}` : `${s.navLinks}`
 				}
 				to='/'
 			>
 				<p className={s.options}>Inicio</p>
 			</NavLink>
 			<NavLink
-				className={({ isActive }) =>
-					isActive ? `${s.active}` : `${s.navLinks}`
+				className={(navData) =>
+					navData.isActive ? `${s.active}` : `${s.navLinks}`
 				}
 				to='/calendar'
 			>
 				<p className={s.options}>Turnos</p>
 			</NavLink>
 			<NavLink
-				className={({ isActive }) =>
-					isActive ? `${s.active}` : `${s.navLinks}`
+				className={(navData) =>
+					navData.isActive ? `${s.active}` : `${s.navLinks}`
 				}
 				to='/paciente'
 			>
 				<p className={s.options}>Buscar Paciente</p>
 			</NavLink>
 			<NavLink
-				className={({ isActive }) =>
-					isActive ? `${s.active}` : `${s.navLinks}`
+				className={(navData) =>
+					navData.isActive ? `${s.active}` : `${s.navLinks}`
 				}
 				to='/crearPac'
 			>
 				<p className={s.options}>Crear Paciente</p>
 			</NavLink>
 			<NavLink
-				className={({ isActive }) =>
-					isActive ? `${s.active}` : `${s.navLinks}`
+				className={(navData) =>
+					navData.isActive ? `${s.active}` : `${s.navLinks}`
 				}
 				to='/administracion'
 			>

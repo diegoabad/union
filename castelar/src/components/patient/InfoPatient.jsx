@@ -1,24 +1,25 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import s from './Patient.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import ModalFiliatorio from '../modals/ModalFiliatorios';
 import { getMenuSolapa, editFiliatorios } from '../../redux/actions/index';
+import PatientFiliatorio from './solapas/PatientFiliatorio';
 export default function InfoPatient() {
 	const solapa = useSelector((state) => state.solapaPaciente);
 	const menuSolapa = useSelector((state) => state.menuSolapa);
-  const paciente = useSelector((state) => state.pacienteActual);
-  const [openFiliatorio, setOpenFiliatorio] = useState(false);
+	const paciente = useSelector((state) => state.pacienteActual);
+	const [openFiliatorio, setOpenFiliatorio] = useState(false);
 	const dispatch = useDispatch();
-  const [form, setForm] = useState('filiatorios');
+	const [form, setForm] = useState('filiatorios');
 
-  const handleEditar = (evt, form) => {
-    evt.preventDefault();
-    if(form === 'filiatorios'){
-      dispatch(editFiliatorios(true));
-    }
-    setForm(form)
-    setOpenFiliatorio(true);
-  }
+	const handleEditar = (evt, form) => {
+		evt.preventDefault();
+		if (form === 'filiatorios') {
+			dispatch(editFiliatorios(true));
+		}
+		setForm(form);
+		setOpenFiliatorio(true);
+	};
 
 	return (
 		<div className={s.containerInfoPatient}>
@@ -49,22 +50,38 @@ export default function InfoPatient() {
 					/>
 				</div>
 			)}
-			
+			<h1 className={s.infoMainTitle}>{solapa}</h1>
+			<div className={s.infoMainBody}>
+				{solapa === 'Datos Filiatorios' ? <PatientFiliatorio /> : ''}
+			</div>
 
-      {openFiliatorio ? (
+			{openFiliatorio ? (
 				<ModalFiliatorio form={form} setOpenFiliatorio={setOpenFiliatorio} />
 			) : (
-      <> 
-			<h1 className={s.infoMainTitle}>{solapa}</h1>
-			{solapa === 'Biografia' ? <div>{paciente ? paciente.nombre : 'Hola' }
-      <button onClick={(evt) => handleEditar(evt, 'filiatorios')}>Editar</button>
-      <button onClick={(evt) => handleEditar(evt, 'semiologica')}>Semiologica</button>
-      </div> : ''}
-      </> 
-			)}   
-      
-
-      
+				<>
+					{solapa === 'Biografia' ? (
+						<div>
+							<button onClick={(evt) => handleEditar(evt, 'filiatorios')}>
+								Editar
+							</button>
+							<button onClick={(evt) => handleEditar(evt, 'semiologica')}>
+								Semiologica
+							</button>
+							<button onClick={(evt) => handleEditar(evt, 'psiquiatria')}>
+								Psiquiatrica
+							</button>
+							<button onClick={(evt) => handleEditar(evt, 'admision')}>
+								Admision
+							</button>
+							<button onClick={(evt) => handleEditar(evt, 'psicologica')}>
+								Psicologica
+							</button>
+						</div>
+					) : (
+						''
+					)}
+				</>
+			)}
 		</div>
 	);
 }

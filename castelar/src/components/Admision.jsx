@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 
 import Headers from './admision/Headers';
 import MotivoConsulta from './admision/MotivoConsulta';
@@ -17,14 +16,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button, Grid } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 
-import data from  './datos/enfermedades.json'
+import data from './datos/enfermedades.json';
 
 import { postToken, getAdmision } from '../redux/actions/index';
 import { useDispatch } from 'react-redux';
 
 import '../App.css';
 import { db } from '../firebase/credentials';
-import { collection, addDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 
 import { cont_admision } from './controls/controlAdmision';
 
@@ -56,37 +55,54 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const addAdmision = async (payload) => {
+const addAdmision = async (payload, id) => {
 	try {
-		const docRef = await addDoc(collection(db, 'admision'), payload);
-
-		console.log('Document written with ID: ', docRef.id);
+		const ref = doc(db, 'pacientes', id);
+		await updateDoc(ref, { admision: payload });
+		console.log('Document written with ID: ', ref.id);
+		return true;
 	} catch (e) {
 		console.error('Error adding document: ', e);
+		return false;
 	}
 };
-const Admision = () => {
-	const dispatch = useDispatch();
-	const { dni } = useParams();
 
-	const admision = useSelector((state) => state.admision);
+const Admision = ({ setOpenFiliatorio }) => {
+	const dispatch = useDispatch();
+
+	const admision = useSelector((state) => state.pacienteActual.admision);
+	const dni = useSelector((state) => state.pacienteActual.filiatorios.dni);
 	const [error, setError] = React.useState('');
 	const [nombre, setNombre] = React.useState('');
 	const [enfermedades, setEnfermedades] = React.useState([]);
-
+	const [estado, setEstado] = React.useState('');
+	const userActual = useSelector((state) => state.usuarioActual);
+	const extraData = {
+		idProfesional: userActual.uid,
+		nombreCompletoProfesional: `${userActual.name} ${userActual.lastName}`,
+		fechaCreacion: new Date(),
+	};
 	useEffect(() => {
-		dispatch(getAdmision({ dni: dni }));
+		setEstado(extraData);
 		dispatch(postToken());
 		setEnfermedades(data);
-	}, [dispatch, dni]);
+	}, []);
 
 	const handleClick = async () => {
-		const resultado = cont_admision(admision);
+		const resultado = cont_admision(estado);
 
 		if (resultado.mensaje !== 'alta admitida') {
 			setError(resultado.mensaje);
 		} else {
-			await addAdmision(admision);
+			const arrayAdmision = [...admision, estado];
+			const result = await addAdmision(arrayAdmision, dni);
+			if (result) {
+				setOpenFiliatorio(false);
+				dispatch(getAdmision(arrayAdmision));
+				//Cerramos el modal, se actualiza el redux, notificacion de envio correcto
+			} else {
+				//notificacion de envio incorrecto
+			}
 			setError('');
 		}
 	};
@@ -94,35 +110,38 @@ const Admision = () => {
 	const classes = useStyles();
 	return (
 		<>
-			<Headers />
+			<Headers estado={estado} setEstado={setEstado} />
 			<Paper className={classes.pagecontent} spacing={2}>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
-						<MotivoConsulta />
+						<MotivoConsulta estado={estado} setEstado={setEstado} />
 					</Grid>
 
 					<Grid item xs={12}>
-						<AntecedentesTrastornoActual />
+						<AntecedentesTrastornoActual
+							estado={estado}
+							setEstado={setEstado}
+						/>
 					</Grid>
 
 					<Grid item xs={12}>
-						<Familiares />
+						<Familiares estado={estado} setEstado={setEstado} />
 					</Grid>
 
 					<Grid item xs={12}>
-						<AntecedentesPersonales />
+						<AntecedentesPersonales estado={estado} setEstado={setEstado} />
 					</Grid>
 
 					<Grid item xs={12}>
-						<SucesosTraumaticos />
+						<SucesosTraumaticos estado={estado} setEstado={setEstado} />
 					</Grid>
 
 					<Grid item xs={12}>
-						<Psicodesarrollo />
+						<Psicodesarrollo estado={estado} setEstado={setEstado} />
 					</Grid>
 
 					<Grid item xs={12}>
-						<ActividadOcupacional />
+						<ActividadOcupacional estado={estado} setEstado={setEstado} />
 					</Grid>
 
 					<Grid item xs={12}>
@@ -132,11 +151,13 @@ const Admision = () => {
 							enfermedades={enfermedades}
 							setEnfermedades={setEnfermedades}
 							data={data}
+							estado={estado}
+							setEstado={setEstado}
 						/>
 					</Grid>
 
 					<Grid item xs={12}>
-						<Perentoreidad />
+						<Perentoreidad estado={estado} setEstado={setEstado} />
 					</Grid>
 
 					<Grid item xs={12}>

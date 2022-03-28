@@ -10,9 +10,6 @@ import TituloIntermedio from './componentes/TituloIntermedio'
 import RadioButton from '../admision1/componente/RadioButton'
 import Medicamentos from '../medicacion/componentes/Medicamentos'
 
-import { useDispatch } from 'react-redux';
-import { getAdmision } from '../../redux/actions/index'
-
 
 const styles = makeStyles((theme) => ({
   root: {
@@ -26,9 +23,7 @@ const styles = makeStyles((theme) => ({
   }
 }))
 
-const Antecedentes_trastorno_actual = () => {
-
-  const dispatch = useDispatch();
+const Antecedentes_trastorno_actual = ({estado, setEstado}) => {
 
   const initialStateValues= {
     antecedentes_trastorno_actual: '',
@@ -66,7 +61,7 @@ const Antecedentes_trastorno_actual = () => {
   const [values, setValues] = React.useState(initialStateValues);
 
   useEffect(() => {
-    dispatch(getAdmision(values))
+    setEstado({...estado, ...values})
   }, [values])
 
   const handleChange = (event) => {

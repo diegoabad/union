@@ -12,7 +12,6 @@ export const getPatientByDNI = async (dni) => {
 	try {
 		const referencia = doc(db, 'pacientes', dni);
 		const allTodos = await getDoc(referencia);
-    console.log(allTodos)
 		if (allTodos.exists()) {
 			return allTodos.data();
 		} else {

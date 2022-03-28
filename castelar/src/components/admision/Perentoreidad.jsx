@@ -8,9 +8,6 @@ import Opcion from '../admision1/componente/Opcion.jsx'
 import RadioButton from '../admision1/componente/RadioButton.jsx';
 import Selector from './componentes/Selector.jsx'
 
-import { useDispatch } from 'react-redux'
-import { getAdmision } from '../../redux/actions/index'
-
 const useStyles = makeStyles((theme) => ({
   root: {
 
@@ -42,9 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Perentoreidad = () => {
-
-  const dispatch = useDispatch();
+const Perentoreidad = ({estado, setEstado}) => {
 
   const initialStateValues= {
     indicadores_riesgo: 'no',
@@ -60,7 +55,7 @@ const Perentoreidad = () => {
   const [values, setValues] = useState(initialStateValues)
 
   useEffect(() => {
-    dispatch(getAdmision(values))
+    setEstado({...estado, ...values})
   }, [values])
 
   const handleChange = (event) => {

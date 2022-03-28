@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { AppBar, Toolbar, Grid } from '@material-ui/core';
 
-const Headers = () => {
+const Headers = ({estado, setEstado}) => {
+
+  useEffect(() =>{setEstado({...estado, fecha: new Date()})}, [])
 
   return (
     <AppBar position="static" style ={ {backgroundColor: '#f3efe1', color: 'black'} }>

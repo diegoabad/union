@@ -13,7 +13,7 @@ import TextoMultiline from './componentes/TextoMultiline.jsx'
 import Opcion from '../admision1/componente/Opcion.jsx'
 
 import { useDispatch, useSelector} from 'react-redux';
-import { getAdmision, getCode } from '../../redux/actions/index'
+import { getCode } from '../../redux/actions/index'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 
 const DiagnosticoActual = (props) => {
 
-  const{setEnfermedades} = props;
+  const{setEnfermedades, estado, setEstado} = props;
   const dispatch = useDispatch();
   const token = useSelector(state => state.token);
   const codigo = useSelector(state => state.codigo);
@@ -65,7 +65,7 @@ const DiagnosticoActual = (props) => {
   const [code, setCode] = useState({diagnostico_actual: ''})
 
   useEffect(() => {
-    dispatch(getAdmision(values))
+    setEstado({...estado, ...values})
   }, [values])
 
   useEffect(() => {
@@ -134,7 +134,7 @@ const DiagnosticoActual = (props) => {
                 onChange={handleChange}
                 InputProps={{ ...params.InputProps, type: 'search' }}
               />  
-         
+
               <IconButton type="submit" className={classes.iconButton} aria-label="search" onClick={handleClick}>
                 <SearchIcon />
               </IconButton>

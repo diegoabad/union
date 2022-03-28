@@ -17,7 +17,7 @@ import { db } from '../firebase/credentials';
 import { doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 
 import { useNavigate } from 'react-router-dom';
-import { getFiliatorios, editFiliatorios } from '../redux/actions/index';
+import { getFormulario, editFiliatorios } from '../redux/actions/index';
 import { controles } from './controls/controlFiliatorios';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -58,7 +58,7 @@ const addFiliatorios = async (
 			semiologia: [],
 			psiquiatria: [],
 			psicologia: [],
-			nutrcion: [],
+			nutricion: [],
 			medicacion: [],
 			ingreso: [],
 		});
@@ -125,7 +125,8 @@ const Formdata = (props) => {
 			);
 			setError('');
 			if (respuesta) {
-				dispatch(getFiliatorios(filiatorios));
+				console.log('formdata: ' + filiatorios);
+				dispatch(getFormulario(filiatorios));
 				navigate('/paciente');
 			}
 		}
@@ -139,7 +140,7 @@ const Formdata = (props) => {
 		} else {
 			const bool = await edit_Filiatorios(filiatorios, filiatorios.dni);
 			if (bool) {
-				dispatch(getFiliatorios(filiatorios));
+				dispatch(getFormulario(filiatorios));
 				dispatch(editFiliatorios(false));
 				setOpenFiliatorio(false);
 			}

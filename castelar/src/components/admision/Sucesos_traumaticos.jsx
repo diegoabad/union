@@ -7,8 +7,6 @@ import Opcion from '../admision1/componente/Opcion.jsx';
 import RadioButton from '../admision1/componente/RadioButton';
 import TextoMultiline from './componentes/TextoMultiline.jsx';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { getAdmision } from '../../redux/actions/index'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,10 +34,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Sucesos_traumaticos = () => {
+const Sucesos_traumaticos = ({estado, setEstado}) => {
 
-  const admision = useSelector(state => state.admision)
-  const dispatch = useDispatch();
 
   const initialStateValues= {
     experiencia_directa: 'no',
@@ -54,7 +50,7 @@ const Sucesos_traumaticos = () => {
   const [values, setValues] = React.useState(initialStateValues);
 
   useEffect(() => {
-    dispatch(getAdmision(values))
+    setEstado({...estado, ...values})
   },[])
 
   const handleChange = (event) => {
@@ -62,7 +58,6 @@ const Sucesos_traumaticos = () => {
       ...values,
       [event.target.name]: event.target.value,
     });
-    dispatch(getAdmision({[event.target.name]: event.target.value}))
   }
 
   const classes = useStyles();

@@ -28,8 +28,8 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getFormulario } from '../../redux/actions/index';
 
-import { db } from '../../firebase/credentials'
-import {  getDoc, doc } from "firebase/firestore";
+import { db } from '../../firebase/credentials';
+import { getDoc, doc } from 'firebase/firestore';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -77,29 +77,28 @@ const useStyles = makeStyles((theme) => ({
 			paddingRight: '10px',
 		},
 		'& .MuiAlert-message': {
-      fontSize: '1.5rem',
-  }
+			fontSize: '1.5rem',
+		},
 	},
 }));
 
 const controlDni = async (dni, setDatos) => {
-  const referencia = doc(db, "pacientes", dni);
+	const referencia = doc(db, 'pacientes', dni);
 
-  const querySnapshot = await getDoc(referencia);
+	const querySnapshot = await getDoc(referencia);
 
-  if (querySnapshot.exists()) {
-    setDatos(querySnapshot.data())
-    return querySnapshot.data()
-  }
-  return false
-}
+	if (querySnapshot.exists()) {
+		setDatos(querySnapshot.data());
+		return querySnapshot.data();
+	}
+	return false;
+};
 
 const Filiatorios = (props) => {
 	const dispatch = useDispatch();
 	const paciente = useSelector((state) => state.pacienteActual.filiatorios);
 	const editarFiliatorio = useSelector((state) => state.editarFiliatorio);
 	let años = '';
-  console.log(paciente)
 	const initialStateValues = {
 		nombre: '',
 		apellido: '',
@@ -114,10 +113,10 @@ const Filiatorios = (props) => {
 
 	const [values, setValues] = React.useState(initialStateValues);
 	const [age, setAge] = React.useState('');
-	const [controles, setControles] = React.useState(false)
-	const [datos, setDatos] = React.useState('')
+	const [controles, setControles] = React.useState(false);
+	const [datos, setDatos] = React.useState('');
 
-	useEffect(() => { 
+	useEffect(() => {
 		if (editarFiliatorio) {
 			setValues({
 				nombre: paciente.nombre,
@@ -135,32 +134,30 @@ const Filiatorios = (props) => {
 	}, []);
 
 	useEffect(() => {
-    if (!editarFiliatorio) {
-		setValues({
-			...values,
-			historia_clinica: props.historial
-		});
-  }
+		if (!editarFiliatorio) {
+			setValues({
+				...values,
+				historia_clinica: props.historial,
+			});
+		}
 	}, [props.historial]);
 
 	useEffect(() => {
-		dispatch(getFormulario( values ));
+		dispatch(getFormulario(values));
 	}, [values]);
 
 	const handleChange = async (event) => {
-
 		const { name, value } = event.target;
 
 		if (name !== 'dni') {
 			setValues({ ...values, [name]: value });
-			if (values.dni > 999999 && controles === true ){
-        const result = await controlDni(values.dni, setDatos)
-        if (result) setValues({...values, dni: ''})
-        setControles(false)
-    }
-
+			if (values.dni > 999999 && controles === true) {
+				const result = await controlDni(values.dni, setDatos);
+				if (result) setValues({ ...values, dni: '' });
+				setControles(false);
+			}
 		} else {
-			setControles(true) 
+			setControles(true);
 			const parsValue = parseInt(value);
 
 			if (Number.isInteger(parsValue) && parsValue >= 0) {
@@ -351,12 +348,13 @@ const Filiatorios = (props) => {
 						/>
 					</Grid>
 				</Grid>
-				{datos.filiatorios &&  						
-        <Grid item xs={12}>
-					<Paper>
-						<Alert severity='error'>{`el documento ingresado pertenece a ${datos.filiatorios.nombre} ${datos.filiatorios.apellido}`}</Alert>
-					</Paper>
-					</Grid> } 
+				{datos.filiatorios && (
+					<Grid item xs={12}>
+						<Paper>
+							<Alert severity='error'>{`el documento ingresado pertenece a ${datos.filiatorios.nombre} ${datos.filiatorios.apellido}`}</Alert>
+						</Paper>
+					</Grid>
+				)}
 			</Grid>
 		</Paper>
 	);

@@ -2,11 +2,11 @@ import React from 'react';
 import s from './Modal.module.css';
 import { useDispatch } from 'react-redux';
 import Formdata from '../Formdata';
-import EvolucionPsiquiatrica from '../EvolucionPsiquatrica'
-import Admision1 from '../Admision1'
+import EvolucionPsiquiatrica from '../EvolucionPsiquatrica';
+import Admision1 from '../Admision1';
+import Admision from '../Admision';
+import EvolucionPsicologica from '../EvolucionPsicologica';
 export default function ModalFiliatorio(props) {
-	const dispatch = useDispatch();
-
 	const { setOpenFiliatorio, setDni, search, form } = props;
 
 	function handleClose() {
@@ -26,27 +26,42 @@ export default function ModalFiliatorio(props) {
 				/>
 			</div>
 			<div className={s.bodyFiliatorio}>
-        {form === 'filiatorios' &&
-				<Formdata
-					setOpenFiliatorio={setOpenFiliatorio}
-					setDni={setDni}
-					search={search}
-				/>
-      }
-        {form === 'psiquiatria' &&
-				<EvolucionPsiquiatrica
-					setOpenFiliatorio={setOpenFiliatorio}
-					setDni={setDni}
-					search={search}
-				/>
-      }
-        {form === 'semiologica' &&
-				<Admision1
-					setOpenFiliatorio={setOpenFiliatorio}
-					setDni={setDni}
-					search={search}
-				/>
-      }
+				{form === 'filiatorios' && (
+					<Formdata
+						setOpenFiliatorio={setOpenFiliatorio}
+						setDni={setDni}
+						search={search}
+					/>
+				)}
+				{form === 'psiquiatria' && (
+					<EvolucionPsiquiatrica
+						setOpenFiliatorio={setOpenFiliatorio}
+						setDni={setDni}
+						search={search}
+					/>
+				)}
+				{form === 'semiologica' && (
+					<Admision1
+						setOpenFiliatorio={setOpenFiliatorio}
+						setDni={setDni}
+						search={search}
+					/>
+				)}
+
+				{form === 'admision' && (
+					<Admision
+						setOpenFiliatorio={setOpenFiliatorio}
+						setDni={setDni}
+						search={search}
+					/>
+				)}
+				{form === 'psicologica' && (
+					<EvolucionPsicologica
+						setOpenFiliatorio={setOpenFiliatorio}
+						setDni={setDni}
+						search={search}
+					/>
+				)}
 			</div>
 		</div>
 	);

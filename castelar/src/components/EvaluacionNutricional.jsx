@@ -1,61 +1,124 @@
-import React from 'react'
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import Headers from './evaluacion_nutricional/headers'
+import { getNutricional } from '../redux/actions/index';
+
+import Headers from './evaluacion_nutricional/headers';
 import Diagnostico from './evaluacion_nutricional/Diagnostico';
 import ValoracionAntropometrica from './evaluacion_nutricional/ValoracionAntropometrica';
+import Alerta from './admision1/componente/Alerta.jsx';
 
-import {Paper, Grid} from '@material-ui/core'
+import { Paper, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& .MuiFormControl-root': {
-      margin: theme.spacing(1),
-      width: '80%',
-      minWidth: '250px',
-    },
-    '& .MuiGrid-root': {
-      display: 'flex',
-      margin: theme.spacing(1),
-      width: '100%',
-    },
-    '& .MuiAlert-message': {
-      fontSize: '1.5rem'
-    },
-  },
-  pagecontent:{
-    margin: theme.spacing(5),
-    padding: theme.spacing(3),
-    width: '90%',
-    alignItems: 'strech',
-    justifyContent: 'space-between',
-    backgroundColor: '#F0FFFF',
-  },
+import cont_nutricional from './controls/controlNutricional';
 
-}))
+const useStyles = makeStyles((theme) => ({
+	root: {
+		'& .MuiFormControl-root': {
+			margin: theme.spacing(1),
+			width: '80%',
+			minWidth: '250px',
+		},
+		'& .MuiGrid-root': {
+			display: 'flex',
+			margin: theme.spacing(1),
+			width: '100%',
+		},
+		'& .MuiAlert-message': {
+			fontSize: '1.5rem',
+		},
+	},
+	pagecontent: {
+		margin: theme.spacing(5),
+		padding: theme.spacing(3),
+		width: '90%',
+		alignItems: 'strech',
+		justifyContent: 'space-between',
+		backgroundColor: '#F0FFFF',
+	},
+}));
+
+const addNutricional = async (payload, id) => {
+	try {
+		const ref = doc(db, 'pacientes', id);
+		await updateDoc(ref, { nutricion: payload });
+		console.log('Document written with ID: ', ref.id);
+		return true;
+	} catch (e) {
+		console.error('Error adding document: ', e);
+		return false;
+	}
+};
 
 const EvaluacionNutricional = () => {
+	const [nutricional, setNutricional] = React.useState('');
+	const [error, setError] = React.useState('');
+	const dni = useSelector((state) => state.pacienteActual.filiatorios.dni);
+	const paciente = useSelector((state) => state.pacienteActual.nutricion);
+	const userActual = useSelector((state) => state.usuarioActual);
+	const dispatch = useDispatch();
 
-  const classes = useStyles();
-  return (
-  <>
-    <Headers />
-    <Paper className={classes.pagecontent} spacing = {2}>
+	const extraData = {
+		idProfesional: userActual.uid,
+		nombreCompletoProfesional: `${userActual.name} ${userActual.lastName}`,
+	};
 
-      <Grid container spacing = {2} >
+	useEffect(() => {
+		setNutricional(extraData);
+	}, []);
 
-        <Grid item xs = {12} >
-          <Diagnostico />
-        </Grid>
+	const handleClick = async () => {
+		const control = cont_nutricional(nutricional);
+		if (control.mensaje !== 'alta admitida') {
+			setError(control.mensaje);
+		} else {
+			const data = [...paciente, nutricional];
+			const result = await addNutricional(data, dni);
+			if (result) {
+				setOpenFiliatorio(false);
+				dispatch(getNutricional(data));
+				//Cerramos el modal, se actualiza el redux, notificacion de envio correcto
+			} else {
+				//notificacion de envio incorrecto
+			}
+			setError('');
+		}
+	};
 
-        <Grid item xs = {12} >
-          <ValoracionAntropometrica />
-        </Grid>
+	const classes = useStyles();
+	return (
+		<>
+			<Headers nutricional={nutricional} setNutricional={setNutricional} />
+			<Paper className={classes.pagecontent} spacing={2}>
+				<Grid container spacing={2}>
+					<Grid item xs={12}>
+						<Diagnostico
+							nutricional={nutricional}
+							setNutricional={setNutricional}
+						/>
+					</Grid>
 
-      </Grid>
-    </Paper>
-  </>
-  )
-}
+					<Grid item xs={12}>
+						<ValoracionAntropometrica
+							nutricional={nutricional}
+							setNutricional={setNutricional}
+						/>
+					</Grid>
 
-export default EvaluacionNutricional
+					<Grid
+						container
+						item
+						xs={12}
+						spacing={2}
+						style={{ alignItems: 'center' }}
+					>
+						<Alerta error={error} handleClick={handleClick} />
+					</Grid>
+				</Grid>
+			</Paper>
+		</>
+	);
+};
+
+export default EvaluacionNutricional;

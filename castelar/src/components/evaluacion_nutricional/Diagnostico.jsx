@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
 import Opcion from '../admision1/componente/Opcion.jsx'
 import TextArea from '../examen_ingreso/componentes/TextArea.jsx'
@@ -18,7 +18,7 @@ const styles = makeStyles((theme) => ({
   }
 }))
 
-const Diagnostico = () => {
+const Diagnostico = ({nutricional, setNutricional}) => {
 
   const initialStateValues = {
     diagnostico_medico: '',
@@ -29,6 +29,10 @@ const Diagnostico = () => {
   const handleTextarea = (event, name) => {
     setValues( {...values, [name]: event.target.value });
   }
+
+  useEffect(() => {
+    setNutricional({ ...nutricional, ...values})
+  } , [values]);
 
   const classes = styles();
   return (

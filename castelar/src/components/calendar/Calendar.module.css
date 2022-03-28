@@ -26,7 +26,8 @@ h2 {
 	border-radius: 5px;
 }
 
-.navLinks {
+.navLinks,
+.navLinks:hover {
 	text-decoration: none;
 	color: rgb(63, 63, 63);
 }
@@ -141,7 +142,7 @@ h2 {
 	grid-column-start: 5;
 	grid-column-end: 5;
 	justify-self: end;
-	display:flex;
+	display: flex;
 	justify-content: center;
 	align-items: center;
 }

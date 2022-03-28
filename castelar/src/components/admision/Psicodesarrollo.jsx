@@ -9,8 +9,6 @@ import TextoMultiline from './componentes/TextoMultiline.jsx';
 import TituloIntermedio from './componentes/TituloIntermedio.jsx';
 import RadioButton from '../admision1/componente/RadioButton.jsx';
 
-import { useDispatch } from 'react-redux';
-import { getAdmision } from '../../redux/actions/index'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,9 +44,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Psicodesarrollo = () => {
+const Psicodesarrollo = ({estado, setEstado}) => {
 
-  const dispatch = useDispatch();
 
   const initialStateValues= {
     infancia: '',
@@ -72,7 +69,7 @@ const Psicodesarrollo = () => {
   const [values, setValues] = React.useState(initialStateValues);
 
   useEffect(() => {
-    dispatch(getAdmision(values))
+    setEstado({...estado, ...values})
   },[values])
 
   const handleChange = (event) => {

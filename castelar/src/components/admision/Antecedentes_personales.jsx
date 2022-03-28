@@ -8,8 +8,6 @@ import TextoMultiline from './componentes/TextoMultiline';
 import RadioButton from '../admision1/componente/RadioButton';
 import TituloIntermedio from './componentes/TituloIntermedio';
 
-import { useDispatch } from 'react-redux';
-import { getAdmision } from '../../redux/actions/index'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,10 +42,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Antecedentes_personales = () => {
+const Antecedentes_personales = ({estado, setEstado}) => {
 
- 
-  const dispatch = useDispatch();
 
   const initialStateValues= {
     parto: '',
@@ -65,7 +61,7 @@ const Antecedentes_personales = () => {
   const [values, setValues] = React.useState(initialStateValues);
 
   useEffect(() => {
-    dispatch(getAdmision(values))
+    setEstado({...estado, ...values})
   }, [values])
 
   const handleChange = (event) => {

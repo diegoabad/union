@@ -19,7 +19,8 @@
 	border-radius: 5px;
 }
 
-.navLinks {
+.navLinks,
+.navLinks:hover {
 	text-decoration: none;
 	color: rgb(63, 63, 63);
 }
@@ -42,7 +43,7 @@
 	overflow-y: scroll;
 	flex-grow: 1;
 	display: flex;
-	justify-content: start;
+	justify-content: center;
 	flex-wrap: wrap;
 	padding-bottom: 30px;
 	/* display: grid;
@@ -56,6 +57,12 @@
 
 .bodyProfessionalContainer h3 {
 	margin: 0;
+}
+
+.msjNotPros {
+	align-self: flex-start;
+	font-size: 16px;
+	padding: 40px 0;
 }
 
 .bodyProfessionalContainer::-webkit-scrollbar-thumb {
@@ -96,7 +103,8 @@
 	text-align: center;
 }
 
-.cardSeeCalendar {
+.cardSeeCalendar,
+.cardSeeCalendar:hover {
 	text-decoration: underline;
 	color: rgb(34, 148, 255);
 	font-size: 12px;

@@ -8,9 +8,6 @@ import Opcion from '../admision1/componente/Opcion.jsx'
 import TextoMultiline from './componentes/TextoMultiline';
 import RadioButton from '../admision1/componente/RadioButton';
 
-import { useDispatch } from 'react-redux';
-import { getAdmision } from '../../redux/actions/index'
-
 const useStyles = makeStyles((theme) => ({
   root: {
 
@@ -43,9 +40,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ActividadOcupacional = () => {
+const ActividadOcupacional = ({estado, setEstado}) => {
 
-  const dispatch = useDispatch();
 
   const initialStateValues = {
     trabajo: 'no',
@@ -58,7 +54,7 @@ const ActividadOcupacional = () => {
   const [values, setValues] = React.useState(initialStateValues)
 
   useEffect(() => {
-    dispatch(getAdmision(values))
+    setEstado({...estado, ...values})
   }, [values])
 
   const handleChange = (event) => {

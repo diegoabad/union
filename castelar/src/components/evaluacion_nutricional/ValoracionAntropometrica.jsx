@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect} from 'react'
 
 import Opcion from '../admision1/componente/Opcion.jsx'
 import TextArea from '../examen_ingreso/componentes/TextArea.jsx'
@@ -43,7 +43,7 @@ const styles = makeStyles((theme) => ({
 
 }))
 
-const ValoracionAntropometrica = () => {
+const ValoracionAntropometrica = ({nutricional, setNutricional}) => {
 
   const initialStateValues = {
     evaluacion_nutricional: '',
@@ -56,6 +56,10 @@ const ValoracionAntropometrica = () => {
   }
 
   const [values, setValues] = React.useState(initialStateValues)
+
+  useEffect(() => {
+    setNutricional({ ...nutricional, ...values})
+  },[values])
 
   const handleChange = (event) => {
     console.log(event.target.name)

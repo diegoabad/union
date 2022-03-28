@@ -18,20 +18,29 @@
 	color: #fff;
 }
 
-.navLinks {
+.navLinks,
+.active {
 	text-decoration: none;
-	color: #fff;
 	font-weight: 500;
 	height: 100%;
 	display: flex;
 	align-items: center;
 	padding: 0 20px;
+	color: white;
 }
 
-.navLinks:hover {
+.active,
+.active:focus {
 	background-color: rgb(7, 85, 202);
 	text-decoration: none;
-	color: #fff;
+	color: white;
+}
+
+.navLinks:hover,
+.active:hover {
+	background-color: rgb(7, 85, 202);
+	color: white;
+	text-decoration: none;
 }
 
 .navLinksMobile {
@@ -42,32 +51,6 @@
 .homeContainerMore {
 	flex-grow: 1;
 	height: 100vh;
-}
-
-.active {
-	background-color: rgb(7, 85, 202);
-	text-decoration: none;
-	color: #fff;
-	font-weight: 500;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	padding: 0 20px;
-}
-
-.blanco {
-	color: #fff;
-}
-
-.active:hover {
-	background-color: rgb(7, 85, 202);
-	text-decoration: none;
-	color: #fff;
-	font-weight: 500;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	padding: 0 20px;
 }
 
 p {

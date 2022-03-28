@@ -9,9 +9,6 @@ import IngresoNros from '../examen_ingreso/componentes/IngresoNros.jsx'
 import TextoMultiline from './componentes/TextoMultiline.jsx';
 import RadioButton from '../admision1/componente/RadioButton';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { getAdmision } from '../../redux/actions/index'
-
 const styles = makeStyles((theme) => ({
   root: {
     '& .MuiGrid-root': {
@@ -40,10 +37,7 @@ const styles = makeStyles((theme) => ({
   }
 }))
 
-const Familiares = () => {
-
-
-  const dispatch = useDispatch();
+const Familiares = ({estado, setEstado}) => {
 
   const initialStateValues= {
     situacion_actual: '',
@@ -71,7 +65,7 @@ const Familiares = () => {
   const [values, setValues] = useState(initialStateValues)
 
   useEffect(() => {
-    dispatch(getAdmision(values))
+    setEstado({...estado, ...values})
   },[values])
   
   const handleChange = (event) => {

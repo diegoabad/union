@@ -12,3 +12,7 @@ export const ACTIVE_SEARCH = 'ACTIVE_SEARCH';
 export const MENU_SOLAPA = 'MENU_SOLAPA';
 export const SET_PACIENTE = 'SET_PACIENTE';
 export const FORMULARIO = 'FORMULARIO';
+export const SET_USER = 'SET_USER';
+export const PSIQUIATRICA = 'PSIQUIATRICA';
+export const PSICOLOGICA = 'PSICOLOGICA';
+export const NUTRICIONAL = 'NUTRICIONAL';

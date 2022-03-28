@@ -13,7 +13,11 @@ import {
 	ACTIVE_SEARCH,
 	MENU_SOLAPA,
 	SET_PACIENTE,
-  FORMULARIO,
+	FORMULARIO,
+	PSIQUIATRICA,
+	SET_USER,
+	PSICOLOGICA,
+	NUTRICIONAL,
 } from './constants';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -35,6 +39,27 @@ export function getAdmision(payload) {
 export function getSemiologica(payload) {
 	return {
 		type: SEMIOLOGICA,
+		payload: payload,
+	};
+}
+
+export function getPsiquiatrica(payload) {
+	return {
+		type: PSIQUIATRICA,
+		payload: payload,
+	};
+}
+
+export function getPsicologica(payload) {
+	return {
+		type: PSICOLOGICA,
+		payload: payload,
+	};
+}
+
+export function getNutricional(payload) {
+	return {
+		type: NUTRICIONAL,
 		payload: payload,
 	};
 }
@@ -132,8 +157,15 @@ export function getPaciente(payload) {
 }
 
 export function getFormulario(payload) {
-  return {
-    type: FORMULARIO,
-    payload,
-  };
+	return {
+		type: FORMULARIO,
+		payload,
+	};
+}
+
+export function setUser(payload) {
+	return {
+		type: SET_USER,
+		payload,
+	};
 }

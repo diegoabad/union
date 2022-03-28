@@ -7,8 +7,6 @@ import Subtitulo from '../admision1/componente/Subtitulo'
 import {Grid, Paper} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
-import { useDispatch } from 'react-redux';
-import { getAdmision } from '../../redux/actions/index'
 
 const styles = makeStyles((theme) => ({
   root: {
@@ -22,7 +20,7 @@ const styles = makeStyles((theme) => ({
   }
 }))
 
-const MotivoConsulta = () => {
+const MotivoConsulta = ({estado, setEstado}) => {
 
   const initialStateValues = {
     motivo_consulta: '',
@@ -30,10 +28,8 @@ const MotivoConsulta = () => {
 
   const [values, setValues] = React.useState(initialStateValues)
 
-  const dispatch = useDispatch()
-
   useEffect(() => {
-    dispatch(getAdmision(values))
+    setEstado({...estado, ...values})
   } , [values])
 
   const handleChange = (event) => {

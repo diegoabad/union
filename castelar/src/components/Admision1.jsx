@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import AspectoFisico from './admision1/AspectoFisico.jsx';
@@ -75,8 +75,17 @@ const Admision1 = ({ setOpenFiliatorio }) => {
 	const [error, setError] = React.useState('');
 	const dni = useSelector((state) => state.pacienteActual.filiatorios.dni);
 	const paciente = useSelector((state) => state.pacienteActual.semiologia);
+	const userActual = useSelector((state) => state.usuarioActual);
 	const [semiologica, setSemiologica] = React.useState({});
+	const extraData = {
+		idProfesional: userActual.uid,
+		nombreCompletoProfesional: `${userActual.name} ${userActual.lastName}`,
+		fechaCreacion: new Date(),
+	};
 
+	useEffect(() => {
+		setSemiologica(extraData);
+	}, []);
 	const handleClick = async () => {
 		const control = cont_semiologica(semiologica);
 		if (control.mensaje !== 'alta admitida') {
@@ -86,7 +95,7 @@ const Admision1 = ({ setOpenFiliatorio }) => {
 			const result = await addSemiologica(data, dni);
 			if (result) {
 				setOpenFiliatorio(false);
-				dispatch(getSemiologica(data));
+				dispatch(getSemiologica(semiologica));
 				//Cerramos el modal, se actualiza el redux, notificacion de envio correcto
 			} else {
 				//notificacion de envio incorrecto

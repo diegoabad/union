@@ -11,16 +11,32 @@ function App() {
 	async function getUserInfoFirestore(uid) {
 		const docRef = doc(db, `users/${uid}`);
 		const info = await getDoc(docRef);
-		const infoFinal = info.data().rol;
-		return infoFinal;
+		return info.data();
 	}
 
 	function setUserWithFirebaseAndInfo(userFirebase) {
-		getUserInfoFirestore(userFirebase.uid).then((rol) => {
+		getUserInfoFirestore(userFirebase.uid).then((data) => {
+			const {
+				rol,
+				calendar,
+				createdUser,
+				name,
+				lastName,
+				schedule,
+				title,
+				specialty,
+			} = data;
 			const userData = {
 				uid: userFirebase.uid,
 				email: userFirebase.email,
 				rol,
+				calendar,
+				createdUser,
+				name,
+				lastName,
+				schedule,
+				title,
+				specialty,
 			};
 			setUser(userData);
 		});
@@ -35,7 +51,7 @@ function App() {
 			setUser(null);
 		}
 	});
-
+	console.log(user);
 	return <div>{user ? <Home user={user} /> : <Login />}</div>;
 }
 
