@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Perentoreidad = ({estado, setEstado}) => {
+const Perentoreidad = ({estado, setEstado, paciente}) => {
 
   const initialStateValues= {
     indicadores_riesgo: 'no',
@@ -53,6 +53,21 @@ const Perentoreidad = ({estado, setEstado}) => {
   }
 
   const [values, setValues] = useState(initialStateValues)
+
+  useEffect(() => {
+    if (paciente) {
+      setValues({...values,
+        indicadores_riesgo: paciente.indicadores_riesgo,
+        detalle_indicadores_riesgo: paciente.detalle_indicadores_riesgo,
+        necesidad_internacion: paciente.necesidad_internacion,
+        voluntaria: paciente.voluntaria,
+        detalle_internacion: paciente.detalle_internacion,
+        tratamiento_indicado: paciente.tratamiento_indicado,
+        detalle_tratamiento_indicado: paciente.detalle_tratamiento_indicado,
+        modalidad_atencion: paciente.modalidad_atencion,
+      })
+    }
+  },[])
 
   useEffect(() => {
     setEstado({...estado, ...values})

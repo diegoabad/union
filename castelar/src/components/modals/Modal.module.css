@@ -10,11 +10,11 @@
 	align-items: center;
 }
 
-.modalContainer {
+.modalContainer,
+.modalContainerDetails {
 	font-family: 'poppins';
 	background-color: #fff;
 	width: 500px;
-
 	min-height: 300px;
 	border-radius: 10px;
 	padding: 10px 20px;
@@ -270,6 +270,12 @@
 
 .bodyFiliatorio {
 	overflow: scroll;
+}
+
+.modalContainerDetails {
+	width: 80%;
+	min-width: 800px;
+	height: 700px;
 }
 
 @media (max-width: 600px) {

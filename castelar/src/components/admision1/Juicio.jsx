@@ -4,7 +4,7 @@ import Contenedor from './componente/Contenedor'
 import { useDispatch } from 'react-redux'
 import { getSemiologica } from '../../redux/actions'
 
-const Juicio = ({setSemiologica, semiologica}) => {
+const Juicio = ({setSemiologica, semiologica, paciente}) => {
 
   const dispatch = useDispatch();
 
@@ -13,6 +13,15 @@ const Juicio = ({setSemiologica, semiologica}) => {
   }
 
   const [values, setValues] = React.useState(initialStateValues)
+
+  useEffect(() =>{
+    if (paciente) {
+      setValues({ 
+        ...values,
+        juicio: paciente.juicio
+      })
+    }
+  },[]);
 
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value })

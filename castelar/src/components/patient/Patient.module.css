@@ -32,7 +32,7 @@
 
 .NavPatientContainer input {
 	font-family: 'poppins';
-	padding: 10px;
+	padding: 10px 0;
 	height: 40px;
 	text-transform: uppercase;
 	font-weight: 500;
@@ -42,30 +42,40 @@
 	word-spacing: 3px;
 	outline: none;
 	border: 2px solid rgb(2, 154, 255);
+	border-left: none;
+	border-right: none;
+	color: rgb(63, 63, 63);
 }
 
 .NavPatientContainer .searchOk {
 	font-family: 'poppins';
-	border-color: rgb(93, 93, 94);
+	font-weight: 600;
 	text-align: center;
-	background-color: rgb(93, 93, 94);
-	color: #fff;
+	background-color: rgba(34, 122, 255, 0.185);
 	font-size: 16px;
 	cursor: default;
 }
 
-.NavPatientContainer .notExist {
-	font-family: 'poppins';
-	border-color: rgb(93, 93, 94);
-	background-color: rgba(245, 31, 42, 0.822);
-	color: #fff;
-	text-align: center;
-	cursor: default;
+.searchCancel {
+	background-color: rgba(34, 122, 255, 0.671);
+}
+
+.searchCancel:hover {
+	background-color: rgb(32, 135, 252);
 }
 
 .search {
 	width: 22px;
 	height: 22px;
+}
+
+.leftSearch {
+	border-top-left-radius: 100%;
+	border-bottom-left-radius: 100%;
+	border: 2px solid rgb(32, 135, 252);
+	border-right: none;
+	height: 100%;
+	min-width: 40px;
 }
 
 .containerIcon {
@@ -76,10 +86,15 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	border-top-right-radius: 100%;
+	border-bottom-right-radius: 100%;
+	border: 2px solid rgb(32, 135, 252);
+	border-left: none;
 }
 
 .searchActive {
-	background-color: rgb(34, 122, 255);
+	border-left: none;
+	background-color: rgb(32, 135, 252);
 }
 
 .searchActive:hover {
@@ -88,38 +103,7 @@
 
 .searchDisabled {
 	cursor: default;
-	background-color: rgb(168, 168, 168);
-}
-
-.searchCancel {
-	background-color: rgba(245, 31, 42, 0.822);
-}
-
-.searchCancel:hover {
-	background-color: rgb(245, 31, 42);
-}
-
-.createPatient {
-	position: absolute;
-	background-color: rgb(34, 122, 255);
-	color: #fff;
-	padding: 5px 0;
-	height: 40px;
-	cursor: pointer;
-	text-align: center;
-	width: 200px;
-	letter-spacing: 2px;
-	font-size: 14px;
-	bottom: -80px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 5px;
-	box-shadow: 0px 0px 10px 0px rgba(17, 17, 17, 0.164);
-}
-
-.createPatient:hover {
-	background-color: rgb(2, 154, 255);
+	background-color: rgba(168, 168, 168, 0.801);
 }
 
 .BodyPatientContainer {
@@ -131,35 +115,43 @@
 	flex-basis: 15%;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-evenly;
+	justify-content: flex-start;
 	align-items: center;
-	background-color: rgba(230, 27, 61, 0.705);
-	color: #fff;
+	box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.24);
+	color: rgb(59, 59, 59);
 	padding: 0;
 	border-bottom-left-radius: 5px;
 	border-top-left-radius: 5px;
+	overflow: hidden;
 }
 .containerMenuPatient div {
 	cursor: pointer;
 	padding: 15px 0;
 	width: 100%;
 	text-align: center;
+	box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.151);
+	letter-spacing: 1px;
+	font-weight: 500;
 }
 
-.containerMenuPatient div:hover {
-	background-color: rgba(230, 27, 61, 0.795);
+.normal:hover {
+	box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.26);
+	color: rgb(63, 63, 63);
+	background-color: rgba(34, 122, 255, 0.103);
+	border-right: 5px solid rgb(34, 122, 255);
 }
 
-.active {
-	background-color: rgba(230, 27, 61, 0.795);
+.active,
+.containerMenuPatient .active:focus {
+	background-color: rgb(34, 122, 255);
+	color: #fff;
 }
 
 .containerInfoPatient {
 	font-family: 'Poppins';
 	color: rgb(63, 63, 63);
 	flex-grow: 1;
-
-	padding: 20px;
+	padding: 30px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -167,21 +159,25 @@
 }
 
 .infoMainTitle {
-	font-size: 26px;
+	font-size: 30px;
 	margin: 0 0 20px;
-	font-weight: 600;
+	font-weight: 700;
+	letter-spacing: 1px;
+	word-spacing: 3px;
 }
 
 .infoMainBody {
-	background-color: aqua;
 	width: 100%;
 	flex-grow: 1;
+	padding: 10px;
+	display: flex;
+	justify-content: center;
 }
 
 .containerMenuInfoPaciente {
 	position: absolute;
-	left: 20px;
-	top: 20px;
+	left: 30px;
+	top: 25px;
 	cursor: pointer;
 	padding: 5px;
 	border-radius: 5px;
@@ -190,25 +186,54 @@
 	align-items: center;
 }
 
-.menuInfoPaciente {
-	width: 30px;
-	height: 30px;
+.containerButtonPDF,
+.btnStandard {
+	display: flex;
+	position: absolute;
+	right: 30px;
+	top: 25px;
 }
 
-.menuActive {
-	background-color: rgba(230, 25, 59, 0.938);
+.buttonPDF,
+.containerMenuInfoPaciente {
+	width: 40px;
+	height: 40px;
 }
 
-.menuActive:hover {
-	background-color: rgba(236, 39, 72, 0.808);
+.buttonPDF,
+.btnStandard {
+	cursor: pointer;
+	padding: 5px;
+	border-radius: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: 10px;
+	color: #fff;
 }
 
-.menuDisabled {
-	background-color: rgba(236, 39, 72, 0.808);
+.btnStandard {
+	padding: 5px 10px;
+	height: 40px;
 }
 
-.menuDisabled:hover {
-	background-color: rgba(230, 25, 59, 0.938);
+.btnStandard span {
+	margin-left: 5px;
+}
+
+.menuActive,
+.menuDisabled,
+.buttonPDF,
+.btnStandard {
+	background-color: rgb(32, 135, 252);
+	box-shadow: 0px 0px 10px 0px rgba(32, 135, 252, 0.336);
+}
+
+.menuActive:hover,
+.menuDisabled:hover,
+.buttonPDF:hover,
+.btnStandard:hover {
+	background-color: rgb(7, 85, 202);
 }
 
 @media (max-width: 600px) {

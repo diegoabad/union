@@ -2,13 +2,19 @@ import React, { useEffect} from 'react'
 
 import EvolucionComponente from '../evolucionpsiquiatrica/componentes/EvolucionComponente'
 
-const Problematica = ({psicologica, setPsicologica}) => {
+const Problematica = ({psicologica, setPsicologica, paciente}) => {
 
   const initialStateValues = {
     problematica: '',
   }
 
   const [values, setValues] = React.useState(initialStateValues)
+
+  useEffect(() =>{
+    if (paciente) {
+      setValues({...values, problematica: paciente.problematica})
+    }
+  },[])
 
   useEffect(() => {
     setPsicologica({ ...psicologica, ...values})

@@ -18,8 +18,17 @@ import {
 	SET_USER,
 	PSICOLOGICA,
 	NUTRICIONAL,
+	CLINICO,
+	MUSICOTERAPIA,
+	ED_FISICA,
+	AREA_SOCIAL,
+	OCUPACIONAL,
+	CONTEXTUALES,
+	OTRAS,
+	GET_ALL_PROFESSIONAL,
 } from './constants';
 import dotenv from 'dotenv';
+import { getAllProfessional } from '../../functions/getAllProfessional';
 dotenv.config();
 
 export function getFiliatorios(payload) {
@@ -60,6 +69,55 @@ export function getPsicologica(payload) {
 export function getNutricional(payload) {
 	return {
 		type: NUTRICIONAL,
+		payload: payload,
+	};
+}
+
+export function getClinico(payload) {
+	return {
+		type: CLINICO,
+		payload: payload,
+	};
+}
+
+export function getMusicoterapia(payload) {
+	return {
+		type: MUSICOTERAPIA,
+		payload: payload,
+	};
+}
+
+export function getEdFisica(payload) {
+	return {
+		type: ED_FISICA,
+		payload: payload,
+	};
+}
+
+export function getAreaSocial(payload) {
+	return {
+		type: AREA_SOCIAL,
+		payload: payload,
+	};
+}
+
+export function getOcupacional(payload) {
+	return {
+		type: OCUPACIONAL,
+		payload: payload,
+	};
+}
+
+export function getContextuales(payload) {
+	return {
+		type: CONTEXTUALES,
+		payload: payload,
+	};
+}
+
+export function getOtrasTerapias(payload) {
+	return {
+		type: OTRAS,
 		payload: payload,
 	};
 }
@@ -167,5 +225,19 @@ export function setUser(payload) {
 	return {
 		type: SET_USER,
 		payload,
+	};
+}
+
+export function allProfessional() {
+	return async function (dispatch) {
+		try {
+			const allProfessional = await getAllProfessional();
+			dispatch({
+				type: 'GET_ALL_PROFESSIONAL',
+				payload: allProfessional,
+			});
+		} catch (e) {
+			console.log(e);
+		}
 	};
 }

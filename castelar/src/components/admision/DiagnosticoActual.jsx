@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 
 const DiagnosticoActual = (props) => {
 
-  const{setEnfermedades, estado, setEstado} = props;
+  const{setEnfermedades, estado, setEstado, paciente} = props;
   const dispatch = useDispatch();
   const token = useSelector(state => state.token);
   const codigo = useSelector(state => state.codigo);
@@ -63,6 +63,15 @@ const DiagnosticoActual = (props) => {
 
   const [values, setValues] = useState(initialStateValues)
   const [code, setCode] = useState({diagnostico_actual: ''})
+
+  useEffect(() => {
+    if (paciente) {
+      setValues({...values, 
+        diagnostico_actual: paciente.diagnostico_actual,
+        observaciones: paciente.observaciones,
+      })
+    }
+  },[]);
 
   useEffect(() => {
     setEstado({...estado, ...values})

@@ -1,18 +1,24 @@
 import React, { useEffect } from 'react'
 import Contenedor from './componente/Contenedor.jsx'
 
-import { useDispatch } from 'react-redux'
-
 
 const Marcha = ({setSemiologica, semiologica}) => {
 
-  const dispatch = useDispatch();
 
   const initialStateValues = {
     marcha: ''
   }
 
   const [values, setValues] = React.useState(initialStateValues)
+
+  useEffect(() =>{
+    if (semiologica) {
+      setValues({ 
+        ...values,
+        marcha: semiologica.marcha
+      })
+    }
+  },[])
 
   useEffect(() => {
     setSemiologica({...semiologica,...values});

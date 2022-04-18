@@ -51,7 +51,7 @@ function App() {
 			setUser(null);
 		}
 	});
-	console.log(user);
+
 	return <div>{user ? <Home user={user} /> : <Login />}</div>;
 }
 

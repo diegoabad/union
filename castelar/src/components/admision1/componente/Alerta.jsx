@@ -28,7 +28,7 @@ const alerta = (props) => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} >
+    <Grid item xs={12} style={{ alignItems: 'center', textAlign: 'center' }}>
       {error !== '' && <Grid item xs={12}><Paper><Alert severity="error"  className={classes.root}>{error}</Alert></Paper></Grid>}
 
       <Button size="large" color = "primary" variant="contained" onClick={handleClick}>Guardar</Button>

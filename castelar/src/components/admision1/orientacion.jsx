@@ -1,18 +1,23 @@
 import React, { useEffect } from 'react'
 import Contenedor from './componente/Contenedor.jsx'
 
-import { useDispatch } from 'react-redux'
-import { getSemiologica } from '../../redux/actions'
 
 const orientacion = ({setSemiologica, semiologica}) => {
-
-  const dispatch = useDispatch();
 
   const initialStateValues = {
     orientacion: '',
   }
 
   const [values, setValues] = React.useState(initialStateValues)
+
+  useEffect(() =>{
+    if (semiologica) {
+      setValues({ 
+        ...values,
+        orientacion: semiologica.orientacion
+      })
+    }
+  },[]);
 
   useEffect(() => {
     setSemiologica({...semiologica,...values});

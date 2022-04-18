@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 
 import EvolucionComponente from './componentes/EvolucionComponente'
 
-const Evolucion = ({psiquiatria, setPsiquiatria}) => {
+const Evolucion = ({psiquiatria, setPsiquiatria, paciente}) => {
 
   const initialStateValues = {
     evolucion: '',
@@ -15,6 +15,12 @@ const Evolucion = ({psiquiatria, setPsiquiatria}) => {
 
     setValues({...values, [name]: value})
   }
+
+  useEffect(() =>{
+    if (paciente) {
+      setValues({...values, evolucion: paciente.evolucion})
+    }
+  },[])
 
   useEffect(() => {
     setPsiquiatria({...psiquiatria,...values});

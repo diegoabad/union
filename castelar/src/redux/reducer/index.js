@@ -16,6 +16,14 @@ import {
 	PSICOLOGICA,
 	NUTRICIONAL,
 	SET_USER,
+	CLINICO,
+	MUSICOTERAPIA,
+	ED_FISICA,
+	AREA_SOCIAL,
+	OCUPACIONAL,
+	CONTEXTUALES,
+	OTRAS,
+	GET_ALL_PROFESSIONAL,
 } from '../actions/constants';
 
 const initialState = {
@@ -26,9 +34,15 @@ const initialState = {
 		semiologia: [],
 		psiquiatria: [],
 		psicologia: [],
-		nutrcion: [],
+		nutricion: [],
 		medicacion: [],
 		ingreso: [],
+		musicoterapia: [],
+		ed_fisica: [],
+		area_social: [],
+		ocupacional: [],
+		contextual: [],
+		otras: [],
 		idPatient: '',
 	},
 	token: '',
@@ -37,6 +51,7 @@ const initialState = {
 	solapaPaciente: 'Biografia',
 	activeSearch: false,
 	menuSolapa: true,
+	allProfessional: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -129,6 +144,69 @@ const rootReducer = (state = initialState, action) => {
 				},
 			};
 
+		case CLINICO:
+			return {
+				...state,
+				pacienteActual: {
+					...state.pacienteActual,
+					clinico: action.payload,
+				},
+			};
+
+		case MUSICOTERAPIA:
+			return {
+				...state,
+				pacienteActual: {
+					...state.pacienteActual,
+					musicoterapia: action.payload,
+				},
+			};
+
+		case ED_FISICA:
+			return {
+				...state,
+				pacienteActual: {
+					...state.pacienteActual,
+					ed_fisica: action.payload,
+				},
+			};
+
+		case AREA_SOCIAL:
+			return {
+				...state,
+				pacienteActual: {
+					...state.pacienteActual,
+					area_social: action.payload,
+				},
+			};
+
+		case OCUPACIONAL:
+			return {
+				...state,
+				pacienteActual: {
+					...state.pacienteActual,
+					ocupacional: action.payload,
+				},
+			};
+
+		case CONTEXTUALES:
+			return {
+				...state,
+				pacienteActual: {
+					...state.pacienteActual,
+					contextual: action.payload,
+				},
+			};
+
+		case OTRAS:
+			return {
+				...state,
+				pacienteActual: {
+					...state.pacienteActual,
+					otras: action.payload,
+				},
+			};
+
 		case GET_TOKEN:
 			return {
 				...state,
@@ -175,6 +253,12 @@ const rootReducer = (state = initialState, action) => {
 			return {
 				...state,
 				menuSolapa: action.payload,
+			};
+
+		case GET_ALL_PROFESSIONAL:
+			return {
+				...state,
+				allProfessional: action.payload,
 			};
 
 		default:

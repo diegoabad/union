@@ -18,7 +18,7 @@ const styles = makeStyles((theme) => ({
   }
 }))
 
-const Diagnostico = ({nutricional, setNutricional}) => {
+const Diagnostico = ({nutricional, setNutricional, paciente}) => {
 
   const initialStateValues = {
     diagnostico_medico: '',
@@ -29,6 +29,14 @@ const Diagnostico = ({nutricional, setNutricional}) => {
   const handleTextarea = (event, name) => {
     setValues( {...values, [name]: event.target.value });
   }
+
+  useEffect(() => {
+    if (paciente) {
+      setValues({...values,
+      diagnostico_medico: paciente.diagnostico_medico,
+      });
+    }
+  },[])
 
   useEffect(() => {
     setNutricional({ ...nutricional, ...values})

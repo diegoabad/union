@@ -4,7 +4,7 @@ import Contenedor from './componente/Contenedor.jsx'
 import { useDispatch } from 'react-redux'
 
 
-const Lenguaje = ({setSemiologica, semiologica}) => {
+const Lenguaje = ({setSemiologica, semiologica, paciente}) => {
 
   const dispatch = useDispatch();
 
@@ -13,6 +13,15 @@ const Lenguaje = ({setSemiologica, semiologica}) => {
   }
 
   const [values, setValues] = React.useState(initialStateValues)
+
+  useEffect(() => {
+    if (paciente) {
+      setValues({ 
+        ...values,
+        lenguaje: paciente.lenguaje
+      })
+    }
+  },[])
 
   useEffect(() => {
     setSemiologica({...semiologica,...values});

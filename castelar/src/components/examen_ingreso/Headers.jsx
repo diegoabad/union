@@ -7,7 +7,7 @@ const Headers = () => {
   return (
     <AppBar position="static" style ={ {backgroundColor: '#f3efe1', color: 'black'} }>
       <Toolbar>
-        <Grid container>
+        <Grid container style={{textAlign: 'center'}}>
           <Grid item xs = {12}>
             <h1>EXAMEN CLINICO DE INGRESO  </h1>
           </Grid>

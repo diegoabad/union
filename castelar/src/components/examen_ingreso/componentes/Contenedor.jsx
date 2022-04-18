@@ -9,7 +9,7 @@ const Contenedor = (props) => {
   const { datos, handleChange} = props;
   
   return (
-    <Grid style = {{width: '160px'}}>
+    <Grid style = {{width: '15%'}}>
     {datos.map((item, index) => (
       <IngresoNros label = {item.label} name = {item.name} value = {item.value} handleChange = {handleChange} key = {index}/>  
     ))}

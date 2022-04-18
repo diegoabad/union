@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	pagecontent: {
-		margin: theme.spacing(5),
+		margin: theme.spacing(0),
 		padding: theme.spacing(3),
 		width: '90%',
 		alignItems: 'strech',
@@ -67,11 +67,12 @@ const addAdmision = async (payload, id) => {
 	}
 };
 
-const Admision = ({ setOpenFiliatorio }) => {
+const Admision = ({ setOpenFiliatorio, registro }) => {
 	const dispatch = useDispatch();
 
 	const admision = useSelector((state) => state.pacienteActual.admision);
 	const dni = useSelector((state) => state.pacienteActual.filiatorios.dni);
+	const editar = useSelector((state) => state.editarFiliatorio);
 	const [error, setError] = React.useState('');
 	const [nombre, setNombre] = React.useState('');
 	const [enfermedades, setEnfermedades] = React.useState([]);
@@ -94,7 +95,19 @@ const Admision = ({ setOpenFiliatorio }) => {
 		if (resultado.mensaje !== 'alta admitida') {
 			setError(resultado.mensaje);
 		} else {
-			const arrayAdmision = [...admision, estado];
+			let arrayAdmision = [];
+			if (!editar) {
+				arrayAdmision = [estado, ...admision];
+			} else {
+				arrayAdmision = admision.map((item, index) => {
+					if (index === registro) {
+						return estado;
+					} else {
+						return item;
+					}
+				});
+			}
+
 			const result = await addAdmision(arrayAdmision, dni);
 			if (result) {
 				setOpenFiliatorio(false);
@@ -107,6 +120,19 @@ const Admision = ({ setOpenFiliatorio }) => {
 		}
 	};
 
+	useEffect(() => {
+		if (!editar) setEstado({ ...estado, ...extraData });
+		else
+			setEstado({
+				...estado,
+				idProfesional: admision[registro].idProfesional,
+				nombreCompletoProfesional: admision[registro].nombreCompletoProfesional,
+				fechaCreacion: admision[registro].fechaCreacion.seconds
+					? new Date(admision[registro].fechaCreacion.seconds * 1000)
+					: new Date(admision[registro].fechaCreacion),
+			});
+	}, []);
+
 	const classes = useStyles();
 	return (
 		<>
@@ -114,7 +140,11 @@ const Admision = ({ setOpenFiliatorio }) => {
 			<Paper className={classes.pagecontent} spacing={2}>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
-						<MotivoConsulta estado={estado} setEstado={setEstado} />
+						<MotivoConsulta
+							estado={estado}
+							setEstado={setEstado}
+							paciente={editar ? admision[registro] : false}
+						/>
 					</Grid>
 
 					<Grid item xs={12}>
@@ -125,23 +155,43 @@ const Admision = ({ setOpenFiliatorio }) => {
 					</Grid>
 
 					<Grid item xs={12}>
-						<Familiares estado={estado} setEstado={setEstado} />
+						<Familiares
+							estado={estado}
+							setEstado={setEstado}
+							paciente={editar ? admision[registro] : false}
+						/>
 					</Grid>
 
 					<Grid item xs={12}>
-						<AntecedentesPersonales estado={estado} setEstado={setEstado} />
+						<AntecedentesPersonales
+							estado={estado}
+							setEstado={setEstado}
+							paciente={editar ? admision[registro] : false}
+						/>
 					</Grid>
 
 					<Grid item xs={12}>
-						<SucesosTraumaticos estado={estado} setEstado={setEstado} />
+						<SucesosTraumaticos
+							estado={estado}
+							setEstado={setEstado}
+							paciente={editar ? admision[registro] : false}
+						/>
 					</Grid>
 
 					<Grid item xs={12}>
-						<Psicodesarrollo estado={estado} setEstado={setEstado} />
+						<Psicodesarrollo
+							estado={estado}
+							setEstado={setEstado}
+							paciente={editar ? admision[registro] : false}
+						/>
 					</Grid>
 
 					<Grid item xs={12}>
-						<ActividadOcupacional estado={estado} setEstado={setEstado} />
+						<ActividadOcupacional
+							estado={estado}
+							setEstado={setEstado}
+							paciente={editar ? admision[registro] : false}
+						/>
 					</Grid>
 
 					<Grid item xs={12}>
@@ -153,14 +203,23 @@ const Admision = ({ setOpenFiliatorio }) => {
 							data={data}
 							estado={estado}
 							setEstado={setEstado}
+							paciente={editar ? admision[registro] : false}
 						/>
 					</Grid>
 
 					<Grid item xs={12}>
-						<Perentoreidad estado={estado} setEstado={setEstado} />
+						<Perentoreidad
+							estado={estado}
+							setEstado={setEstado}
+							paciente={editar ? admision[registro] : false}
+						/>
 					</Grid>
 
-					<Grid item xs={12}>
+					<Grid
+						item
+						xs={12}
+						style={{ alignItems: 'center', textAlign: 'center' }}
+					>
 						{error !== '' && (
 							<Grid item xs={12}>
 								<Paper>

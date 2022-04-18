@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect} from 'react'
 
 import { Grid, Paper } from '@material-ui/core';
 
@@ -22,7 +22,7 @@ const styles = makeStyles((theme) => ({
   }
 }))
 
-const SignosVitales = () => {
+const SignosVitales = ({ingreso, setIngreso, paciente}) => {
 
   const initialStateValues = {
     maxima: '',
@@ -34,6 +34,23 @@ const SignosVitales = () => {
   }
 
 const [values, setValues] = React.useState(initialStateValues);
+
+useEffect(() => {
+  if (paciente) {
+    setValues ({...values,
+      maxima: paciente.maxima,
+      minima: paciente.minima,
+      temp_axilar: paciente.temp_axilar,
+      frec_cardiaca: paciente.frec_cardiaca,
+      saturacion: paciente.saturacion,
+      marcha: paciente.marcha
+    })
+  }
+},[])
+
+useEffect(() => {
+  setIngreso({...ingreso, ...values})
+},[values])
 
 const handleChange = (event) => {
   if(event.target.value.match(/^[0-9]+([.])?([0-9]+)?$/) || event.target.value === ''){

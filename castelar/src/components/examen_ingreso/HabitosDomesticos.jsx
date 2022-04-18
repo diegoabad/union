@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect }from 'react'
 
 import { Grid, Paper } from '@material-ui/core';
 
@@ -21,7 +21,7 @@ const styles = makeStyles((theme) => ({
   }
 }))
 
-const HabitosDomesticos = () => {
+const HabitosDomesticos = ({ingreso, setIngreso, paciente}) => {
 
   const initialStateValues = {
     incontinencia_urinaria: '',
@@ -31,6 +31,19 @@ const HabitosDomesticos = () => {
   }
 
   const [values, setValues] = React.useState(initialStateValues);
+
+  useEffect(() => {
+    if (paciente) {
+      setValues ({...values,
+        incontinencia_urinaria: paciente.incontinencia_urinaria,
+        pañales: paciente.pañales,
+        alimentacion_asistencia: paciente.alimentacion_asistencia,
+        alimentacion_descripcion: paciente.alimentacion_descripcion
+      })
+    }
+  },[])
+
+  useEffect(() => {setIngreso({...ingreso,...values})},[values])
 
   const handleChange = (event) => {
   

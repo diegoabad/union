@@ -6,11 +6,17 @@
 	align-items: center;
 }
 
-.skChase {
+.skChase,
+.skChaseSmall {
 	width: 40px;
 	height: 40px;
 	position: relative;
 	animation: sk-chase 2.5s infinite linear both;
+}
+
+.skChaseSmall {
+	width: 20px;
+	height: 20px;
 }
 
 .skChaseDot {

@@ -9,6 +9,9 @@ export const generateArrayTurns = async (date, professional, arrayDB) => {
 	const doctorDay = professional.schedule[index];
 	dateMoment = moment(`${month}/${day}/${year} ${doctorDay.startTime}`);
 	const endTime = moment(`${month}/${day}/${year} ${doctorDay.endTime}`);
+	console.log(doctorDay);
+	console.log(dateMoment);
+	console.log(endTime);
 	let array = [];
 
 	while (dateMoment.isBefore(endTime)) {

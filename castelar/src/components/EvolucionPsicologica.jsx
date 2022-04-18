@@ -55,10 +55,11 @@ const addPsicologica = async (payload, id) => {
 	}
 };
 
-const EvolucionPsicologica = ({ setOpenFiliatorio }) => {
+const EvolucionPsicologica = ({ setOpenFiliatorio, registro }) => {
 	const [psicologica, setPsicologica] = React.useState('');
 	const dni = useSelector((state) => state.pacienteActual.filiatorios.dni);
 	const paciente = useSelector((state) => state.pacienteActual.psicologia);
+  const editar = useSelector((state) => state.editarFiliatorio)
 	const userActual = useSelector((state) => state.usuarioActual);
 	const [error, setError] = React.useState('');
 	const dispatch = useDispatch();
@@ -73,7 +74,18 @@ const EvolucionPsicologica = ({ setOpenFiliatorio }) => {
 		if (control.mensaje !== 'alta admitida') {
 			setError(control.mensaje);
 		} else {
-			const data = [...paciente, psicologica];
+			let data
+      if (!editar){
+		    data = [psicologica, ...paciente ];
+      } else {
+        data = paciente.map((item, index) => {
+          if (index === registro) {
+            return psicologica
+          } else {
+            return item
+          }
+        })
+      }
 			const result = await addPsicologica(data, dni);
 			if (result) {
 				setOpenFiliatorio(false);
@@ -87,7 +99,8 @@ const EvolucionPsicologica = ({ setOpenFiliatorio }) => {
 	};
 
 	useEffect(() => {
-		setPsicologica(extraData);
+    if (!editar) setPsicologica({...psicologica, ...extraData});
+    else setPsicologica({...psicologica, idProfesional: paciente[registro].idProfesional, nombreCompletoProfesional: paciente[registro].nombreCompletoProfesional, fechaCreacion: paciente[registro].fechaCreacion.seconds? new Date(paciente[registro].fechaCreacion.seconds * 1000) : new Date(paciente[registro].fechaCreacion)});
 	}, []);
 
 	const classes = useStyles();
@@ -100,6 +113,7 @@ const EvolucionPsicologica = ({ setOpenFiliatorio }) => {
 						<Problematica
 							setPsicologica={setPsicologica}
 							psicologica={psicologica}
+              paciente = {editar ? paciente[registro] : false}
 						/>
 					</Grid>
 
@@ -107,6 +121,7 @@ const EvolucionPsicologica = ({ setOpenFiliatorio }) => {
 						<Evolucion
 							setPsicologica={setPsicologica}
 							psicologica={psicologica}
+              paciente = {editar ? paciente[registro] : false}
 						/>
 					</Grid>
 
@@ -114,6 +129,7 @@ const EvolucionPsicologica = ({ setOpenFiliatorio }) => {
 						<Interconsultas
 							setPsicologica={setPsicologica}
 							psicologica={psicologica}
+              paciente = {editar ? paciente[registro] : false}
 						/>
 					</Grid>
 

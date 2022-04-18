@@ -47,7 +47,6 @@ export default function Schedule() {
 			setProfessional(pro);
 		}
 		getPro();
-
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [date]);
 	let currentDate = moment(`${month}/${day}/${year}`);

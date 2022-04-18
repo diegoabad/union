@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect }from 'react'
 
 import { Grid, Paper } from '@material-ui/core';
 
@@ -20,7 +20,7 @@ const styles = makeStyles((theme) => ({
   }
 }))
 
-const SistemaNervioso = () => {
+const SistemaNervioso = ({ingreso, setIngreso, paciente}) => {
 
   const initialStateValues = {
     movimientos_anormales: '',
@@ -33,9 +33,23 @@ const SistemaNervioso = () => {
 
   const [values, setValues] = React.useState(initialStateValues);
 
-  const handleChange = (event) => { 
-    setValues( {...values, [event.target.name]: event.target.value });
-  }
+  useEffect(() => {
+    if (paciente) {
+      setValues ({...values,
+        movimientos_anormales: paciente.movimientos_anormales,
+        rigidez: paciente.rigidez,
+        hemiplejias: paciente.hemiplejias,
+        hemiparesias: paciente.hemiparesias,
+        deficits_neurologicos: paciente.deficits_neurologicos,
+        enfermedades_neurologicas: paciente.enfermedades_neurologicas
+      })
+    }
+  },[])
+
+  useEffect(() => {
+    setIngreso({...ingreso,...values})
+  },[values])
+
 
   const handleTextarea = (event, name) => {
     setValues( {...values, [name]: event.target.value });

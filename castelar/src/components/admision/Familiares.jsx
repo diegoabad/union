@@ -37,7 +37,7 @@ const styles = makeStyles((theme) => ({
   }
 }))
 
-const Familiares = ({estado, setEstado}) => {
+const Familiares = ({estado, setEstado, paciente}) => {
 
   const initialStateValues= {
     situacion_actual: '',

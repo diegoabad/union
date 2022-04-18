@@ -1,12 +1,7 @@
 import React, { useEffect } from 'react'
 import ContenedorPaper from './componente/ContenedorPaper.jsx'
 
-import { useDispatch } from 'react-redux'
-import { getSemiologica } from '../../redux/actions/index.js'
-
 const Pensamiento = ({setSemiologica, semiologica}) => {
-
-  const dispatch = useDispatch();
   
   const initialStateValues = {
     pensamientoCurso: '',
@@ -14,6 +9,16 @@ const Pensamiento = ({setSemiologica, semiologica}) => {
   }
 
   const [values, setValues] = React.useState(initialStateValues)
+
+  useEffect(() =>{
+    if (semiologica) {
+      setValues({ 
+        ...values,
+        pensamientoCurso: semiologica.pensamientoCurso,
+        pensamientoContenido: semiologica.pensamientoContenido
+      })
+    }
+  },[]);
 
   useEffect(() => {
     setSemiologica({...semiologica,...values});

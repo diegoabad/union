@@ -7,8 +7,8 @@ export const getAllProfessional = async () => {
 		const collectionRef = collection(db, 'users');
 		let queryPros = query(
 			collectionRef,
-			where('rol', '==', 'profesional'),
-			where('calendar', '==', true)
+			where('rol', '==', 'profesional')
+			/* 	where('calendar', '==', true) */
 			/* where('idInstitucion', '==', idInstitucion) */
 		);
 		const data = await getDocs(queryPros);

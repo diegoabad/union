@@ -20,13 +20,17 @@ const styles = makeStyles((theme) => ({
   }
 }))
 
-const MotivoConsulta = ({estado, setEstado}) => {
+const MotivoConsulta = ({estado, setEstado, paciente}) => {
 
   const initialStateValues = {
     motivo_consulta: '',
   }
 
   const [values, setValues] = React.useState(initialStateValues)
+
+  useEffect(() => {
+    if (paciente) setValues({...values, motivo_consulta: paciente.motivo_consulta})
+  },[])
 
   useEffect(() => {
     setEstado({...estado, ...values})

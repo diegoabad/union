@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Sucesos_traumaticos = ({estado, setEstado}) => {
+const Sucesos_traumaticos = ({estado, setEstado, paciente}) => {
 
 
   const initialStateValues= {
@@ -48,6 +48,18 @@ const Sucesos_traumaticos = ({estado, setEstado}) => {
   }
 
   const [values, setValues] = React.useState(initialStateValues);
+
+  useEffect(() => {
+    setValues({...values,
+      experiencia_directa: paciente.experiencia_directa,
+      detalle_experiencia_directa: paciente.detalle_experiencia_directa,
+      presencia_directa: paciente.presencia_directa,
+      detalle_presencia_directa: paciente.detalle_presencia_directa,
+      sucesos_traumaticos: paciente.sucesos_traumaticos,
+      detalle_sucesos_traumaticos: paciente.detalle_sucesos_traumaticos,
+      observaciones: paciente.observaciones,
+    })
+  },[])
 
   useEffect(() => {
     setEstado({...estado, ...values})

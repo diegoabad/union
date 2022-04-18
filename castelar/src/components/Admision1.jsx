@@ -70,9 +70,10 @@ const addSemiologica = async (payload, id) => {
 	}
 };
 
-const Admision1 = ({ setOpenFiliatorio }) => {
+const Admision1 = ({ setOpenFiliatorio, registro }) => {
 	const dispatch = useDispatch();
 	const [error, setError] = React.useState('');
+  const editar = useSelector((state) => state.editarFiliatorio)
 	const dni = useSelector((state) => state.pacienteActual.filiatorios.dni);
 	const paciente = useSelector((state) => state.pacienteActual.semiologia);
 	const userActual = useSelector((state) => state.usuarioActual);
@@ -84,14 +85,16 @@ const Admision1 = ({ setOpenFiliatorio }) => {
 	};
 
 	useEffect(() => {
-		setSemiologica(extraData);
+    if (!editar) setSemiologica({...semiologica, ...extraData});
+    else setSemiologica({...semiologica, idProfesional: paciente[registro].idProfesional, nombreCompletoProfesional: paciente[registro].nombreCompletoProfesional, fechaCreacion: new Date(paciente[registro].fechaCreacion)});
 	}, []);
+  
 	const handleClick = async () => {
 		const control = cont_semiologica(semiologica);
 		if (control.mensaje !== 'alta admitida') {
 			setError(control.mensaje);
 		} else {
-			const data = [...paciente, semiologica];
+			const data = [semiologica, ...paciente ];
 			const result = await addSemiologica(data, dni);
 			if (result) {
 				setOpenFiliatorio(false);
@@ -108,113 +111,128 @@ const Admision1 = ({ setOpenFiliatorio }) => {
 
 	return (
 		<>
-			<Header setSemiologica={setSemiologica} semiologica={semiologica} />
+			<Header setSemiologica={setSemiologica} semiologica={semiologica} paciente={editar ? paciente[registro] : false}/>
 			<Paper className={classes.pagecontent} spacing={2}>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
 						<AspectoFisico
 							setSemiologica={setSemiologica}
 							semiologica={semiologica}
+              paciente={editar ? paciente[registro] : false}
 						/>
 					</Grid>
 					<Grid item xs={12}>
-						<Facies setSemiologica={setSemiologica} semiologica={semiologica} />
+						<Facies setSemiologica={setSemiologica} semiologica={semiologica} paciente = {editar ? paciente[registro] : false}/>
 					</Grid>
 					<Grid item xs={12}>
 						<AspectoPsiquico
 							setSemiologica={setSemiologica}
 							semiologica={semiologica}
+              paciente={editar ? paciente[registro] : false}
 						/>
 					</Grid>
 					<Grid item xs={12}>
 						<Lenguaje
 							setSemiologica={setSemiologica}
 							semiologica={semiologica}
+              paciente={editar ? paciente[registro] : false}
 						/>
 					</Grid>
 					<Grid item xs={12}>
 						<ActitudPsiquica
 							setSemiologica={setSemiologica}
 							semiologica={semiologica}
+              paciente={editar ? paciente[registro] : false}
 						/>
 					</Grid>
 					<Grid item xs={12}>
 						<Actividad
 							setSemiologica={setSemiologica}
 							semiologica={semiologica}
+              paciente={editar ? paciente[registro] : false}
 						/>
 					</Grid>
 					<Grid item xs={12}>
-						<Marcha setSemiologica={setSemiologica} semiologica={semiologica} />
+						<Marcha setSemiologica={setSemiologica} semiologica={semiologica} paciente={editar ? paciente[registro] : false}/>
 					</Grid>
 					<Grid item xs={12}>
 						<Sexualidad
 							setSemiologica={setSemiologica}
 							semiologica={semiologica}
+              paciente={editar ? paciente[registro] : false}
 						/>
 					</Grid>
 					<Grid item xs={12}>
 						<Conciencia
 							setSemiologica={setSemiologica}
 							semiologica={semiologica}
+              paciente={editar ? paciente[registro] : false}
 						/>
 					</Grid>
 					<Grid item xs={12}>
 						<Orientacion
 							setSemiologica={setSemiologica}
 							semiologica={semiologica}
+              paciente={editar ? paciente[registro] : false}
 						/>
 					</Grid>
 					<Grid item xs={12}>
 						<Atencion
 							setSemiologica={setSemiologica}
 							semiologica={semiologica}
+              paciente={editar ? paciente[registro] : false}
 						/>
 					</Grid>
 					<Grid item xs={12}>
 						<Memoria
 							setSemiologica={setSemiologica}
 							semiologica={semiologica}
+              paciente={editar ? paciente[registro] : false}
 						/>
 					</Grid>
 					<Grid item xs={12}>
 						<Pensamiento
 							setSemiologica={setSemiologica}
 							semiologica={semiologica}
+              paciente={editar ? paciente[registro] : false}
 						/>
 					</Grid>
 					<Grid item xs={12}>
 						<Ideacion
 							setSemiologica={setSemiologica}
 							semiologica={semiologica}
+              paciente={editar ? paciente[registro] : false}
 						/>
 					</Grid>
 					<Grid item xs={12}>
 						<Sensopercepcion
 							setSemiologica={setSemiologica}
 							semiologica={semiologica}
+              paciente={editar ? paciente[registro] : false}
 						/>
 					</Grid>
 					<Grid item xs={12}>
 						<Afectividad
 							setSemiologica={setSemiologica}
 							semiologica={semiologica}
+              paciente={editar ? paciente[registro] : false}
 						/>
 					</Grid>
 					<Grid item xs={12}>
 						<Inteligencia
 							setSemiologica={setSemiologica}
 							semiologica={semiologica}
+              paciente={editar ? paciente[registro] : false}
 						/>
 					</Grid>
 					<Grid item xs={12}>
-						<Juicio setSemiologica={setSemiologica} semiologica={semiologica} />
+						<Juicio setSemiologica={setSemiologica} semiologica={semiologica} paciente={editar ? paciente[registro] : false}/>
 					</Grid>
 					<Grid item xs={12}>
-						<Suenio setSemiologica={setSemiologica} semiologica={semiologica} />
+						<Suenio setSemiologica={setSemiologica} semiologica={semiologica} paciente={editar ? paciente[registro] : false}/>
 					</Grid>
 					<Grid item xs={12}>
-						<Orexia setSemiologica={setSemiologica} semiologica={semiologica} />
+						<Orexia setSemiologica={setSemiologica} semiologica={semiologica} paciente={editar ? paciente[registro] : false}/>
 					</Grid>
 
 					<Grid container item xs={12} spacing={2}>

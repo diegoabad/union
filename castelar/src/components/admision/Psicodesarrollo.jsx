@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Psicodesarrollo = ({estado, setEstado}) => {
+const Psicodesarrollo = ({estado, setEstado, paciente}) => {
 
 
   const initialStateValues= {
@@ -67,6 +67,27 @@ const Psicodesarrollo = ({estado, setEstado}) => {
   }
 
   const [values, setValues] = React.useState(initialStateValues);
+
+  useEffect(() => {
+    setValues({...values,
+      infancia: paciente.infancia,
+      pubertad: paciente.pubertad,
+      adolescencia: paciente.adolescencia,
+      juventud: paciente.juventud,
+      adultez: paciente.adultez,
+      estudios_primarios: paciente.estudios_primarios,
+      estudios_secundarios: paciente.estudios_secundarios,
+      estudios_terciarios: paciente.estudios_terciarios,
+      estudios_universitarios: paciente.estudios_universitarios,
+      enfermedades_comunes: paciente.enfermedades_comunes,
+      cirugias_adultez: paciente.cirugias_adultez,
+      otros_adultez: paciente.otros_adultez,
+      desc_enfermedades_comunes: paciente.desc_enfermedades_comunes,
+      desc_cirugias_adultez: paciente.desc_cirugias_adultez,
+      desc_otros_adultez: paciente.desc_otros_adultez,
+      interconsultas: paciente.interconsultas,
+    })
+  },[])
 
   useEffect(() => {
     setEstado({...estado, ...values})

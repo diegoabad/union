@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect }from 'react'
 
 import { Grid, Paper } from '@material-ui/core';
 
@@ -21,7 +21,7 @@ const styles = makeStyles((theme) => ({
   }
 }))
 
-const Abdominal = () => {
+const Abdominal = ({ingreso, setIngreso, paciente}) => {
 
   const initialStateValues = {
     rha: '',
@@ -32,6 +32,22 @@ const Abdominal = () => {
   } 
 
   const [values, setValues] = React.useState(initialStateValues);
+
+  useEffect(() => {
+    if (paciente) {
+      setValues ({...values,
+        rha: paciente.rha,
+        blando: paciente.blando,
+        depresible: paciente.depresible,
+        indoloro: paciente.indoloro,
+        visceromegalias: paciente.visceromegalias
+      })
+    }
+  },[])
+
+  useEffect(() => {
+    setIngreso({...ingreso,...values})
+  },[values])
 
   const handleChange = (event) => { 
     setValues( {...values, [event.target.name]: event.target.value });

@@ -54,10 +54,11 @@ const addPsiquiatrica = async (payload, id) => {
 	}
 };
 
-const EvolucionPsiquiatrica = ({ setOpenFiliatorio }) => {
+const EvolucionPsiquiatrica = ({ setOpenFiliatorio, registro }) => {
 	const [psiquiatria, setPsiquiatria] = React.useState({});
 	const dni = useSelector((state) => state.pacienteActual.filiatorios.dni);
 	const paciente = useSelector((state) => state.pacienteActual.psiquiatria);
+  const editar = useSelector((state) => state.editarFiliatorio)
 	const userActual = useSelector((state) => state.usuarioActual);
 	const [error, setError] = React.useState('');
 	const dispatch = useDispatch();
@@ -68,7 +69,8 @@ const EvolucionPsiquiatrica = ({ setOpenFiliatorio }) => {
 	};
 
 	useEffect(() => {
-		setPsiquiatria(extraData);
+    if (!editar) setPsiquiatria({...psiquiatria, ...extraData});
+    else setPsiquiatria({...psiquiatria, idProfesional: paciente[registro].idProfesional, nombreCompletoProfesional: paciente[registro].nombreCompletoProfesional, fechaCreacion: paciente[registro].fechaCreacion.seconds? new Date(paciente[registro].fechaCreacion.seconds * 1000) : new Date(paciente[registro].fechaCreacion)});
 	}, []);
 
 	const handleClick = async () => {
@@ -76,7 +78,18 @@ const EvolucionPsiquiatrica = ({ setOpenFiliatorio }) => {
 		if (control.mensaje !== 'alta admitida') {
 			setError(control.mensaje);
 		} else {
-			const data = [...paciente, psiquiatria];
+			let data
+      if (!editar){
+		    data = [psiquiatria,...paciente ];
+      } else {
+        data = paciente.map((item, index) => {
+          if (index === registro) {
+            return psiquiatria
+          } else {
+            return item
+          }
+        })
+      }
 			const result = await addPsiquiatrica(data, dni);
 			if (result) {
 				setOpenFiliatorio(false);
@@ -99,6 +112,7 @@ const EvolucionPsiquiatrica = ({ setOpenFiliatorio }) => {
 						<Evolucion
 							setPsiquiatria={setPsiquiatria}
 							psiquiatria={psiquiatria}
+              paciente = {editar ? paciente[registro] : false}
 						/>
 					</Grid>
 
@@ -106,10 +120,11 @@ const EvolucionPsiquiatrica = ({ setOpenFiliatorio }) => {
 						<Interconsultas
 							setPsiquiatria={setPsiquiatria}
 							psiquiatria={psiquiatria}
+              paciente = {editar ? paciente[registro] : false}
 						/>
 					</Grid>
 
-					<Grid item xs={12}>
+					<Grid item xs={12} style={{ alignItems: 'center', textAlign: 'center' }}>
 						{error !== '' && (
 							<Grid item xs={12}>
 								<Paper>

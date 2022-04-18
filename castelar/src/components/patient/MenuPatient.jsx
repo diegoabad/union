@@ -12,7 +12,7 @@ export default function MenuPatient() {
 	return (
 		<div className={s.containerMenuPatient}>
 			<div
-				className={solapa === 'Biografia' ? `${s.active}` : ''}
+				className={solapa === 'Biografia' ? `${s.active}` : `${s.normal}`}
 				onClick={(e) => {
 					handleSolapa(e);
 				}}
@@ -20,7 +20,9 @@ export default function MenuPatient() {
 				Biografia
 			</div>
 			<div
-				className={solapa === 'Datos Filiatorios' ? `${s.active}` : ''}
+				className={
+					solapa === 'Datos Filiatorios' ? `${s.active}` : `${s.normal}`
+				}
 				onClick={(e) => {
 					handleSolapa(e);
 				}}
@@ -28,7 +30,7 @@ export default function MenuPatient() {
 				Datos Filiatorios
 			</div>
 			<div
-				className={solapa === 'Admisiones' ? `${s.active}` : ''}
+				className={solapa === 'Admisiones' ? `${s.active}` : `${s.normal}`}
 				onClick={(e) => {
 					handleSolapa(e);
 				}}
@@ -36,7 +38,15 @@ export default function MenuPatient() {
 				Admisiones
 			</div>
 			<div
-				className={solapa === 'Psiquiatría' ? `${s.active}` : ''}
+				className={solapa === 'Semiología' ? `${s.active}` : `${s.normal}`}
+				onClick={(e) => {
+					handleSolapa(e);
+				}}
+			>
+				Semiología
+			</div>
+			<div
+				className={solapa === 'Psiquiatría' ? `${s.active}` : `${s.normal}`}
 				onClick={(e) => {
 					handleSolapa(e);
 				}}
@@ -44,7 +54,7 @@ export default function MenuPatient() {
 				Psiquiatría
 			</div>
 			<div
-				className={solapa === 'Medicación' ? `${s.active}` : ''}
+				className={solapa === 'Medicación' ? `${s.active}` : `${s.normal}`}
 				onClick={(e) => {
 					handleSolapa(e);
 				}}
@@ -52,7 +62,7 @@ export default function MenuPatient() {
 				Medicación
 			</div>
 			<div
-				className={solapa === 'Psicología' ? `${s.active}` : ''}
+				className={solapa === 'Psicología' ? `${s.active}` : `${s.normal}`}
 				onClick={(e) => {
 					handleSolapa(e);
 				}}
@@ -60,7 +70,7 @@ export default function MenuPatient() {
 				Psicología
 			</div>
 			<div
-				className={solapa === 'Clínica' ? `${s.active}` : ''}
+				className={solapa === 'Clínica' ? `${s.active}` : `${s.normal}`}
 				onClick={(e) => {
 					handleSolapa(e);
 				}}
@@ -69,7 +79,7 @@ export default function MenuPatient() {
 			</div>
 
 			<div
-				className={solapa === 'Nutrición' ? `${s.active}` : ''}
+				className={solapa === 'Nutrición' ? `${s.active}` : `${s.normal}`}
 				onClick={(e) => {
 					handleSolapa(e);
 				}}
@@ -77,7 +87,7 @@ export default function MenuPatient() {
 				Nutrición
 			</div>
 			<div
-				className={solapa === 'Área Social' ? `${s.active}` : ''}
+				className={solapa === 'Área Social' ? `${s.active}` : `${s.normal}`}
 				onClick={(e) => {
 					handleSolapa(e);
 				}}
@@ -85,7 +95,7 @@ export default function MenuPatient() {
 				Área Social
 			</div>
 			<div
-				className={solapa === 'Ed. Física' ? `${s.active}` : ''}
+				className={solapa === 'Ed. Física' ? `${s.active}` : `${s.normal}`}
 				onClick={(e) => {
 					handleSolapa(e);
 				}}
@@ -93,7 +103,9 @@ export default function MenuPatient() {
 				Ed. Física
 			</div>
 			<div
-				className={solapa === 'Terapia Ocupacional' ? `${s.active}` : ''}
+				className={
+					solapa === 'Terapia Ocupacional' ? `${s.active}` : `${s.normal}`
+				}
 				onClick={(e) => {
 					handleSolapa(e);
 				}}
@@ -101,16 +113,33 @@ export default function MenuPatient() {
 				Terapia Ocupacional
 			</div>
 			<div
-				className={solapa === 'Musicoterapia' ? `${s.active}` : ''}
+				className={solapa === 'Musicoterapia' ? `${s.active}` : `${s.normal}`}
 				onClick={(e) => {
 					handleSolapa(e);
 				}}
 			>
 				Musicoterapia
 			</div>
-
+			{/* 
+      <div
+				className={solapa === 'Guardia' ? `${s.active}` : `${s.normal}`}
+				onClick={(e) => {
+					handleSolapa(e);
+				}}
+			>
+				Terapias Contextuales
+			</div>
+      <div
+				className={solapa === 'Guardia' ? `${s.active}` : `${s.normal}`}
+				onClick={(e) => {
+					handleSolapa(e);
+				}}
+			>
+				Terapias Varias
+			</div>
+ */}
 			<div
-				className={solapa === 'Guardia' ? `${s.active}` : ''}
+				className={solapa === 'Guardia' ? `${s.active}` : `${s.normal}`}
 				onClick={(e) => {
 					handleSolapa(e);
 				}}

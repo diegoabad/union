@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ActividadOcupacional = ({estado, setEstado}) => {
+const ActividadOcupacional = ({estado, setEstado, paciente}) => {
 
 
   const initialStateValues = {
@@ -52,6 +52,16 @@ const ActividadOcupacional = ({estado, setEstado}) => {
   }
 
   const [values, setValues] = React.useState(initialStateValues)
+
+  useEffect(() => {
+    if (paciente) setValues({...values, 
+    trabajo: paciente.trabajo,
+    detalle_trabajo: paciente.detalle_trabajo,
+    estudio: paciente.estudio,
+    detalle_estudio: paciente.detalle_estudio,
+    socializacion: paciente.socializacion,
+    })
+  },[])
 
   useEffect(() => {
     setEstado({...estado, ...values})

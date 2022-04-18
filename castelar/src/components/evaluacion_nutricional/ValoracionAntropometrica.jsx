@@ -43,7 +43,7 @@ const styles = makeStyles((theme) => ({
 
 }))
 
-const ValoracionAntropometrica = ({nutricional, setNutricional}) => {
+const ValoracionAntropometrica = ({nutricional, setNutricional, paciente}) => {
 
   const initialStateValues = {
     evaluacion_nutricional: '',
@@ -56,6 +56,20 @@ const ValoracionAntropometrica = ({nutricional, setNutricional}) => {
   }
 
   const [values, setValues] = React.useState(initialStateValues)
+
+  useEffect(() => {
+    if (paciente) {
+      setValues({...values,
+        evaluacion_nutricional: paciente.evaluacion_nutricional,
+        plan_nutricional: paciente.plan_nutricional,
+        profesional_actuante: paciente.profesional_actuante,
+        peso_nutricional: paciente.peso_nutricional,
+        talla: paciente.talla,
+        imc: paciente.imc,
+        diagnostico_nutricional: paciente.diagnostico_nutricional,
+      })
+    }
+  },[])
 
   useEffect(() => {
     setNutricional({ ...nutricional, ...values})
@@ -85,7 +99,7 @@ const ValoracionAntropometrica = ({nutricional, setNutricional}) => {
       <Subtitulo titulo = 'Valoración antropométrica' />
 
       <Opcion titulo = 'Peso' />
-        <IngresoNros label = 'Peso' name = 'peso' value = {values.peso} handleChange = { handleChangeNro }/>
+        <IngresoNros label = 'Peso' name = 'peso_nutricional' value = {values.peso} handleChange = { handleChangeNro }/>
 
       <Opcion titulo = 'Talla' />
         <Grid item xs = {12}>

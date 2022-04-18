@@ -61,6 +61,12 @@ const addFiliatorios = async (
 			nutricion: [],
 			medicacion: [],
 			ingreso: [],
+			musicoterapia: [],
+			ed_fisica: [],
+			area_social: [],
+			ocupacional: [],
+			contextual: [],
+			otras: [],
 		});
 		await setDoc(doc(db, 'historial', 'ctrl'), {
 			numero: historial,

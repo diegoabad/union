@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect }from 'react'
 
 import  {Paper, Grid} from '@material-ui/core'
 
@@ -23,13 +23,25 @@ const styles = makeStyles((theme) => ({
 }))
 
 
-const MedicacionIngreso = () => {
+const MedicacionIngreso = ({ingreso, setIngreso, paciente}) => {
 
   const initialStateValues = {
     medicacion: [],
   }
 
   const [values, setValues] = React.useState(initialStateValues)
+
+  useEffect(() =>{
+    if(paciente){
+      setValues({...values,
+        medicacion: paciente.medicacion
+      })
+    }
+  },[])
+
+  useEffect(() => {
+    setIngreso({...ingreso,...values})
+  },[values])
 
   const handleChange = (event) => {
     const {name, value} = event.target

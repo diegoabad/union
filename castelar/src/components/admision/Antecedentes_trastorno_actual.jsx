@@ -23,7 +23,7 @@ const styles = makeStyles((theme) => ({
   }
 }))
 
-const Antecedentes_trastorno_actual = ({estado, setEstado}) => {
+const Antecedentes_trastorno_actual = ({estado, setEstado, paciente}) => {
 
   const initialStateValues= {
     antecedentes_trastorno_actual: '',
@@ -59,6 +59,42 @@ const Antecedentes_trastorno_actual = ({estado, setEstado}) => {
   }
 
   const [values, setValues] = React.useState(initialStateValues);
+
+  useEffect(() => {
+    if(paciente){
+      setValues({...values,
+        antecedentes_trastorno_actual: paciente.antecedentes_trastorno_actual,
+        aparicion_sintomas: paciente.aparicion_sintomas,
+        relacion_funcion_vital: paciente.relacion_funcion_vital,
+        psico_previo: paciente.psico_previo,
+        antecedentes_psico: paciente.antecedentes_psico,
+        tratamiento: paciente.tratamiento,
+        tratamiento_descripcion: paciente.tratamiento_descripcion,
+        internaciones_previas: paciente.internaciones_previas,
+        internaciones_previas_descripcion: paciente.internaciones_previas_descripcion,
+        medicacion_previa: paciente.medicacion_previa,
+        psicofarmacos: paciente.psicofarmacos,
+        adherente_tratamiento: paciente.adherente_tratamiento,
+        adherente_tratamiento_descripcion: paciente.adherente_tratamiento_descripcion,
+        intentos_suicidio: paciente.intentos_suicidio,
+        modalidad_intento_suicidio: paciente.modalidad_intento_suicidio,
+        antecedente_conducta_violenta: paciente.antecedente_conducta_violenta,
+        conducta_violenta: paciente.conducta_violenta,
+        autoagresividad: paciente.autoagresividad,
+        detalle_autoagresividad: paciente.detalle_autoagresividad,
+        heteroagresividad: paciente.heteroagresividad,
+        detalle_heteroagresividad: paciente.detalle_heteroagresividad,
+        habito_adicciones: paciente.habito_adicciones,
+        tabaquismo: paciente.tabaquismo,
+        detalle_tabaquismo: paciente.detalle_tabaquismo,
+        alcoholismo: paciente.alcoholismo,
+        detalle_alcoholismo: paciente.detalle_alcoholismo,
+        drogas: paciente.drogas,
+        detalle_drogas: paciente.detalle_drogas,
+        otros: paciente.otros,
+        detalle_otros: paciente.detalle_otros, 
+    })}
+  },[])
 
   useEffect(() => {
     setEstado({...estado, ...values})

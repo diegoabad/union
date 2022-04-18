@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect }from 'react'
 
 import { Grid, Paper } from '@material-ui/core';
 
@@ -21,7 +21,7 @@ const styles = makeStyles((theme) => ({
   }
 }))
 
-const Respiratorio = () => {
+const Respiratorio = ({ingreso, setIngreso, paciente}) => {
 
   const initialStateValues = {
     mv: '',
@@ -31,6 +31,21 @@ const Respiratorio = () => {
   } 
 
   const [values, setValues] = React.useState(initialStateValues);
+
+  useEffect(() => {
+    if (paciente) {
+      setValues ({...values,
+        mv: paciente.mv,
+        ruidos_agregados: paciente.ruidos_agregados,
+        tos: paciente.tos,
+        tos_descripcion: paciente.tos_descripcion
+      })
+    }
+  },[])
+
+  useEffect(() => {
+    setIngreso({...ingreso,...values})
+  },[values])
 
   const handleChange = (event) => { 
     setValues( {...values, [event.target.name]: event.target.value });

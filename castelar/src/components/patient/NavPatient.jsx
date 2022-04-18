@@ -10,7 +10,7 @@ import {
 	getActiveSearch,
 	getMenuSolapa,
 } from '../../redux/actions/index';
-export default function NavPatients() {
+export default function NavPatients({ setFlagS }) {
 	const dispatch = useDispatch();
 	const paciente = useSelector((state) => state.pacienteActual);
 	const activeSearch = useSelector((state) => state.activeSearch);
@@ -55,6 +55,7 @@ export default function NavPatients() {
 		dispatch(getActiveSearch(false));
 		setDni('');
 		setInputValue('');
+		setFlagS(false);
 		dispatch(getSolapaPaciente('Biografia'));
 		dispatch(getMenuSolapa(true));
 		dispatch(
@@ -74,6 +75,7 @@ export default function NavPatients() {
 
 	async function handleSearch(dni) {
 		if (dni !== '') {
+			setFlagS(true);
 			const p = await getPatientByDNI(dni);
 			if (p) {
 				const fullName = `${p.filiatorios.nombre} ${p.filiatorios.apellido}`;
@@ -81,6 +83,7 @@ export default function NavPatients() {
 				dispatch(getFiliatorios(p));
 			}
 			dispatch(getActiveSearch(true));
+			setFlagS(false);
 			return;
 		}
 		handleClear();
@@ -88,6 +91,18 @@ export default function NavPatients() {
 
 	return (
 		<div className={s.NavPatientContainer}>
+			{!activeSearch ? <div className={s.leftSearch}></div> : ''}
+			{paciente.idPatient !== '' && activeSearch ? (
+				<div className={`${s.leftSearch} ${s.searchOk}`}></div>
+			) : (
+				''
+			)}
+			{paciente.idPatient === '' && activeSearch ? (
+				<div className={`${s.leftSearch} ${s.searchOk}`}></div>
+			) : (
+				''
+			)}
+
 			{!activeSearch ? (
 				<input
 					onChange={(e) => {
@@ -95,6 +110,7 @@ export default function NavPatients() {
 					}}
 					type='text'
 					placeholder='Buscar paciente por DNI'
+					autoFocus={true}
 				/>
 			) : (
 				''
@@ -115,7 +131,7 @@ export default function NavPatients() {
 			)}
 			{paciente.idPatient === '' && activeSearch ? (
 				<input
-					className={s.notExist}
+					className={s.searchOk}
 					onChange={(e) => {
 						handlePatient(e);
 					}}

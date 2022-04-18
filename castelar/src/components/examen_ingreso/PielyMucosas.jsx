@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Grid, Paper } from '@material-ui/core';
 
@@ -21,7 +21,7 @@ const styles = makeStyles((theme) => ({
   }
 }))
 
-const PielyMucosas = () => {
+const PielyMucosas = ({ingreso, setIngreso, paciente}) => {
 
   const initialStateValues = {
     normohidratado: '',
@@ -35,6 +35,25 @@ const PielyMucosas = () => {
   }
 
   const [values, setValues] = React.useState(initialStateValues);
+
+  useEffect(() => {
+    if (paciente) {
+      setValues ({...values,
+        normohidratado: paciente.normohidratado,
+        normocoloreado: paciente.normocoloreado,
+        hematomas: paciente.hematomas, 
+        escoriaciones: paciente.escoriaciones,
+        ulceras: paciente.ulceras,
+        lesiones_apoyo: paciente.lesiones_apoyo,
+        lesiones_sujecion: paciente.lesiones_sujecion,
+        autolesion: paciente.autolesion
+      })
+    }
+  },[])
+
+  useEffect(() => {
+    setIngreso({...ingreso,...values})
+  },[values])
 
   const handleChange = (event) => {
   

@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Antecedentes_personales = ({estado, setEstado}) => {
+const Antecedentes_personales = ({estado, setEstado, paciente}) => {
 
 
   const initialStateValues= {
@@ -59,6 +59,20 @@ const Antecedentes_personales = ({estado, setEstado}) => {
   }
 
   const [values, setValues] = React.useState(initialStateValues);
+
+  useEffect(() => {
+    if (paciente) setValues({...values, 
+    parto: paciente.parto,
+    lenguaje: paciente.lenguaje,
+    detalle_lenguaje: paciente.detalle_lenguaje,
+    enfermedades: paciente.enfermedades,
+    detalle_enfermedades: paciente.detalle_enfermedades,
+    traumatismo: paciente.traumatismo,
+    detalle_traumatismo: paciente.detalle_traumatismo,
+    convulsiones: paciente.convulsiones,
+    detalle_convulsiones: paciente.detalle_convulsiones,
+    })
+  },[])
 
   useEffect(() => {
     setEstado({...estado, ...values})
