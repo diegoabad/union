@@ -23,14 +23,7 @@ export default function NavBar({ user }) {
 			>
 				<p className={s.options}>Turnos</p>
 			</NavLink>
-			<NavLink
-				className={(navData) =>
-					navData.isActive ? `${s.active}` : `${s.navLinks}`
-				}
-				to='/paciente'
-			>
-				<p className={s.options}>Buscar Paciente</p>
-			</NavLink>
+
 			<NavLink
 				className={(navData) =>
 					navData.isActive ? `${s.active}` : `${s.navLinks}`
@@ -65,13 +58,6 @@ export default function NavBar({ user }) {
 					alt='icono agenda'
 					className={s.off}
 					src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAK1JREFUSEtjZKAxYKSx+QyELPgPdQAudYTk6W+BAwMDw3wGBgYFMoPuAQMDQyIDA8MBmH50r4MUyJNpOEwbyAxFXBbAwpRCOxBBj+4DullAKHXh8iFGqsLlg+FjAbqXSeVjZDRSDSCknqAFpCbXwRfJhIKAkDzBICJkACF5ghYM/Tigug8+MDAw8JNqKpr6h8j1CXqZA6pwFlBQJ4AMT8BX4VDoeEzt5JaaRDsEAEtJNBmkfiBdAAAAAElFTkSuQmCC'
-				/>
-			</NavLink>
-			<NavLink className={s.navLinksMobile} to='/paciente'>
-				<img
-					alt='icono buscar'
-					className={s.off}
-					src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAUJJREFUSEu9le0xBEEURc9GQAhEgAzIgAjIABmQARmQgQwQARnYEIiAOlWv1avR3TO7NWOq9sdOd9/z+r6PWbHws1pYnx5gD7gEjoHDCOQdeAHugfWU4FqAuxDvabjnegxSAxjlQRx8BBTynY83uQLO042OepAhoET+FdYU4aGGIK3aCbuEVp8M0POP2GVULfEiJOQt/uy3cpIBJXoT2IxoEOZD2NU8kwHF+ynRD2/h2WouMuA7Tm3aG91zcwEsit1aluey6DWq7g/jX5O8bZlqjyVbHR2tRvsETjq9oOBz+H4L3ExptLInjwrr3BrPo8IBeJEEXTMYg+rmIC+ODTttcc9pzK0mZGxc29GOa4efogr5U1zPLU1nkutVyKZNVXOhC5kDIDRDzoCnEslcgALRzl9xX84JGP0e9D5MW68tfoMfCXxMGRHr0pcAAAAASUVORK5CYII='
 				/>
 			</NavLink>
 

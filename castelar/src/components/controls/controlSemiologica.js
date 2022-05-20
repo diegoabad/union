@@ -5,7 +5,7 @@ export const cont_semiologica = (estado) => {
       mensaje: 'No se ha seleccionado ninguna opción de actitud psíquica'
     };
   }
-  if (estado.actividad === '' && estado.actividad_otro === '' || !estado.actividad) {
+  if ((estado.actividad === '') && (estado.actividad_otro === '' || !estado.actividad)) {
     return {
       mensaje: 'No se ha seleccionado ninguna opción de actividad'
     };
@@ -30,7 +30,7 @@ export const cont_semiologica = (estado) => {
       mensaje: 'No se ha seleccionado ninguna opción de atención'
     }
   }
-  if (estado.conciencia === ''  && estado.conc_otros === '' || !estado.conciencia) {
+  if ((estado.conciencia === '')  && (estado.conc_otros === '' || !estado.conciencia)) {
     return {
       mensaje: 'No se ha seleccionado ninguna opción de conciencia'
     };
@@ -85,7 +85,7 @@ export const cont_semiologica = (estado) => {
       mensaje: 'Debe seleccionar al menos una opción de pensamiento en Curso y Contenido'
     }
   }
-  if (estado.sensopercepcion === '' && estado.senso_otras === '' || !estado.sensopercepcion) {
+  if ((estado.sensopercepcion === '') && (estado.senso_otras === '' || !estado.sensopercepcion)) {
     return {
       mensaje: 'No se ha seleccionado ninguna opción de sensopercepción'
     }

@@ -25,7 +25,7 @@ const Headers = (props) => {
   }, [])
 
   return (
-    <AppBar position="static" style ={ {backgroundColor: '#f3efe1', color: 'black'} }>
+    <AppBar position="static" style ={ {backgroundColor: 'rgb(32, 135, 252)', color: 'white'} }>
       <Toolbar>
         <Grid container style ={{textAlign: 'center'}}>
           <Grid item xs = {12} sm = {8} md={6}>

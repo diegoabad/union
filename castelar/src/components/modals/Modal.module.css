@@ -274,8 +274,90 @@
 
 .modalContainerDetails {
 	width: 80%;
-	min-width: 800px;
-	height: 700px;
+	max-width: 1100px;
+	height: 800px;
+}
+
+.detailsHeader {
+	padding: 20px 20px 10px;
+	display: flex;
+	text-transform: capitalize;
+	justify-content: center;
+}
+.detailsHeader_p {
+	margin: 0 30px 20px;
+	font-size: 20px;
+}
+
+.detailsHeader_span {
+	font-weight: 600;
+	margin-right: 5px;
+}
+
+.containerEvo {
+	display: flex;
+	flex-direction: column;
+	box-shadow: 0px 0px 10px 0px rgba(32, 32, 32, 0.24);
+	margin-bottom: 10px;
+	width: 100%;
+	height: 100%;
+}
+
+.titleContainer {
+	display: flex;
+	justify-content: space-around;
+}
+
+.title {
+	padding: 5px 10px;
+	font-size: 18px;
+	position: relative;
+	background-color: rgb(189, 189, 189);
+	cursor: pointer;
+	flex: 1;
+	text-align: center;
+	color: rgb(63, 63, 63);
+}
+
+.title:hover {
+	background-color: rgb(169, 200, 247);
+}
+
+.titleEvo {
+	padding: 5px 10px;
+	font-size: 18px;
+	position: relative;
+	cursor: pointer;
+	flex: 1;
+	text-align: center;
+	background-color: rgb(32, 135, 252);
+	color: #fff;
+}
+
+.bodyEvo {
+	font-family: 'Poppins';
+	width: 100%;
+	padding: 20px 20px 0;
+	height: 656px;
+	overflow-y: scroll;
+	margin: 0;
+	background-color: #fff;
+}
+.parrafo {
+	font-family: 'Poppins';
+	text-align: justify;
+	margin-bottom: 20px;
+	font-size: 16px;
+	letter-spacing: 1px;
+	line-height: 30px;
+	word-spacing: 2px;
+}
+
+.iconSize {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	right: 10px;
 }
 
 @media (max-width: 600px) {

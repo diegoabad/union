@@ -6,7 +6,7 @@ import Subtitulo from '../admision1/componente/Subtitulo.jsx'
 import Opcion from '../admision1/componente/Opcion.jsx'
 import Lista from './componentes/Lista.jsx'
 
-import Medicamentos from '../medicacion/componentes/Medicamentos.jsx'
+import Medicamentos from '../medicacion/componentes/Farmacos.jsx'
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -49,22 +49,30 @@ const MedicacionIngreso = ({ingreso, setIngreso, paciente}) => {
   }
 
   const handleAutocomple = (event, value) => {
-    setValues({...values, medicacion:[...values.medicacion, value]})
+    if (value !== null) {
+      setValues({...values, medicacion:[...values.medicacion, value]})
+    }
+  }
+
+  const handleDelete = (evt, item) => {
+    setValues({...values, medicacion: values.medicacion.filter(i => i !== item)})
   }
 
   const classes = styles();
 
+  console.log(values.medicacion)
+
   return (
-    <Paper className={classes.root} style = { {backgroundColor:'#d7dbca'} }>
+    <Paper className={classes.root} style = { {backgroundColor: 'rgb(32, 135, 252)'} }>
       <Grid container spacing={3}>
 
         <Subtitulo titulo = 'Medicación al ingreso' />
         <Opcion titulo = 'Medicación' />
 
-        <Medicamentos handleAutocomple = {handleAutocomple} handleChange = {handleChange} estado = {values.medicacion} />
+        <Medicamentos handleAutocomple = {handleAutocomple} handleChange = {handleChange} estado = {values.medicacion} filtrar = {false}/>
 
         {values.medicacion.length > 0 &&
-        <Lista lista = {values.medicacion} />
+        <Lista lista = {values.medicacion} handleDelete = {handleDelete}/>
         }
 
       </Grid>

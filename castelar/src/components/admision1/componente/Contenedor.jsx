@@ -24,7 +24,7 @@ const Contenedor = (props) => {
   const classes = styles();
   
   return (
-    <Paper className={classes.root} style = { {backgroundColor:'#d7dbca'} }>
+    <Paper className={classes.root} style = { {backgroundColor: 'rgb(32, 135, 252)'} }>
       <Grid container spacing={3}>
 
         < Subtitulo titulo = { titulo } />

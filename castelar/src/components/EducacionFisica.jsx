@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 		width: '90%',
 		alignItems: 'strech',
 		justifyContent: 'space-between',
-		backgroundColor: '#F0FFFF',
+		backgroundColor: '#FFFFFF',
 	},
 }));
 

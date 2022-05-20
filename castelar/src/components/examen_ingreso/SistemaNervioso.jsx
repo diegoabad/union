@@ -4,7 +4,7 @@ import { Grid, Paper } from '@material-ui/core';
 
 import Subtitulo from '../admision1/componente/Subtitulo.jsx'
 import Opcion from '../admision1/componente/Opcion.jsx'
-import TextArea from './componentes/TextArea.jsx'
+import TextoMultiline from '../admision/componentes/TextoMultiline.jsx'
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -50,43 +50,37 @@ const SistemaNervioso = ({ingreso, setIngreso, paciente}) => {
     setIngreso({...ingreso,...values})
   },[values])
 
-
-  const handleTextarea = (event, name) => {
-    setValues( {...values, [name]: event.target.value });
+  const handleChange = (event) => {
+    setValues({...values, [event.target.name]: event.target.value})
   }
+
 
   const classes = styles(); 
   return (
-  <Paper className={classes.root} style = { {backgroundColor:'#d7dbca'} }>
+  <Paper className={classes.root} style = { {backgroundColor: 'rgb(32, 135, 252)'} }>
     <Grid container spacing={3}> 
 
       < Subtitulo titulo = 'Sistema nervioso central' />
     
       <Opcion titulo = 'Movimientos anormales' />
-
-        <TextArea name = 'movimientos_anormales' handleChange = {handleTextarea} value = {values.movimientos_anormales} placeholder = 'Movimientos anormales'/> 
+        <TextoMultiline error = {false} name = 'movimientos_anormales' value = {values.movimientos_anormales} onChange = {handleChange} minRows = {4} maxRows = { 4 } label = 'Movimientos anormales'/>
 
       <Opcion titulo = 'Rigidez/extrapiramidalismo' />
-
-        <TextArea name = 'rigidez' handleChange = {handleTextarea} value = {values.rigidez} placeholder = 'Rigidez/extrapiramidalismo'/> 
+        <TextoMultiline error = {false} name = 'rigidez' value = {values.rigidez} onChange = {handleChange} minRows = {4} maxRows = { 4 } label = 'Rigidez/extrapiramidalismo'/>
 
       <Opcion titulo = 'hemiplejisas' />
-
-        <TextArea name = 'hemiplejias' handleChange = {handleTextarea} value = {values.hemiplejias} placeholder = 'Hemiplejias'/> 
+        <TextoMultiline error = {false} name = 'hemiplejias' value = {values.hemiplejias} onChange = {handleChange} minRows = {4} maxRows = { 4 } label = 'Hemiplejias'/>
 
       <Opcion titulo = 'Hemiparesias' />
-
-        <TextArea name = 'hemiparesias' handleChange = {handleTextarea} value = {values.hemiparesias} placeholder = 'Hemiparesias'/> 
+        <TextoMultiline error = {false} name = 'hemiparesias' value = {values.hemiparesias} onChange = {handleChange} minRows = {4} maxRows = { 4 } label = 'Hemiparesias'/>
 
       <Opcion titulo = 'Marcha' />
 
       <Opcion titulo = 'Déficits neurológicos' />
-
-        <TextArea name = 'deficits_neurologicos' handleChange = {handleTextarea} value = {values.deficits_neurologicos} placeholder = 'Déficits Neurológicos'/> 
+        <TextoMultiline error = {false} name = 'deficits_neurologicos' value = {values.deficits_neurologicos} onChange = {handleChange} minRows = {4} maxRows = { 4 } label = 'Déficits neurológicos'/>
 
       <Opcion titulo = 'Enfermedades neurológicas' />
-
-        <TextArea name = 'enfermedades_neurologicas' handleChange = {handleTextarea} value = {values.enfermedades_neurologicas} placeholder = 'Enfermedades Neurológicas'/> 
+        <TextoMultiline error = {false} name = 'enfermedades_neurologicas' value = {values.enfermedades_neurologicas} onChange = {handleChange} minRows = {4} maxRows = { 4 } label = 'Enfermedades neurológicas'/> 
 
     </Grid>
   </Paper>

@@ -1,6 +1,5 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,9 +9,9 @@ import { Grid, Radio, RadioGroup } from '@material-ui/core/';
 
 const GreenRadio = withStyles({
   root: {
-    color: green[400],
+    color: 'rgb(32, 135, 252)',
     '&$checked': {
-      color: green[600],
+      color: 'rgb(25, 130, 255)',
     },
   },
   checked: {},

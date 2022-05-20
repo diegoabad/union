@@ -1,28 +1,11 @@
 import React, { useEffect } from 'react';
 import { AppBar, Toolbar, Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles'
 
-import { useDispatch } from 'react-redux'
-import { getSemiologica } from '../../redux/actions'
-
-const styles = makeStyles((theme) => ({
-  root: {
-    '& .MuiAppBar-colorPrimary': {
-      display: 'flex',
-      margin: theme.spacing(1),
-      marginLeft: theme.spacing(2),
-      width: '100%',   
-
-    },
-  }
-}))
 
 const Header = ({setSemiologica, semiologica, paciente}) => {
 
   const [fecha, setFecha] = React.useState('');
   const [values, setValues] = React.useState({fecha: new Date()});
-
-  const classes = styles();
 
   useEffect(() => {
     if (!paciente){
@@ -42,7 +25,7 @@ const Header = ({setSemiologica, semiologica, paciente}) => {
   
   return (
 
-      <AppBar position="static" style ={ {backgroundColor: '#f3efe1', color: 'black'} }>
+      <AppBar position="static" style ={ {backgroundColor: 'rgb(32, 135, 252)', color: 'white', fontFamily: 'poppins'} }>
         <Toolbar>
           <Grid container style={{textAlign: 'center'}}>
             <Grid item xs = {12} sm = {8} md={6}>

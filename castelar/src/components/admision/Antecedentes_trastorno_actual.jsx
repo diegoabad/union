@@ -18,7 +18,7 @@ const styles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       marginLeft: theme.spacing(2),
       width: '100%',   
-      backgroundColor: '#FAFAFA'
+      backgroundColor: '#FEFEFA'
     }
   }
 }))
@@ -125,7 +125,7 @@ const Antecedentes_trastorno_actual = ({estado, setEstado, paciente}) => {
   const classes = styles();
 
   return (
-    <Paper className={classes.root} style = { {backgroundColor:'#d7dbca'} }>
+    <Paper className={classes.root} style = { {backgroundColor:'rgb(32, 135, 252)'} }>
       <Grid container spacing={3}>
         
         <Subtitulo titulo = 'Antecedentes Psicopatológicos' />       

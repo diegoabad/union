@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 		width: '90%',
 		alignItems: 'strech',
 		justifyContent: 'space-between',
-		backgroundColor: '#F0FFFF',
+		backgroundColor: '#FFFFFF',
 	},
 }));
 
@@ -59,7 +59,7 @@ const EvolucionPsicologica = ({ setOpenFiliatorio, registro }) => {
 	const [psicologica, setPsicologica] = React.useState('');
 	const dni = useSelector((state) => state.pacienteActual.filiatorios.dni);
 	const paciente = useSelector((state) => state.pacienteActual.psicologia);
-  const editar = useSelector((state) => state.editarFiliatorio)
+	const editar = useSelector((state) => state.editarFiliatorio);
 	const userActual = useSelector((state) => state.usuarioActual);
 	const [error, setError] = React.useState('');
 	const dispatch = useDispatch();
@@ -74,18 +74,18 @@ const EvolucionPsicologica = ({ setOpenFiliatorio, registro }) => {
 		if (control.mensaje !== 'alta admitida') {
 			setError(control.mensaje);
 		} else {
-			let data
-      if (!editar){
-		    data = [psicologica, ...paciente ];
-      } else {
-        data = paciente.map((item, index) => {
-          if (index === registro) {
-            return psicologica
-          } else {
-            return item
-          }
-        })
-      }
+			let data;
+			if (!editar) {
+				data = [psicologica, ...paciente];
+			} else {
+				data = paciente.map((item, index) => {
+					if (index === registro) {
+						return psicologica;
+					} else {
+						return item;
+					}
+				});
+			}
 			const result = await addPsicologica(data, dni);
 			if (result) {
 				setOpenFiliatorio(false);
@@ -99,8 +99,15 @@ const EvolucionPsicologica = ({ setOpenFiliatorio, registro }) => {
 	};
 
 	useEffect(() => {
-    if (!editar) setPsicologica({...psicologica, ...extraData});
-    else setPsicologica({...psicologica, idProfesional: paciente[registro].idProfesional, nombreCompletoProfesional: paciente[registro].nombreCompletoProfesional, fechaCreacion: paciente[registro].fechaCreacion.seconds? new Date(paciente[registro].fechaCreacion.seconds * 1000) : new Date(paciente[registro].fechaCreacion)});
+		if (!editar) setPsicologica({ ...psicologica, ...extraData });
+		else
+			setPsicologica({
+				...psicologica,
+				idProfesional: paciente[registro].idProfesional,
+				fechaCreacion: paciente[registro].fechaCreacion.seconds
+					? new Date(paciente[registro].fechaCreacion.seconds * 1000)
+					: new Date(paciente[registro].fechaCreacion),
+			});
 	}, []);
 
 	const classes = useStyles();
@@ -113,7 +120,7 @@ const EvolucionPsicologica = ({ setOpenFiliatorio, registro }) => {
 						<Problematica
 							setPsicologica={setPsicologica}
 							psicologica={psicologica}
-              paciente = {editar ? paciente[registro] : false}
+							paciente={editar ? paciente[registro] : false}
 						/>
 					</Grid>
 
@@ -121,7 +128,7 @@ const EvolucionPsicologica = ({ setOpenFiliatorio, registro }) => {
 						<Evolucion
 							setPsicologica={setPsicologica}
 							psicologica={psicologica}
-              paciente = {editar ? paciente[registro] : false}
+							paciente={editar ? paciente[registro] : false}
 						/>
 					</Grid>
 
@@ -129,7 +136,7 @@ const EvolucionPsicologica = ({ setOpenFiliatorio, registro }) => {
 						<Interconsultas
 							setPsicologica={setPsicologica}
 							psicologica={psicologica}
-              paciente = {editar ? paciente[registro] : false}
+							paciente={editar ? paciente[registro] : false}
 						/>
 					</Grid>
 

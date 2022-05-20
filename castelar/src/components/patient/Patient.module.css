@@ -79,8 +79,6 @@
 }
 
 .containerIcon {
-	cursor: pointer;
-	box-shadow: 0px 0px 10px 0px rgba(17, 17, 17, 0.164);
 	height: 100%;
 	min-width: 40px;
 	display: flex;
@@ -126,9 +124,9 @@
 }
 .containerMenuPatient div {
 	cursor: pointer;
-	padding: 15px 0;
+	padding: 15px 0 15px 15px;
 	width: 100%;
-	text-align: center;
+	text-align: left;
 	box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.151);
 	letter-spacing: 1px;
 	font-weight: 500;

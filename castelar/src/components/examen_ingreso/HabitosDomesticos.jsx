@@ -5,7 +5,7 @@ import { Grid, Paper } from '@material-ui/core';
 import Subtitulo from '../admision1/componente/Subtitulo.jsx'
 import Opcion from '../admision1/componente/Opcion.jsx'
 import RadioButton from '../admision1/componente/RadioButton.jsx'
-import TextArea from './componentes/TextArea.jsx'
+import TextoMultiline from '../admision/componentes/TextoMultiline.jsx'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -50,13 +50,10 @@ const HabitosDomesticos = ({ingreso, setIngreso, paciente}) => {
     setValues( {...values, [event.target.name]: event.target.value });
   }
 
-  const handleTextarea = (event, name) => {
-    setValues( {...values, [name]: event.target.value });
-  }
 
   const classes = styles();
   return (
-    <Paper className={classes.root} style = { {backgroundColor:'#d7dbca'} }>
+    <Paper className={classes.root} style = { {backgroundColor: 'rgb(32, 135, 252)'} }>
       <Grid container spacing={3}>
 
         <Subtitulo titulo = 'Hábitos domésticos' />
@@ -73,7 +70,7 @@ const HabitosDomesticos = ({ingreso, setIngreso, paciente}) => {
 
             <RadioButton name = 'alimentacion_asistencia' handleChange = {handleChange} datos = {[{name: 'si', label: 'Si'}, {name: 'no', label: 'No'}]} titulo = 'Alimentación' value = {values.alimentacion_asistencia} />
 
-            <TextArea name = 'alimentacion_descripcion' handleChange = {handleTextarea} value = {values.alimentacion_descripcion} placeholder = 'Alimentación '/>
+            <TextoMultiline name = 'alimentacion_descripcion' handleChange = {handleChange} label = 'Descripción' value = {values.alimentacion_descripcion} minRows = {4} maxRows = { 4 }/>
 
       </Grid>
     </Paper>

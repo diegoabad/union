@@ -24,11 +24,6 @@ export const cont_clinico = (estado) => {
       mensaje: 'Saturación es requerida',
     }
   }
-  if (estado.marcha === '' || estado.marcha === undefined) {
-    return{
-      mensaje: 'Marcha es requerida',
-    }
-  }
   if (estado.normohidratado === '' || estado.normohidratado === undefined) {
     return{
       mensaje: 'Normohidratado es requerido',
@@ -79,7 +74,7 @@ export const cont_clinico = (estado) => {
       mensaje: 'Soplos es requerido',
     }
   }
-  if (estado.soplos_descripcion === '' || estado.soplos_descripcion === undefined) {
+  if ((estado.soplos === 'si') && (estado.soplos_descripcion === '' || estado.soplos_descripcion === undefined)) {
     return{
       mensaje: 'Soplos descripción es requerido',
     }
@@ -89,7 +84,7 @@ export const cont_clinico = (estado) => {
       mensaje: 'Edemas es requerido',
     }
   }
-  if (estado.edemas_perifericos === '' || estado.edemas_perifericos === undefined) {
+  if ((estado.edemas === 'si') && (estado.edemas_perifericos === '' || estado.edemas_perifericos === undefined)) {
     return{
       mensaje: 'Edemas perifericos es requerido',
     }
@@ -134,7 +129,7 @@ export const cont_clinico = (estado) => {
       mensaje: 'Visceromegalias es requerido',
     }
   }
-  if (estado.alimentacion_descripcion === '' || estado.alimentacion_descripcion === undefined) {
+  if ((estado.alimentacion === 'si') && estado.alimentacion_descripcion === '' || estado.alimentacion_descripcion === undefined) {
     return{
       mensaje: 'Alimentación descripción es requerido',
     }

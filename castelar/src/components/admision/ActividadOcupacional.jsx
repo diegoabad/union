@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       marginLeft: theme.spacing(2),
       width: '100%',   
-      backgroundColor: '#FAFAFA'
+      backgroundColor: '#FEFEFA'
     },
 
     '& .MuiTextField-root':{
@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
     },
     '& .MuiFormLabel-root': {
       fontSize: 'medium',
-      backgroundColor: 'white',
       paddingLeft: '10px',
       paddingRight: '10px',
     },
@@ -76,7 +75,7 @@ const ActividadOcupacional = ({estado, setEstado, paciente}) => {
 
   const classes = useStyles();
   return (
-    <Paper className={classes.root} style = { {backgroundColor:'#d7dbca'} }>
+    <Paper className={classes.root} style = { {backgroundColor:'rgb(32, 135, 252)'} }>
       <Grid container spacing={3}>
         
         <Subtitulo titulo = 'Actividad ocupacional' />

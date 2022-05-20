@@ -6,7 +6,7 @@ import { getPsiquiatrica } from '../redux/actions/index';
 import Headers from './evolucionpsiquiatrica/Headers';
 import Interconsultas from './evolucionpsiquiatrica/Interconsultas';
 import Evolucion from './evolucionpsiquiatrica/Evolucion';
-import Alert from '@material-ui/lab/Alert';
+import Alerta from './admision1/componente/Alerta.jsx';
 
 import { db } from '../firebase/credentials';
 import { doc, updateDoc } from 'firebase/firestore';
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 		width: '90%',
 		alignItems: 'strech',
 		justifyContent: 'space-between',
-		backgroundColor: '#F0FFFF',
+		backgroundColor: '#FFFFFF',
 	},
 }));
 
@@ -124,25 +124,16 @@ const EvolucionPsiquiatrica = ({ setOpenFiliatorio, registro }) => {
 						/>
 					</Grid>
 
-					<Grid item xs={12} style={{ alignItems: 'center', textAlign: 'center' }}>
-						{error !== '' && (
-							<Grid item xs={12}>
-								<Paper>
-									<Alert severity='error' className={classes.root}>
-										{error}
-									</Alert>
-								</Paper>
-							</Grid>
-						)}
+					<Grid
+						container
+						item
+						xs={12}
+						spacing={2}
+						style={{ alignItems: 'center' }}
+					>
+						<Alerta error={error} handleClick={handleClick} />
 
-						<Button
-							size='large'
-							color='primary'
-							variant='contained'
-							onClick={handleClick}
-						>
-							Guardar
-						</Button>
+
 					</Grid>
 				</Grid>
 			</Paper>

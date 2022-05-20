@@ -13,13 +13,12 @@ export default function UserView({ user }) {
 	return (
 		<div className={s.userContainer}>
 			<Routes>
-				<Route path='/' element={<HomeUser />} />
+				{<Route path='/' element={<Patient />} />}
 				<Route path='/calendar' element={<Professional />} />
 				<Route path='/calendar/:idProfessional' element={<Calendar />} />
 				<Route path='/schedule/:idProfessional/:date' element={<Schedule />} />
 				<Route path='/administracion' element={<Administration />} />
 				<Route path='/crearPac' element={<CreatePatients />} />
-				<Route path='/paciente' element={<Patient />} />
 			</Routes>
 		</div>
 	);

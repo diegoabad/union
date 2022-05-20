@@ -7,7 +7,7 @@ import { Grid, Paper } from '@material-ui/core';
 import Subtitulo from '../admision1/componente/Subtitulo.jsx'
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getFormulario, setPage } from '../../redux/actions/index'
+import { getFormulario } from '../../redux/actions/index'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,39 +20,27 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',   
       backgroundColor: '#FAFAFA'
     },
-
-    '& .MuiTextField-root':{
-      width: '300px',
-    },
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      width: '150ch',
-    },
     '& .MuiTextField-root':{
       width: '300px',
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
-    },
-    textField: {
-
-      width: '150ch',
     },
     '& .MuiInputBase-input': {
       fontSize: '1.5rem',
     },
     '& .MuiFormLabel-root': {
       fontSize: 'medium',
-      backgroundColor: 'white',
       paddingLeft: '10px',
       paddingRight: '10px',
+    },
+    '& .MuiFilledInput-root': {
+      backgroundColor: 'rgba(32, 135, 252, 0.1)',
     },
     '& .MuiTypography-body1': {
       fontSize: '1.5rem',
     },
     '& .MuiInputLabel-outlined': {
       fontSize: '1.5rem',
-      backgroundColor: 'white',
       paddingLeft: '10px',
       paddingRight: '10px',
     },
@@ -110,36 +98,36 @@ const Referencia = (props) => {
   const classes = useStyles();
 
   return (
-    <Paper className={classes.root} style = { {backgroundColor:'#d7dbca'} }>
+    <Paper className={classes.root} style = { {backgroundColor:'rgb(32, 135, 252)'} }>
       <Grid container spacing={3}>
   
         <Subtitulo titulo = 'Persona de referencia' />
           <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-            <TextField className={classes.textField} fullWidth variant="outlined" error={values.nombre === "" ? true : false} label={values.nombre === "" ? "Nombre es requerido" : "Nombre"} name="nombre_ref" value={values.nombre_ref} onChange={handleChange}/>
+            <TextField className={classes.textField} fullWidth variant="filled" label = 'Persona de referencia' name="nombre_ref" value={values.nombre_ref} onChange={handleChange}/>
           </Grid>
           <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-            <TextField className={classes.textField} fullWidth variant="outlined" error={values.apellido_ref === "" ? true : false} label={values.apellido_ref === "" ? "Apellido es requerido" : "Apellido"} name="apellido_ref" value={values.apellido_ref} onChange={handleChange}/>
+            <TextField className={classes.textField} fullWidth variant="filled" error={values.nombre_ref !== '' && values.apellido_ref === "" ? true : false} label={values.nombre_ref !== '' && values.apellido_ref === "" ? "Apellido es requerido" : "Apellido"} name="apellido_ref" value={values.apellido_ref} onChange={handleChange}/>
           </Grid>
           <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-            <TextField className={classes.textField} fullWidth variant="outlined" error = {values.calle_ref === "" ? true : false } required = { true } label={values.calle_ref === "" ? "calle requerida" : "calle" } name="calle_ref" value={values.calle_ref} onChange={handleChange}/>
+            <TextField className={classes.textField} fullWidth variant="filled" error = {values.nombre_ref !== '' && values.calle_ref === "" ? true : false } required = { true } label={values.nombre_ref !== '' && values.calle_ref === "" ? "calle requerida" : "calle" } name="calle_ref" value={values.calle_ref} onChange={handleChange}/>
         </Grid>
         <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-            <TextField className={classes.textField} fullWidth variant="outlined"  label={"número"} name="numero_ref" value={values.numero_ref} type="number" onChange={handleChange}/>
+            <TextField className={classes.textField} fullWidth variant="filled"  label={"número"} name="numero_ref" value={values.numero_ref} type="number" onChange={handleChange}/>
           </Grid>
           <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-            <TextField className={classes.textField} fullWidth required = {true} variant="outlined" error = {values.localidad_ref === "" ? true : false } label={values.localidad_ref === "" ? "localidad requerida" : "localidad" } name="localidad_ref" value={values.localidad_ref} onChange={handleChange}/>
+            <TextField className={classes.textField} fullWidth required = {true} variant="filled" error = {values.nombre_ref !== '' && values.localidad_ref === "" ? true : false } label={values.nombre_ref !== '' && values.localidad_ref === "" ? "localidad requerida" : "localidad" } name="localidad_ref" value={values.localidad_ref} onChange={handleChange}/>
           </Grid>
           <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-            <TextField className={classes.textField} fullWidth required = {true} error = {values.cod_post_ref === "" ? true : false } variant="outlined" label= {values.cod_post_ref === "" ? "C.P requerido" :"C.P." } name="cod_post_ref" value={values.cod_post_ref} onChange={handleChange}/>
+            <TextField className={classes.textField} fullWidth required = {true} error = {values.nombre_ref !== '' && values.cod_post_ref === "" ? true : false } variant="filled" label= {values.nombre_ref !== '' && values.cod_post_ref === "" ? "C.P requerido" :"C.P." } name="cod_post_ref" value={values.cod_post_ref} onChange={handleChange}/>
           </Grid>
           <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-            <TextField className={classes.textField} fullWidth error = { values.provincia_ref === "" ? true : false } variant="outlined" label= { values.provincia_ref === "" ? "provincia requerida" : "provincia"} name="provincia_ref" value={values.provincia_ref} required = {true} onChange={handleChange}/>
+            <TextField className={classes.textField} fullWidth error = {values.nombre_ref !== '' &&  values.provincia_ref === "" ? true : false } variant="filled" label= {values.nombre_ref !== '' &&  values.provincia_ref === "" ? "provincia requerida" : "provincia"} name="provincia_ref" value={values.provincia_ref} required = {true} onChange={handleChange}/>
           </Grid>
           <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-            <TextField className={classes.textField} fullWidth variant="outlined" label="telefono" name="tel_ref" value={values.tel_ref} onChange={handleChange}/>
+            <TextField className={classes.textField} fullWidth variant="filled" label="telefono" name="tel_ref" value={values.tel_ref} onChange={handleChange}/>
         </Grid>
         <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-          <TextField className={classes.textField} fullWidth variant="outlined" type="email" label="email" name="email_ref" value={values.email_ref} onChange={handleChange}/>
+          <TextField className={classes.textField} fullWidth variant="filled" type="email" label="email" name="email_ref" value={values.email_ref} onChange={handleChange}/>
         </Grid>
 
         </Grid>

@@ -26,38 +26,27 @@ const useStyles = makeStyles((theme) => ({
 			width: '100%',
 			backgroundColor: '#FAFAFA',
 		},
-
-		'& .MuiTextField-root': {
-			width: '300px',
-		},
-		textField: {
-			marginLeft: theme.spacing(1),
-			marginRight: theme.spacing(1),
-			width: '150ch',
-		},
 		'& .MuiTextField-root': {
 			width: '300px',
 			marginLeft: theme.spacing(1),
 			marginRight: theme.spacing(1),
-		},
-		textField: {
-			width: '150ch',
 		},
 		'& .MuiInputBase-input': {
 			fontSize: '1.5rem',
 		},
 		'& .MuiFormLabel-root': {
 			fontSize: 'medium',
-			backgroundColor: 'white',
 			paddingLeft: '10px',
 			paddingRight: '10px',
 		},
+    '& .MuiFilledInput-root': {
+      backgroundColor: 'rgba(32, 135, 252, 0.1)',
+    },
 		'& .MuiTypography-body1': {
 			fontSize: '1.5rem',
 		},
 		'& .MuiInputLabel-outlined': {
 			fontSize: '1.5rem',
-			backgroundColor: 'white',
 			paddingLeft: '10px',
 			paddingRight: '10px',
 		},
@@ -112,7 +101,7 @@ const Tratamiento = (props) => {
 	const classes = useStyles();
 
 	return (
-		<Paper className={classes.root} style={{ backgroundColor: '#d7dbca' }}>
+		<Paper className={classes.root} style = { {backgroundColor:'rgb(32, 135, 252)'} }>
 			<Grid container spacing={3}>
 				<Subtitulo titulo='Tratamiento Actual' />
 				<Grid item xs={12} style={{ margin: '10px' }}>
@@ -134,7 +123,7 @@ const Tratamiento = (props) => {
 							<TextField
 								className={classes.textField}
 								fullWidth
-								variant='outlined'
+								variant='filled'
 								error={values.profesionales === '' ? true : false}
 								required={true}
 								label={
@@ -151,7 +140,7 @@ const Tratamiento = (props) => {
 							<TextField
 								className={classes.textField}
 								fullWidth
-								variant='outlined'
+								variant='filled'
 								error={values.calle_prof === '' ? true : false}
 								required={true}
 								label={values.calle_prof === '' ? 'calle requerida' : 'calle'}
@@ -164,7 +153,7 @@ const Tratamiento = (props) => {
 							<TextField
 								className={classes.textField}
 								fullWidth
-								variant='outlined'
+								variant='filled'
 								label={'número'}
 								name='numero_prof'
 								value={values.numero_prof}
@@ -177,7 +166,7 @@ const Tratamiento = (props) => {
 								className={classes.textField}
 								fullWidth
 								required={true}
-								variant='outlined'
+								variant='filled'
 								error={values.localidad_prof === '' ? true : false}
 								label={
 									values.localidad_prof === ''
@@ -195,7 +184,7 @@ const Tratamiento = (props) => {
 								fullWidth
 								required={true}
 								error={values.cod_post_prof === '' ? true : false}
-								variant='outlined'
+								variant='filled'
 								label={values.cod_post_prof === '' ? 'C.P requerido' : 'C.P.'}
 								name='cod_post_prof'
 								value={values.cod_post_prof}
@@ -207,7 +196,7 @@ const Tratamiento = (props) => {
 								className={classes.textField}
 								fullWidth
 								error={values.provincia_prof === '' ? true : false}
-								variant='outlined'
+								variant='filled'
 								label={
 									values.provincia_prof === ''
 										? 'provincia requerida'
@@ -223,7 +212,7 @@ const Tratamiento = (props) => {
 							<TextField
 								className={classes.textField}
 								fullWidth
-								variant='outlined'
+								variant='filled'
 								label='telefono'
 								name='tel_prof'
 								value={values.tel_prof}
@@ -235,7 +224,7 @@ const Tratamiento = (props) => {
 							<TextField
 								className={classes.textField}
 								fullWidth
-								variant='outlined'
+								variant='filled'
 								label='email'
 								name='email_prof'
 								value={values.email_prof}

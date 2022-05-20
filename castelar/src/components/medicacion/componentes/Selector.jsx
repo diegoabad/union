@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     width: '80%',
     minWidth: 120,
+    '& .MuiInputLabel-formControl' :{
+      top: '-15px',
+    },
   },
   selectEmpty: {
     marginTop: theme.spacing(2),

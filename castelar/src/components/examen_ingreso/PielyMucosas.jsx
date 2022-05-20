@@ -5,7 +5,7 @@ import { Grid, Paper } from '@material-ui/core';
 import Subtitulo from '../admision1/componente/Subtitulo.jsx'
 import Opcion from '../admision1/componente/Opcion.jsx'
 import RadioButton from '../admision1/componente/RadioButton.jsx'
-import TextArea from './componentes/TextArea.jsx'
+import TextoMultiline from '../admision/componentes/TextoMultiline.jsx'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -51,6 +51,7 @@ const PielyMucosas = ({ingreso, setIngreso, paciente}) => {
     }
   },[])
 
+
   useEffect(() => {
     setIngreso({...ingreso,...values})
   },[values])
@@ -60,50 +61,43 @@ const PielyMucosas = ({ingreso, setIngreso, paciente}) => {
       setValues( {...values, [event.target.name]: event.target.value });
   }
 
-  const handleTextarea = (event, name) => {
-    setValues( {...values, [name]: event.target.value });
-  }
 
-  console.log(values)
 
   const classes = styles();
   return (
-    <Paper className={classes.root} style = { {backgroundColor:'#d7dbca'} }>
+    <Paper className={classes.root} style = { {backgroundColor: 'rgb(32, 135, 252)'} }>
       <Grid container spacing={3}>
 
         <Subtitulo titulo = 'Exámen piel y mucosas' />
 
         <Opcion titulo = 'Normohidratado' />
 
-          <RadioButton name = 'normohidratado' handleChange = {handleChange} datos = {[{name: 'si', label: 'Si'}, {name: 'no', label: 'No'}]} titulo = 'Normohidratado' value = {values.marcha} />
+          <RadioButton name = 'normohidratado' handleChange = {handleChange} datos = {[{name: 'si', label: 'Si'}, {name: 'no', label: 'No'}]} titulo = 'Normohidratado' value = {values.normohidratado} />
 
         <Opcion titulo = 'Normocoloreado' />
 
-          <RadioButton name = 'normocoloreado' handleChange = {handleChange} datos = {[{name: 'si', label: 'Si'}, {name: 'no', label: 'No'}]} titulo = 'Normocoloreado' value = {values.marcha} />
+          <RadioButton name = 'normocoloreado' handleChange = {handleChange} datos = {[{name: 'si', label: 'Si'}, {name: 'no', label: 'No'}]} titulo = 'Normocoloreado' value = {values.normocoloreado} />
 
         <Opcion titulo = 'Hematomas' />
 
-          <RadioButton name = 'hematomas' handleChange = {handleChange} datos = {[{name: 'si', label: 'Si'}, {name: 'no', label: 'No'}]} titulo = 'Hematomas' value = {values.marcha} />
+          <RadioButton name = 'hematomas' handleChange = {handleChange} datos = {[{name: 'si', label: 'Si'}, {name: 'no', label: 'No'}]} titulo = 'Hematomas' value = {values.hematomas} />
 
         <Opcion titulo = 'Escoriaciones' />
 
-          <RadioButton name = 'escoriaciones' handleChange = {handleChange} datos = {[{name: 'si', label: 'Si'}, {name: 'no', label: 'No'}]} titulo = 'Escoriaciones' value = {values.marcha} />
+          <RadioButton name = 'escoriaciones' handleChange = {handleChange} datos = {[{name: 'si', label: 'Si'}, {name: 'no', label: 'No'}]} titulo = 'Escoriaciones' value = {values.escoriaciones} />
 
         <Opcion titulo = 'Úlceras' />
 
-          <RadioButton name = 'ulceras' handleChange = {handleChange} datos = {[{name: 'si', label: 'Si'}, {name: 'no', label: 'No'}]} titulo = 'Úlceras' value = {values.marcha} />
+          <RadioButton name = 'ulceras' handleChange = {handleChange} datos = {[{name: 'si', label: 'Si'}, {name: 'no', label: 'No'}]} label = 'Úlceras' value = {values.ulceras} />
 
         <Opcion titulo = 'Lesiones por apoyo' />
-
-          <TextArea name = 'lesiones_apoyo' handleChange = {handleTextarea} value = {values.lesiones_apoyo} placeholder = 'Lesiones por apoyo'/> 
+          <TextoMultiline error = {false} name = 'lesiones_apoyo' handleChange = {handleChange} label = 'Lesiones por apoyo' value = {values.lesiones_apoyo} minRows = {4} maxRows = { 4 }/>
 
         <Opcion titulo = 'Lesiones por sujeción' />
-
-          <TextArea name = 'lesiones_sujecion' handleChange = {handleTextarea} value = {values.lesiones_sujecion} placeholder = 'Lesiones por Sujeción'/> 
+          <TextoMultiline error = {false} name = 'lesiones_sujecion' handleChange = {handleChange} label = 'Lesiones por sujeción' value = {values.lesiones_sujecion} minRows = {4} maxRows = { 4 }/>
 
         <Opcion titulo = 'lesiones por autolesiones' />
-
-          <TextArea name = 'autolesiones' handleChange = {handleTextarea} value = {values.autolesiones} placeholder = 'Lesiones por autolesiones'/> 
+          <TextoMultiline error = {false} name = 'autolesion' handleChange = {handleChange} label = 'Lesiones por autolesiones' value = {values.autolesion} minRows = {4} maxRows = { 4 }/>
 
 
       </Grid>

@@ -1,20 +1,22 @@
 import React, { useEffect } from 'react'
-import { useDispatch} from 'react-redux'
 
-import { setMedicacion } from '../../redux/actions/index.js'
 
 import Medicamentos from './componentes/Medicamentos.jsx'
-import Selector from './componentes/Selector.jsx'
-import Lista from '../examen_ingreso/componentes/Lista.jsx'
 import MedLista from './componentes/MedLista.jsx'
 import Tabla from './componentes/Tabla.jsx'
 import Subtitulo from '../admision1/componente/Subtitulo.jsx'
+import Opcion from '../admision1/componente/Opcion.jsx'
+import TextoMultiline from '../admision/componentes/TextoMultiline';
+import Numeros from '../examen_ingreso/componentes/IngresoNros';
 
 
-import {Grid, Paper, Button, Select, FormControl, InputLabel, MenuItem} from '@material-ui/core'
+import {Grid, Paper, Button, FormControlLabel} from '@material-ui/core'
+import Switch from '@material-ui/core/Switch';
+import Divider from '@material-ui/core/Divider';
 import QueueIcon from '@material-ui/icons/Queue';
 import { green } from '@material-ui/core/colors';
 import {makeStyles} from '@material-ui/core/styles'
+import { withStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,26 +32,11 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiTextField-root':{
       width: '300px',
     },
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      width: '150ch',
-    },
-    '& .MuiTextField-root':{
-      width: '300px',
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-    },
-    textField: {
-
-      width: '150ch',
-    },
     '& .MuiInputBase-input': {
       fontSize: '1.5rem',
     },
     '& .MuiFormLabel-root': {
       fontSize: 'medium',
-      backgroundColor: 'white',
       paddingLeft: '10px',
       paddingRight: '10px',
     },
@@ -58,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
     },
     '& .MuiInputLabel-outlined': {
       fontSize: '1.5rem',
-      backgroundColor: 'white',
       paddingLeft: '10px',
       paddingRight: '10px',
     },
@@ -66,25 +52,110 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '1.5rem',
       width: '70px',
       height: '30px',
+    },
+    '& .MuiFormControl-root': {
+      width: '50vw',
     }
   },
 }));
 
+const IOSSwitch = withStyles((theme) => ({
+  root: {
+    width: 42,
+    height: 26,
+    padding: 0,
+    margin: theme.spacing(1),
+  },
+  switchBase: {
+    padding: 1,
+    '&$checked': {
+      transform: 'translateX(16px)',
+      color: theme.palette.common.white,
+      '& + $track': {
+        backgroundColor: '#1E90FF',
+        opacity: 1,
+        border: 'none',
+      },
+    },
+    '&$focusVisible $thumb': {
+      color: '#52d869',
+      border: '6px solid #fff',
+    },
+  },
+  thumb: {
+    width: 24,
+    height: 24,
+  },
+  track: {
+    borderRadius: 26 / 2,
+    border: `1px solid ${theme.palette.grey[400]}`,
+    backgroundColor: theme.palette.grey[50],
+    opacity: 1,
+    transition: theme.transitions.create(['background-color', 'border']),
+  },
+  checked: {},
+  focusVisible: {},
+}))(({ classes, ...props }) => {
+  return (
+    <Switch
+      focusVisibleClassName={classes.focusVisible}
+      disableRipple
+      classes={{
+        root: classes.root,
+        switchBase: classes.switchBase,
+        thumb: classes.thumb,
+        track: classes.track,
+        checked: classes.checked,
+      }}
+      {...props}
+    />
+  );
+});
 
 
-const Horarios = () => {
 
-  const dispatch = useDispatch();
+const Horarios = ({medicacion, setMedicacion, paciente}) => {
 
-  const label = [{value: '0:00', label:'0:00'}, {value: '1:00', label:'1:00'}, {value: '2:00', label:'2:00'}, {value: '3:00', label:'3:00'}, {value:'4:00' ,label:'4:00'}, {value: '5:00',label:'5:00'}, {value: '6:00',label:'6:00'}, {value: '7:00',label:'7:00'}, {value: '8:00',label:'8:00'}, {value: '9:00',label:'9:00'}, {value: '10:00',label:'10:00'}, {value: '11:00',label:'11:00'}, {value: '12:00',label:'12:00'}, {value: '13:00',label:'13:00'}, {value: '14:00',label:'14:00'}, {value: '15:00',label:'15:00'}, {value: '16:00',label:'16:00'}, {value: '17:00',label:'17:00'}, {value: '18:00',label:'18:00'}, {value: '19:00',label:'19:00'}, {value: '20:00',label:'20:00'}, {value: '21:00',label:'21:00'}, {value: '22:00',label:'22:00'}, {value: '23:00',label:'23:00'}]
 
-  const [estado , setEstado] = React.useState({medicacion: '' , horarios: [], periodicidad: ''});
-  const [values, setValues] = React.useState({medicacion: [], horarios: [], periodicidad: ''});
+  const initialStateValues = {
+    medicacion: '',
+    miligramos: '',
+    siete: '',
+    ocho: '',
+    doce: '',
+    dieciseis: '',
+    veinte: '',
+  }
+
+  const [estado , setEstado] = React.useState(initialStateValues);
+  const [values, setValues] = React.useState({medicacion:[], miligramos:[], siete:[], ocho:[], doce:[], dieciseis:[], veinte:[],observaciones: ''});
   const [rows, setRows] = React.useState([]);
+  const [state, setState] = React.useState({switch: true});
+  const [borrar, setBorrar] = React.useState(false);
 
   useEffect(() => {
-    dispatch(setMedicacion(values));
+    setMedicacion({...medicacion, ...values})
   },[values])
+
+
+  useEffect(() => {
+    if (paciente) {
+      setValues({...values, ...paciente})
+      for (let i = 0; i < paciente.medicacion.length; i++){
+        let row = {
+          medicacion: paciente.medicacion[i],
+          miligramos: paciente.miligramos[i],
+          siete: paciente.siete[i],
+          ocho: paciente.ocho[i],
+          doce: paciente.doce[i],
+          dieciseis: paciente.dieciseis[i],
+          veinte: paciente.veinte[i],
+        }
+        setRows(rows => [...rows, row])
+      }
+    }
+  },[]);
+
 
   const handleAutocomple = (event, value) => {
     if(value !== null){
@@ -94,80 +165,114 @@ const Horarios = () => {
 
   const handleChange = (event) => {
     const {name, value} = event.target
+    value.length > estado[name].length ? setBorrar(false) : setBorrar(true)
     setEstado({...estado, [name]: value });
   }
 
-  const handleChangeHorarios = (event) => {
-    const {value} = event.target
-    setEstado({...estado, horarios: estado.horarios.concat(value) });
+  const handleObservaciones = (event) => {
+    const {name, value} = event.target
+    setValues({...values, [name]: value });
   }
 
-  const handleChangePeriodicidad = (event) => {
-    const {value} = event.target
-    setEstado({...estado, periodicidad: value });
-  }
 
   const handleClick = () => {
-  if ((estado.horarios.length > 0 && estado.medicacion !== '') && (!values.medicacion.includes(estado.medicacion))){
-    setValues({...values, medicacion: values.medicacion.concat(estado.medicacion), horarios: values.horarios.concat([estado.horarios]), periodicidad: values.periodicidad.concat(estado.periodicidad)});
-    let id = estado.medicacion.split(' ')[0] * 1
-    setRows(rows.concat({index: id, horarios: estado.horarios, periodicidad: estado.periodicidad}))
-    setEstado({medicacion: '', horarios: [], periodicidad: ''});
+  if ((!values.medicacion.includes(estado.medicacion))){
+    setValues({...values, medicacion: values.medicacion.concat(estado.medicacion), siete: values.siete.concat(estado.siete), ocho: values.ocho.concat(estado.ocho), doce: values.doce.concat(estado.doce), dieciseis: values.dieciseis.concat(estado.dieciseis), veinte: values.veinte.concat(estado.veinte), miligramos: values.miligramos.concat(estado.miligramos)});
+    setRows(rows.concat(estado))
+    setEstado({medicacion: '', miligramos: '', siete: '', ocho: '', doce: '', dieciseis: '', veinte: ''});
   }
   }
 
-  const handleDelete = (event, value) => {
-    setEstado({...estado, horarios: estado.horarios.filter(item => item !== value) });
+
+  const handleDeleteMedicacion = (evt, name) => {
+    setEstado({...estado, [name]: '' });
   }
 
-  const handleDeleteMedicacion = () => {
-    setEstado({...estado, medicacion: '' });
+  const handleChecked = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
   }
 
-  console.log(values)
+  const handleDeleteTable = (event, index) => {
+    rows.splice(index, 1)
+    setRows(rows)
+    values.medicacion.splice(index, 1)
+    values.miligramos.splice(index, 1)
+    values.siete.splice(index, 1)
+    values.ocho.splice(index, 1)
+    values.doce.splice(index, 1)
+    values.dieciseis.splice(index, 1)
+    values.veinte.splice(index, 1)
+    setValues({...values})
+  }
+
+
   const classes = useStyles();
 
   return (
-  <Paper className={classes.root} style = { {backgroundColor:'#d7dbca'} }>
+  <Paper className={classes.root} style = { {backgroundColor:'#1E90FF'} }>
     <Grid container spacing={3}>
+  
+      <Grid item xs={11} style ={{display:'flex', flexDirection:'column'}}>
+        <Subtitulo titulo = 'Esquema-Frecuencia' /> 
+        <Divider style={{color: 'Black'}}/>
 
-      <Subtitulo titulo = 'Esquema-Frecuencia' />
-      <Grid item xs={12}>
-        <Medicamentos handleAutocomple={handleAutocomple} handleChange={handleChange} estado = {estado.medicacion}/>
-        <Selector handleChange={handleChangeHorarios} name='horarios' value={estado.horarios} options={label} titulo='Horarios'/>
+        <FormControlLabel
+        control={<IOSSwitch checked={state.switch} onChange={handleChecked} name="switch" />}
+        label={state.switch ? 'Buscar por droga' : 'Buscar por nombre de medicacion'}
+      />
+        <Medicamentos handleAutocomple={handleAutocomple} handleChange={handleChange} estado = {estado.medicacion} filtrar={state.switch} borrar={borrar}/>
 
-        <Grid item xs={12}>
-          <FormControl className={classes.root}>
-            <InputLabel id="demo-simple-select-label">Periodicidad</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={estado.periodicidad}
-                onChange={handleChangePeriodicidad}
-              >
-              <MenuItem value={'2 semanas'}>2 Semanas</MenuItem>
-              <MenuItem value={'1 mes'}>1 Mes</MenuItem>
-              <MenuItem value={'3 meses'}>3 Meses</MenuItem>
-              <MenuItem value={'permanente'}>Permanente</MenuItem>
-            </Select>
-          </FormControl>
+        <Numeros name="miligramos" label='Miligramos' value={estado.miligramos} handleChange = { handleChange }/>
+        
         </Grid>
 
-        {estado.medicacion !== '' && <MedLista lista = {estado.medicacion} handleDelete = {handleDeleteMedicacion} />}
-        <Lista lista = {estado.horarios} handleDelete={handleDelete} />
+        <Grid item xs = {11}>
 
-        {estado.medicacion !== '' && estado.horarios.length > 0 && estado.periodicidad !== '' && 
+          <Numeros name='siete' label = ' 7:00' value={estado.siete} handleChange = { handleChange }/>
+
+          <Numeros name='ocho' label = ' 8:00' value={estado.ocho} handleChange = { handleChange }/>
+
+          <Numeros name='doce' label = ' 12:00' value={estado.doce} handleChange = { handleChange }/>
+
+          <Numeros name='dieciseis' label = ' 16:00' value={estado.dieciseis} handleChange = { handleChange }/>
+
+          <Numeros name='veinte' label = ' 20:00' value={estado.veinte} handleChange = { handleChange }/>
+
+        </Grid>
+
+        <Grid item xs = {11}>
+
+        {estado.medicacion !== '' && <MedLista lista = {estado.medicacion} handleDelete = {handleDeleteMedicacion} name = 'medicacion'/>}
+
+        {estado.miligramos !== '' && <MedLista lista = {estado.miligramos + 'miligramos'} handleDelete = {handleDeleteMedicacion} name = 'miligramos'/>}
+
+        {estado.siete !== '' && <MedLista lista = {`7:00 cantidad: ${estado.siete}`} handleDelete = {handleDeleteMedicacion} name = 'siete'/>}
+
+        {estado.ocho !== '' && <MedLista lista = {`8:00 cantidad: ${estado.ocho}`} handleDelete = {handleDeleteMedicacion} name = 'ocho'/>}
+
+        {estado.doce !== '' && <MedLista lista = {`12:00 cantidad: ${estado.doce}`} handleDelete = {handleDeleteMedicacion} name = 'doce'/>}
+
+        {estado.dieciseis !== '' && <MedLista lista = {`16:00 cantidad: ${estado.dieciseis}`} handleDelete = {handleDeleteMedicacion} name = 'dieciseis'/>}
+
+        {estado.veinte !== '' && <MedLista lista = {`20:00 cantidad: ${estado.veinte}`} handleDelete = {handleDeleteMedicacion} name = 'veinte'/>}
+        
+
+        {estado.medicacion !== '' && estado.miligramos !== '' && (estado.siete !== '' || estado.ocho !=='' || estado.doce !== '' || estado.dieciseis !== '' || estado.veinte !== '') &&
         <Button className={classes.root} onClick={handleClick} color= 'primary'>
-          <QueueIcon style={{fontSize: 30, color: green[500]}}/>
+          <QueueIcon style={{fontSize: 30, color: green[500]}}/>Agregar
         </Button>
         }
- 
-      </Grid >
 
+        </Grid>
+      
       {rows.length > 0 &&
-      <Tabla  rows = {rows}/>
+      <Tabla  rows = {rows} handleDeleteTable = {handleDeleteTable} deleteOnTable = {true}/>
       }
 
+      <Opcion titulo = 'Observaciones' />
+      <TextoMultiline error = { false } label='Observaciones' name='observaciones' value={values.observaciones} handleChange = { handleObservaciones } minRows = {4} maxRows = {4}/>
+      
+      
     </Grid>
   </Paper>
   )

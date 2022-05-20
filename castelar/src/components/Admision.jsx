@@ -12,6 +12,7 @@ import Perentoreidad from './admision/Perentoreidad.jsx';
 import ActividadOcupacional from './admision/ActividadOcupacional';
 
 import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Grid } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
@@ -45,15 +46,45 @@ const useStyles = makeStyles((theme) => ({
 			fontSize: '1.5rem',
 		},
 	},
+  buton:{
+    
+      backgroundColor: 'rgb(32, 135, 252)',
+      color: 'white',
+      'buton-hover': {
+        backgroundColor: 'rgb(2, 154, 255)',
+      }
+  },
+
 	pagecontent: {
-		margin: theme.spacing(0),
+		margin: theme.spacing(5),
 		padding: theme.spacing(3),
 		width: '90%',
 		alignItems: 'strech',
 		justifyContent: 'space-between',
-		backgroundColor: '#F0FFFF',
+		backgroundColor: '#FFFFFF',
 	},
 }));
+
+const StyledButton = withStyles({
+  root: {
+    background: 'rgb(32, 135, 252)',
+    borderRadius: 5,
+    border: 0,
+    color: 'white',
+    fontSize: '1.5rem',
+    width: 80,
+    height: 48,
+    padding: '0 30px',
+    boxShadow: '0 3px 5px 2px rgba(32, 135, 252, .3)',  
+    '&:hover': {
+      backgroundColor: 'rgb(2, 154, 255)',
+    }
+  },
+  label: {
+    textTransform: 'capitalize',
+  },
+
+})(Button);
 
 const addAdmision = async (payload, id) => {
 	try {
@@ -72,7 +103,7 @@ const Admision = ({ setOpenFiliatorio, registro }) => {
 
 	const admision = useSelector((state) => state.pacienteActual.admision);
 	const dni = useSelector((state) => state.pacienteActual.filiatorios.dni);
-	const editar = useSelector((state) => state.editarFiliatorio);
+  const editar = useSelector((state) => state.editarFiliatorio);
 	const [error, setError] = React.useState('');
 	const [nombre, setNombre] = React.useState('');
 	const [enfermedades, setEnfermedades] = React.useState([]);
@@ -95,19 +126,19 @@ const Admision = ({ setOpenFiliatorio, registro }) => {
 		if (resultado.mensaje !== 'alta admitida') {
 			setError(resultado.mensaje);
 		} else {
-			let arrayAdmision = [];
-			if (!editar) {
-				arrayAdmision = [estado, ...admision];
-			} else {
-				arrayAdmision = admision.map((item, index) => {
-					if (index === registro) {
-						return estado;
-					} else {
-						return item;
-					}
-				});
-			}
-
+      let arrayAdmision = [];
+      if (!editar){
+		    arrayAdmision = [estado,...admision];
+      } else {
+        arrayAdmision = admision.map((item, index) => {
+          if (index === registro) {
+            return estado
+          } else {
+            return item
+          }
+        })
+      }
+    
 			const result = await addAdmision(arrayAdmision, dni);
 			if (result) {
 				setOpenFiliatorio(false);
@@ -120,17 +151,9 @@ const Admision = ({ setOpenFiliatorio, registro }) => {
 		}
 	};
 
-	useEffect(() => {
-		if (!editar) setEstado({ ...estado, ...extraData });
-		else
-			setEstado({
-				...estado,
-				idProfesional: admision[registro].idProfesional,
-				nombreCompletoProfesional: admision[registro].nombreCompletoProfesional,
-				fechaCreacion: admision[registro].fechaCreacion.seconds
-					? new Date(admision[registro].fechaCreacion.seconds * 1000)
-					: new Date(admision[registro].fechaCreacion),
-			});
+  useEffect(() => {
+    if (!editar) setEstado({...estado, ...extraData});
+    else setEstado({...estado, idProfesional: admision[registro].idProfesional, nombreCompletoProfesional: admision[registro].nombreCompletoProfesional, fechaCreacion: admision[registro].fechaCreacion.seconds? new Date(admision[registro].fechaCreacion.seconds * 1000) : new Date(admision[registro].fechaCreacion)});
 	}, []);
 
 	const classes = useStyles();
@@ -140,11 +163,7 @@ const Admision = ({ setOpenFiliatorio, registro }) => {
 			<Paper className={classes.pagecontent} spacing={2}>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
-						<MotivoConsulta
-							estado={estado}
-							setEstado={setEstado}
-							paciente={editar ? admision[registro] : false}
-						/>
+						<MotivoConsulta estado={estado} setEstado={setEstado} paciente = {editar ? admision[registro] : false}/>
 					</Grid>
 
 					<Grid item xs={12}>
@@ -155,43 +174,23 @@ const Admision = ({ setOpenFiliatorio, registro }) => {
 					</Grid>
 
 					<Grid item xs={12}>
-						<Familiares
-							estado={estado}
-							setEstado={setEstado}
-							paciente={editar ? admision[registro] : false}
-						/>
+						<Familiares estado={estado} setEstado={setEstado} paciente = {editar ? admision[registro] : false}/>
 					</Grid>
 
 					<Grid item xs={12}>
-						<AntecedentesPersonales
-							estado={estado}
-							setEstado={setEstado}
-							paciente={editar ? admision[registro] : false}
-						/>
+						<AntecedentesPersonales estado={estado} setEstado={setEstado} paciente = {editar ? admision[registro] : false}/>
 					</Grid>
 
 					<Grid item xs={12}>
-						<SucesosTraumaticos
-							estado={estado}
-							setEstado={setEstado}
-							paciente={editar ? admision[registro] : false}
-						/>
+						<SucesosTraumaticos estado={estado} setEstado={setEstado} paciente = {editar ? admision[registro] : false}/>
 					</Grid>
 
 					<Grid item xs={12}>
-						<Psicodesarrollo
-							estado={estado}
-							setEstado={setEstado}
-							paciente={editar ? admision[registro] : false}
-						/>
+						<Psicodesarrollo estado={estado} setEstado={setEstado} paciente = {editar ? admision[registro] : false}/>
 					</Grid>
 
 					<Grid item xs={12}>
-						<ActividadOcupacional
-							estado={estado}
-							setEstado={setEstado}
-							paciente={editar ? admision[registro] : false}
-						/>
+						<ActividadOcupacional estado={estado} setEstado={setEstado} paciente = {editar ? admision[registro] : false}/>
 					</Grid>
 
 					<Grid item xs={12}>
@@ -200,26 +199,19 @@ const Admision = ({ setOpenFiliatorio, registro }) => {
 							setNombre={setNombre}
 							enfermedades={enfermedades}
 							setEnfermedades={setEnfermedades}
+              mostrar = {true}
 							data={data}
 							estado={estado}
 							setEstado={setEstado}
-							paciente={editar ? admision[registro] : false}
+              paciente = {editar ? admision[registro] : false}
 						/>
 					</Grid>
 
 					<Grid item xs={12}>
-						<Perentoreidad
-							estado={estado}
-							setEstado={setEstado}
-							paciente={editar ? admision[registro] : false}
-						/>
+						<Perentoreidad estado={estado} setEstado={setEstado} paciente = {editar ? admision[registro] : false}/>
 					</Grid>
 
-					<Grid
-						item
-						xs={12}
-						style={{ alignItems: 'center', textAlign: 'center' }}
-					>
+					<Grid item xs={12} style={{ alignItems: 'center', textAlign: 'center' }}>
 						{error !== '' && (
 							<Grid item xs={12}>
 								<Paper>
@@ -229,14 +221,12 @@ const Admision = ({ setOpenFiliatorio, registro }) => {
 								</Paper>
 							</Grid>
 						)}
-						<Button
-							size='large'
-							color='primary'
-							variant='contained'
+						<StyledButton
+
 							onClick={handleClick}
 						>
 							Guardar
-						</Button>
+						</StyledButton>
 					</Grid>
 				</Grid>
 			</Paper>

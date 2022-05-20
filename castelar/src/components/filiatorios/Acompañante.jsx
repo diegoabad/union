@@ -20,30 +20,19 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',   
         backgroundColor: '#FAFAFA'
       },
-
-    '& .MuiTextField-root':{
-      width: '300px',
-    },
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      width: '150ch',
-    },
     '& .MuiTextField-root':{
       width: '300px',
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
-    },
-    textField: {
-
-      width: '150ch',
     },
     '& .MuiInputBase-input': {
       fontSize: '1.5rem',
     },
+    '& .MuiFilledInput-root': {
+      backgroundColor: 'rgba(32, 135, 252, 0.1)',
+    },
     '& .MuiFormLabel-root': {
       fontSize: 'medium',
-      backgroundColor: 'white',
       paddingLeft: '10px',
       paddingRight: '10px',
     },
@@ -52,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
     },
     '& .MuiInputLabel-outlined': {
       fontSize: '1.5rem',
-      backgroundColor: 'white',
       paddingLeft: '10px',
       paddingRight: '10px',
     },
@@ -64,7 +52,6 @@ const Acompañante = (props) => {
 	const dispatch = useDispatch();
 	const paciente = useSelector((state) => state.pacienteActual.filiatorios);
 	const editarFiliatorio = useSelector((state) => state.editarFiliatorio);
-	let años = '';
 
   const initialStateValues= {
     nombre_ac: '',
@@ -132,45 +119,45 @@ const Acompañante = (props) => {
   const classes = useStyles();
 
   return (
-    <Paper className={classes.root} style = { {backgroundColor:'#d7dbca'} }>
+    <Paper className={classes.root} style = { {backgroundColor:'rgb(32, 135, 252)'} }>
       <Grid container spacing={3}>
       
         <Subtitulo titulo = 'Acompañante' />
           <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-            <TextField className={classes.textField} fullWidth variant="outlined" error={values.nombre_ac === "" ? true : false} label={values.nombre_ac === "" ? "Nombre es requerido" : "Nombre"} name="nombre_ac" value={values.nombre_ac} onChange={handleChange}/>
+            <TextField className={classes.textField} fullWidth variant="filled"  label={ "Nombre"} name="nombre_ac" value={values.nombre_ac} onChange={handleChange}/>
           </Grid>
           <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-            <TextField className={classes.textField} fullWidth variant="outlined" error={values.apellido_ac === "" ? true : false} label={values.apellido_ac === "" ? "Apellido es requerido" : "Apellido"} name="apellido_ac" value={values.apellido_ac} onChange={handleChange}/>
+            <TextField className={classes.textField} fullWidth variant="filled" error={(values.nombre_ac !== '' &&values.apellido_ac === "") ? true : false} label={(values.nombre_ac !== '' &&values.apellido_ac === "") ? "Apellido es requerido" : "Apellido"} name="apellido_ac" value={values.apellido_ac} onChange={handleChange}/>
           </Grid>
           <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-            <TextField className={classes.textField} fullWidth variant="outlined" error = {((values.dni_ac === 0 ) || (values.dni_ac < 1000000))? true : false } label={((values.dni_ac === 0 ) || (values.dni < 1000000))? "ingrese un dni válido" : "DNI" } name="dni_ac" value={values.dni_ac} onChange={handleChange}/>
+            <TextField className={classes.textField} fullWidth variant="filled" error = {((values.nombre_ac !== '') && ((values.dni_ac === 0 ) || (values.dni_ac < 1000000)))? true : false } label={((values.nombre_ac !== '') && ((values.dni_ac === 0 ) || (values.dni_ac < 1000000)))? "ingrese un dni válido" : "DNI" } name="dni_ac" value={values.dni_ac} onChange={handleChange}/>
           </Grid>
           <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-            <TextField className={classes.textField} fullWidth variant="outlined" error = {values.rel_ac === "" ? true : false } required = { true } label={values.rel_ac === "" ? "Relación requerida" : "Relación con Paciente" } name="rel_ac" value={values.rel_ac} onChange={handleChange}/>
+            <TextField className={classes.textField} fullWidth variant="filled" error = {(values.nombre_ac && values.rel_ac === "" )? true : false } required = { true } label={(values.nombre_ac && values.rel_ac === "" ) ? "Relación requerida" : "Relación con Paciente" } name="rel_ac" value={values.rel_ac} onChange={handleChange}/>
         </Grid>
         <Grid item xs = {12} style = {{margin: "10px"}}>
             <Typography variant="h5" component="div"> Domicilio </Typography>
           </Grid>
           <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-            <TextField className={classes.textField} fullWidth variant="outlined" error = {values.calle_ac === "" ? true : false } required = { true } label={values.calle_ac === "" ? "calle requerida" : "calle" } name="calle_ac" value={values.calle_ac} onChange={handleChange}/>
+            <TextField className={classes.textField} fullWidth variant="filled" error = {(values.nombre_ac !== '' && values.calle_ac === "") ? true : false } required = { true } label={(values.nombre_ac !== '' && values.calle_ac === "") ? "calle requerida" : "calle" } name="calle_ac" value={values.calle_ac} onChange={handleChange}/>
         </Grid>
         <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-            <TextField className={classes.textField} fullWidth variant="outlined"  label={"número"} name="numero_ac" value={values.numero_ac} type="number" onChange={handleChange}/>
+            <TextField className={classes.textField} fullWidth variant="filled"  label={"número"} name="numero_ac" value={values.numero_ac} type="number" onChange={handleChange}/>
           </Grid>
           <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-            <TextField className={classes.textField} fullWidth required = {true} variant="outlined" error = {values.localidad_ac === "" ? true : false } label={values.localidad_ac === "" ? "localidad requerida" : "localidad" } name="localidad_ac" value={values.localidad_ac} onChange={handleChange}/>
+            <TextField className={classes.textField} fullWidth required = {true} variant="filled" error = {(values.nombre_ac !== '' && values.localidad_ac === "" )? true : false } label={(values.nombre_ac !== '' && values.localidad_ac === "" ) ? "localidad requerida" : "localidad" } name="localidad_ac" value={values.localidad_ac} onChange={handleChange}/>
           </Grid>
           <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-            <TextField className={classes.textField} fullWidth required = {true} error = {values.cod_post_ac === "" ? true : false } variant="outlined" label= {values.cod_post_ac === "" ? "C.P requerido" :"C.P." } name="cod_post_ac" value={values.cod_post_ac} onChange={handleChange}/>
+            <TextField className={classes.textField} fullWidth required = {true} error = {(values.nombre_ac && values.cod_post_ac === "") ? true : false } variant="filled" label= {(values.nombre_ac && values.cod_post_ac === "") ? "C.P requerido" :"C.P." } name="cod_post_ac" value={values.cod_post_ac} onChange={handleChange}/>
           </Grid>
           <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-            <TextField className={classes.textField} fullWidth error = { values.provincia_ac === "" ? true : false } variant="outlined" label= { values.provincia_ac === "" ? "provincia requerida" : "provincia"} name="provincia_ac" value={values.provincia_ac} required = {true} onChange={handleChange}/>
+            <TextField className={classes.textField} fullWidth error = { values.nombre_ac !== '' && values.provincia_ac === "" ? true : false } variant="filled" label= {values.nombre_ac !== '' && values.provincia_ac === "" ? "provincia requerida" : "provincia"} name="provincia_ac" value={values.provincia_ac} required = {true} onChange={handleChange}/>
           </Grid>
           <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-            <TextField className={classes.textField} fullWidth variant="outlined" label="telefono" name="tel_ac" value={values.tel_ac} onChange={handleChange}/>
+            <TextField className={classes.textField} fullWidth variant="filled" label="telefono" name="tel_ac" value={values.tel_ac} onChange={handleChange}/>
         </Grid>
         <Grid item xs = {12} sm = {8} md={2} style = {{margin: "10px"}}>
-          <TextField className={classes.textField} fullWidth variant="outlined" type="email" label="email" name="email_ac" value={values.email_ac} onChange={handleChange}/>
+          <TextField className={classes.textField} fullWidth variant="filled" type="email" label="email" name="email_ac" value={values.email_ac} onChange={handleChange}/>
         </Grid>
 
         </Grid>

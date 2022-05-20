@@ -25,16 +25,17 @@ const useStyles = makeStyles((theme) => ({
     },
     '& .MuiFormLabel-root': {
       fontSize: 'medium',
-      backgroundColor: 'white',
       paddingLeft: '1px',
       paddingRight: '1px',
     },
     '& .MuiTypography-body1': {
       fontSize: 'medium',
     },
+    '& .MuiFilledInput-root': {
+      backgroundColor: 'rgba(32, 135, 252, 0.1)',
+    },
     '& .MuiInputLabel-outlined': {
       fontSize: 'medium',
-      backgroundColor: 'white',
       paddingLeft: '1px',
       paddingRight: '1px',
     },
@@ -46,8 +47,8 @@ const IngresoNros = (props) => {
   const classes = useStyles();
 
   return (
-    <Grid item  xs={4}>
-      <TextField className={classes.root} type = 'number' variant="outlined"  label={label} name= {name} value={value}  onChange={handleChange} style = { { width: '90px'} }/>
+    <Grid item  xs={12}>
+      <TextField className={classes.root} type = 'number' variant="filled"  label={label} name= {name} value={value}  onChange={handleChange} style = { { width: '120px'} }/>
     </Grid>
   )
 }

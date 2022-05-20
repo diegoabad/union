@@ -7,14 +7,14 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
-
-import data from '../../datos/vademecum.json'
+import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
+import { red } from '@material-ui/core/colors';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: 'beige',
-    color: theme.palette.common.black,
+    backgroundColor: '#1E90FF',
+    color: theme.palette.common.white,
     fontSize: 'medium'
   },
   body: {
@@ -40,7 +40,7 @@ const useStyles = makeStyles({
 
 export default function Tabla(props) {
 
-  const { rows, handleChange, name, label } = props;
+  const { rows, handleDeleteTable, deleteOnTable } = props;
   
   const classes = useStyles();
 
@@ -50,21 +50,30 @@ export default function Tabla(props) {
         <TableHead>
           <TableRow>
             <StyledTableCell align="center">Medicación</StyledTableCell>
-            <StyledTableCell align="center">Tipo</StyledTableCell>
-            <StyledTableCell align="center">Presentación</StyledTableCell>
-            <StyledTableCell align="center">Horarios</StyledTableCell>
-            <StyledTableCell align="center">Periodicidad</StyledTableCell>
+            <StyledTableCell align="center">Miligramos</StyledTableCell>
+            <StyledTableCell align="center">7:00</StyledTableCell>
+            <StyledTableCell align="center">8:00</StyledTableCell>
+            <StyledTableCell align="center">12:00</StyledTableCell>
+            <StyledTableCell align="center">16:00</StyledTableCell>
+            <StyledTableCell align="center">20:00</StyledTableCell>
+            {deleteOnTable && <StyledTableCell align="center">Eliminar</StyledTableCell>}
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (
+          {rows.map((row, index) => ( 
             <StyledTableRow key={index}>
-              <StyledTableCell align="center">{data[row.index].Descripcion}</StyledTableCell>
-              <StyledTableCell align="center">{data[row.index].Forma}</StyledTableCell>
-              <StyledTableCell align="center">{data[row.index].Presentacion}</StyledTableCell>
-              <StyledTableCell align="center">{row.horarios.map(item => item + ', ')}</StyledTableCell>
-              <StyledTableCell align="center">{row.periodicidad}</StyledTableCell>
-
+              <StyledTableCell align="center">{row.medicacion}</StyledTableCell>
+              <StyledTableCell align="center">{row.miligramos}</StyledTableCell>
+              <StyledTableCell align="center">{row.siete}</StyledTableCell> 
+              <StyledTableCell align="center">{row.ocho}</StyledTableCell>
+              <StyledTableCell align="center">{row.doce}</StyledTableCell>
+              <StyledTableCell align="center">{row.dieciseis}</StyledTableCell>
+              <StyledTableCell align="center">{row.veinte}</StyledTableCell>
+              {deleteOnTable && <StyledTableCell align="center"> 
+                <Button className={classes.root} onClick={(e) => handleDeleteTable(e, index)} color= 'primary'>
+                  <DeleteIcon style={{fontSize: 30, color: red[500]}}/>
+                </Button>
+              </StyledTableCell>}
             </StyledTableRow>
           ))}
         </TableBody>

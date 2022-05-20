@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       marginLeft: theme.spacing(2),
       width: '100%',   
-      backgroundColor: '#FAFAFA'
+      backgroundColor: '#FEFEFA'
     },
 
     '& .MuiTextField-root':{
@@ -36,22 +36,21 @@ const useStyles = makeStyles((theme) => ({
     },
     '& .MuiFormLabel-root': {
       fontSize: 'medium',
-      backgroundColor: 'white',
-      paddingLeft: '10px',
-      paddingRight: '10px',
+      paddingLeft: '5px',
+      paddingRight: '5px',
     },
     '& .MuiTypography-body1': {
       fontSize: '1.5rem',
     },
     '& MuiAutocomplete-root': {
       width: '80%',
-    }
+    },
   },
 }));
 
 const DiagnosticoActual = (props) => {
 
-  const{setEnfermedades, estado, setEstado, paciente} = props;
+  const { setEnfermedades, estado, setEstado, paciente, mostrar } = props;
   const dispatch = useDispatch();
   const token = useSelector(state => state.token);
   const codigo = useSelector(state => state.codigo);
@@ -115,7 +114,7 @@ const DiagnosticoActual = (props) => {
   const classes = useStyles();
 
   return (
-    <Paper className={classes.root} style = { {backgroundColor:'#d7dbca'} }>
+    <Paper className={classes.root} style = { {backgroundColor:'rgb(32, 135, 252)'} }>
       <Grid container spacing={3}>
         
         <Subtitulo titulo = 'Diagnóstico actual ó presuntivo' />
@@ -135,7 +134,7 @@ const DiagnosticoActual = (props) => {
               <TextField
                 className={classes.root}
                 {...params}
-                label={"Diagnóstico actual o presuntivo"}
+                label={"Diagnóstico actual o presuntivo    "}
                 margin="normal"
                 variant="outlined"
                 name="diagnostico_actual"
@@ -156,9 +155,12 @@ const DiagnosticoActual = (props) => {
                 <Lista lista = {values.diagnostico_actual} handleDelete = {handleDelete} />
               }
 
+            {mostrar &&
+            <>
             <Opcion titulo = 'Observaciones' />
               <TextoMultiline error = {false} label = 'Observaciones' name = 'observaciones' value = {values.observaciones} handleChange = { handleChangeTexto }/>
-
+            </>  
+            }
       </Grid>
   </Paper>
   )

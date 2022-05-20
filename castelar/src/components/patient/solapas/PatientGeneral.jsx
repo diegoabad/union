@@ -1,32 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import s from './PatientGeneral.module.css';
 import { useSelector } from 'react-redux';
 import { transformDate } from '../../../functions/transformDate';
 import TablaEvo from './TablaEvo';
 import FiltrosTabla from './FiltrosTabla';
-
+import { arrayProfessional } from '../../../functions/arrayProfessional';
 export default function PatientFiliatorio({ estadoSolapa }) {
 	const pac = useSelector((state) => state.pacienteActual);
 	const [evoluciones, setEvoluciones] = useState([]);
+	const [evoCopy, setEvoCopy] = useState([]);
+	const arrPro = useSelector((state) => state.allProfessional);
+	const [doctors, setDoctors] = useState([]);
+	useEffect(() => {
+		if (estadoSolapa === 'Psicología') {
+			setDoctors(arrayProfessional(arrPro, pac.psicologia));
+			setEvoCopy(pac.psicologia);
+			setEvoluciones(evoCopy);
+		}
+	}, [estadoSolapa, evoCopy]);
 
 	return (
 		<div className={s.containerTable}>
 			{estadoSolapa === 'Psicología' ? (
 				<FiltrosTabla
-					pacienteActual={pac.psicologia}
+					pacienteActual={evoCopy}
 					setEvoluciones={setEvoluciones}
+					allDoctors={doctors}
 				/>
 			) : (
 				''
 			)}
 
-			{estadoSolapa === 'Psicología' && pac.psicologia.length > 0 ? (
-				<TablaEvo pac={pac.psicologia} flag={true} />
-			) : estadoSolapa === 'Psicología' && pac.psicologia.length === 0 ? (
-				<TablaEvo flag={false} />
-			) : (
-				''
-			)}
+			{estadoSolapa === 'Psicología' ? (
+				<TablaEvo pac={evoluciones} solapa={estadoSolapa} />
+			) : null}
 
 			{estadoSolapa === 'Psiquiatría' && pac.psiquiatria.length > 0 ? (
 				<table>

@@ -11,7 +11,7 @@ const orientacion = ({setSemiologica, semiologica}) => {
   const [values, setValues] = React.useState(initialStateValues)
 
   useEffect(() =>{
-    if (semiologica) {
+    if (semiologica.orientacion) {
       setValues({ 
         ...values,
         orientacion: semiologica.orientacion

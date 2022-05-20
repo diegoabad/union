@@ -1,12 +1,7 @@
 import React, { useEffect } from 'react'
 import Contenedor from './componente/Contenedor.jsx'
 
-import { useDispatch } from 'react-redux'
-import { getSemiologica } from '../../redux/actions/index.js'
-
 const Sexualidad = ({setSemiologica, semiologica, paciente}) => {
-
-  const dispatch = useDispatch();
 
   const initialStateValues = {
     sexualidad: '',

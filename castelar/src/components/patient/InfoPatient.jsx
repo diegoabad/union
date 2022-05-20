@@ -8,21 +8,28 @@ import PatientGeneral from './solapas/PatientGeneral';
 export default function InfoPatient() {
 	const solapa = useSelector((state) => state.solapaPaciente);
 	const menuSolapa = useSelector((state) => state.menuSolapa);
-	const [openFiliatorio, setOpenFiliatorio] = useState(false);
+	const paciente = useSelector((state) => state.pacienteActual);
 	const dispatch = useDispatch();
+	const [openFiliatorio, setOpenFiliatorio] = useState(false);
 	const [form, setForm] = useState('filiatorios');
 	const [estadoSolapa, setEstadoSolapa] = useState('');
+	const [editar, setEditar] = useState(false);
 
 	useEffect(() => {
 		setEstadoSolapa(solapa);
 	}, [solapa]);
 
-	const handleEditar = (evt, form) => {
-		evt.preventDefault();
-		if (form === 'filiatorios') {
+	const handleClick = () => {
+		if (estadoSolapa === 'Datos Filiatorios') {
+			setForm('filiatorios');
+			setEditar(true);
 			dispatch(editFiliatorios(true));
 		}
-		setForm(form);
+
+		if (estadoSolapa === 'Psicología') {
+			setForm('psicologia');
+			dispatch(editFiliatorios(false));
+		}
 		setOpenFiliatorio(true);
 	};
 
@@ -78,7 +85,7 @@ export default function InfoPatient() {
 			solapa === 'Psiquiatría' ||
 			solapa === 'Nutrición' ||
 			solapa === 'Admisiones' ? (
-				<div className={s.btnStandard}>
+				<div className={s.btnStandard} onClick={handleClick}>
 					<img
 						alt='Agregar Evolución'
 						src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAXFJREFUSEu9VdFRwzAUkyYBJoBOACPABLAB7SS0EwATUDaACWg3aCd5Pd09B+fFrnOlwXf5yMV5kt6TZWLixYnrowlgZk8AbgHc+CNOG3/WJD+PkawCmNk9gBcAlw2VOwALkuvSviKAmS0BPPsPewB6/yIp5jAzqbkDMAdw4fuWJBcRZAAQiouZileXmQlESrVWJPXerR6At+XDv84S45YRXNGP73vI2xUB1E9JLjI3M1MRkiXlScmO5FUi1W10t7wC2JMsDvYYgM8mEexU5ABvAB5r7L1AVYF/TyreScrev+fAzOSQawDV3o9QIHdpFhuSswgwYJcKtoaczySSyFs0OcA5W7QlqXb1ZjD5kJU9OmQ9H+f9HzHkuk2Dj/9y0Hrn6H+jwlXkSTonuTpb2KVCIVHVV4F+h7jWJaSTm2JlkKQ9F0WWnqwqnPK+JkT3hZSOv3CCc+QuPfK1okRrm12ZxcKDNG3Fwanfm5f+qYXTfwfi7uIZoIUoYQAAAABJRU5ErkJggg=='
@@ -94,7 +101,7 @@ export default function InfoPatient() {
 			)}
 
 			{solapa === 'Datos Filiatorios' || solapa === 'Semiología' ? (
-				<div className={s.btnStandard}>
+				<div className={s.btnStandard} onClick={handleClick}>
 					<img
 						alt='Editar filiatorios'
 						src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAARJJREFUSEvVlV0RwjAQhHcVFBQADpAACpDA4ABHIAEHIAEcgAMcLHOdtpOGhKR/D+Sl02my393eNUdMvDixPkYDSDoDuJG0Z7NaAEkbACcAy0RmB1eoEt9XZ1rffMATwKKjuAVzB1A45xqID5BtIpllnaQlyaektdnjQIYDKlt2ALYk7w7k6NrXKwPP87cDmZG092iRkxZ54rWQia588dJulybpJyAibhKtzumVQa641cJqUkOyMugiDuBKcp4NyBU3QUlWi8Jt82QGdV28ny/oeaiGfQDRgo4BiIpXFn11YTKDLtd5rwz+DlC2WZeoA3sfJO12LVdo4NhESs2EWAwvAHabXoKAgZEHj2cNliHgyQEfturGGQ9ytQYAAAAASUVORK5CYII='
@@ -119,32 +126,14 @@ export default function InfoPatient() {
 			</div>
 
 			{openFiliatorio ? (
-				<ModalFiliatorio form={form} setOpenFiliatorio={setOpenFiliatorio} />
-			) : (
-				<>
-					{solapa === 'Biografia' ? (
-						<div>
-							<button onClick={(evt) => handleEditar(evt, 'filiatorios')}>
-								Editar
-							</button>
-							<button onClick={(evt) => handleEditar(evt, 'semiologica')}>
-								Semiologica
-							</button>
-							<button onClick={(evt) => handleEditar(evt, 'psiquiatria')}>
-								Psiquiatrica
-							</button>
-							<button onClick={(evt) => handleEditar(evt, 'admision')}>
-								Admision
-							</button>
-							<button onClick={(evt) => handleEditar(evt, 'psicologica')}>
-								Psicologica
-							</button>
-						</div>
-					) : (
-						''
-					)}
-				</>
-			)}
+				<ModalFiliatorio
+					form={form}
+					setForm={setForm}
+					setOpenFiliatorio={setOpenFiliatorio}
+					paciente={paciente[form]}
+					editar={editar}
+				/>
+			) : null}
 		</div>
 	);
 }

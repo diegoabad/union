@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import { Grid, FormControl, Select, MenuItem, InputLabel, FormGroup, Paper} from '@material-ui/core/';
 
 import Subtitulo from '../admision1/componente/Subtitulo.jsx'
@@ -16,7 +15,7 @@ const styles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       marginLeft: theme.spacing(2),
       width: '100%',   
-      backgroundColor: '#FAFAFA'
+      backgroundColor: '#FEFEFA'
     },
     '& .MuiSelect-selectMenu': {
       fontSize: 'medium',
@@ -89,7 +88,7 @@ const Familiares = ({estado, setEstado, paciente}) => {
   const classes = styles();
 
   return (
-    <Paper className={classes.root} style = { {backgroundColor:'#d7dbca'} }>
+    <Paper className={classes.root} style = { {backgroundColor:'rgb(32, 135, 252)'} }>
       <Grid container spacing={3}>
         
         <Subtitulo titulo = 'Información Familiar' /> 

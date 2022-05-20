@@ -1,7 +1,7 @@
 import React, { useEffect} from 'react'
 
 import Opcion from '../admision1/componente/Opcion.jsx'
-import TextArea from '../examen_ingreso/componentes/TextArea.jsx'
+import TextoMultiline from '../admision/componentes/TextoMultiline.jsx'
 import Subtitulo from '../admision1/componente/Subtitulo.jsx'
 import IngresoNros from '../examen_ingreso/componentes/IngresoNros.jsx'
 
@@ -26,7 +26,6 @@ const styles = makeStyles((theme) => ({
     },
     '& .MuiFormLabel-root': {
       fontSize: 'medium',
-      backgroundColor: 'white',
       paddingLeft: '10px',
       paddingRight: '10px',
     },
@@ -35,7 +34,6 @@ const styles = makeStyles((theme) => ({
     },
     '& .MuiInputLabel-outlined': {
       fontSize: '1.5rem',
-      backgroundColor: 'white',
       paddingLeft: '10px',
       paddingRight: '10px',
     },
@@ -76,7 +74,6 @@ const ValoracionAntropometrica = ({nutricional, setNutricional, paciente}) => {
   },[values])
 
   const handleChange = (event) => {
-    console.log(event.target.name)
     setValues({ ...values, [event.target.name]: event.target.value });
   }
 
@@ -86,14 +83,11 @@ const ValoracionAntropometrica = ({nutricional, setNutricional, paciente}) => {
     }
   }
 
-  const handleTextarea = (event, name) => {
-    setValues( {...values, [name]: event.target.value });
-  }
 
   const classes = styles();
 
   return (
-  <Paper className={classes.root} style = { {backgroundColor:'#d7dbca'} }>
+  <Paper className={classes.root} style = { {backgroundColor: 'rgb(32, 135, 252)'} }>
     <Grid container spacing={3}>
 
       <Subtitulo titulo = 'Valoración antropométrica' />
@@ -107,16 +101,16 @@ const ValoracionAntropometrica = ({nutricional, setNutricional, paciente}) => {
         </Grid>
 
       <Opcion titulo = 'IMC' />
-        <TextArea name = 'imc' handleChange = {handleTextarea} value = {values.imc} placeholder = 'IMC'/>
-
+        <TextoMultiline error = {values.imc === '' ? true : false} name = 'imc' handleChange = {handleChange} value = {values.imc} label = 'IMC' minRows = {4} maxRows = {4}/>
+        
       <Opcion titulo = 'Diagnóstico nutricional' />
-        <TextArea name = 'diagnostico_nutricional' handleChange = {handleTextarea} value = {values.diagnostico_nutricional} placeholder = 'Diagnóstico nutricional'/>
-
+        <TextoMultiline error = {values.diagnostico_nutricional === '' ? true : false} name = 'diagnostico_nutricional' handleChange = {handleChange} value = {values.diagnostico_nutricional} label = 'Diagnóstico nutricional' minRows = {4} maxRows = {4}/>
+        
       <Opcion titulo = 'Evaluación nutricional' />
-        <TextArea name = 'evaluacion_nutricional' handleChange = {handleTextarea} value = {values.evaluacion_nutricional} placeholder = 'Evaluación nutricional'/>
+        <TextoMultiline error = {values.evaluacion_nutricional === '' ? true : false} name = 'evaluacion_nutricional' handleChange = {handleChange} value = {values.evaluacion_nutricional} label = 'Evaluación nutricional' minRows = {4} maxRows = {4}/>
 
       <Opcion titulo = 'Plan nutricional y tipo de dieta' />
-        <TextArea name = 'plan_nutricional' handleChange = {handleTextarea} value = {values.plan_nutricional} placeholder = 'Plan nutricional y tipo de dieta'/>
+        <TextoMultiline error = {values.plan_nutricional === '' ? true : false} name = 'plan_nutricional' handleChange = {handleChange} value = {values.plan_nutricional} label = 'Plan nutricional y tipo de dieta' minRows = {4} maxRows = {4}/>
 
       <Opcion titulo = 'Profesional actuante' />
         <Grid item xs = {12}>

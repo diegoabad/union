@@ -26,6 +26,7 @@ import {
 	CONTEXTUALES,
 	OTRAS,
 	GET_ALL_PROFESSIONAL,
+	PATIENTSEARCH,
 } from './constants';
 import dotenv from 'dotenv';
 import { getAllProfessional } from '../../functions/getAllProfessional';
@@ -239,5 +240,12 @@ export function allProfessional() {
 		} catch (e) {
 			console.log(e);
 		}
+	};
+}
+
+export function setPatiensSearch(payload) {
+	return {
+		type: PATIENTSEARCH,
+		payload,
 	};
 }

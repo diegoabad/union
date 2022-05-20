@@ -15,14 +15,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MedLista = (props) => {
-  const {lista, handleDelete} = props;
+  const {lista, handleDelete, name} = props;
 
   const classes = useStyles();
   return (
   <Grid container item xs={12} >
-    <List component="nav" className={classes.root} aria-label="mailbox folders">
+    <List component="nav" className={classes.root} >
  
-      <ListItem button onClick = {handleDelete}>
+      <ListItem button onClick = {(e) => handleDelete(e, name)}>
         <ListItemText primary= {lista} />
         <DeleteIcon color = 'error' fontSize='large'/>
       </ListItem>

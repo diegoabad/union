@@ -8,13 +8,21 @@ import Judicial from './filiatorios/Judicial.jsx';
 import Acompaniante from './filiatorios/Acompañante.jsx';
 import Referencia from './filiatorios/Referencia.jsx';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Button, Grid } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 
 import '../App.css';
 import { db } from '../firebase/credentials';
-import { doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
+import {
+	doc,
+	updateDoc,
+	setDoc,
+	getDoc,
+	collection,
+	getDocs,
+	query,
+} from 'firebase/firestore';
 
 import { useNavigate } from 'react-router-dom';
 import { getFormulario, editFiliatorios } from '../redux/actions/index';
@@ -40,9 +48,29 @@ const useStyles = makeStyles((theme) => ({
 		width: '100%',
 		alignItems: 'strech',
 		justifyContent: 'space-between',
-		backgroundColor: '#F0FFFF',
+		backgroundColor: '#FFFFFF',
 	},
 }));
+
+const StyledButton = withStyles({
+	root: {
+		background: 'rgb(32, 135, 252)',
+		borderRadius: 5,
+		border: 0,
+		color: 'white',
+		fontSize: '1.5rem',
+		width: 80,
+		height: 48,
+		padding: '0 30px',
+		boxShadow: '0 3px 5px 2px rgba(32, 135, 252, .3)',
+		'&:hover': {
+			backgroundColor: 'rgb(2, 154, 255)',
+		},
+	},
+	label: {
+		textTransform: 'capitalize',
+	},
+})(Button);
 
 const addFiliatorios = async (
 	filiatorios,
@@ -70,6 +98,24 @@ const addFiliatorios = async (
 		});
 		await setDoc(doc(db, 'historial', 'ctrl'), {
 			numero: historial,
+		});
+
+		const busquedaRef = collection(db, 'busqueda');
+
+		await setDoc(doc(busquedaRef, filiatorios.dni), {
+			nombre: filiatorios.nombre,
+			apellido: filiatorios.apellido,
+			nombreCompleto: `${filiatorios.nombre} ${filiatorios.apellido}`,
+			historial: filiatorios.historia_clinica,
+			nro_afiliado: filiatorios.nro_afiliado,
+		});
+
+		const q = query(collection(db, 'busqueda'));
+
+		const querySnapshot = await getDocs(q);
+		querySnapshot.forEach((doc) => {
+			// doc.data() is never undefined for query doc snapshots
+			console.log(doc.id, ' => ', doc.data());
 		});
 
 		if (setOpenFiliatorio && setDni && search) {
@@ -131,9 +177,8 @@ const Formdata = (props) => {
 			);
 			setError('');
 			if (respuesta) {
-				console.log('formdata: ' + filiatorios);
 				dispatch(getFormulario(filiatorios));
-				navigate('/paciente');
+				navigate('/');
 			}
 		}
 	};
@@ -208,14 +253,9 @@ const Formdata = (props) => {
 							xs={12}
 							style={{ alignItems: 'center', textAlign: 'center' }}
 						>
-							<Button
-								size='large'
-								color='primary'
-								variant='contained'
-								onClick={(evt) => handleClick(evt)}
-							>
+							<StyledButton onClick={(evt) => handleClick(evt)}>
 								Guardar
-							</Button>{' '}
+							</StyledButton>{' '}
 						</Grid>
 					) : (
 						<Grid
@@ -224,14 +264,9 @@ const Formdata = (props) => {
 							style={{ alignItems: 'center', textAlign: 'center' }}
 						>
 							{' '}
-							<Button
-								size='large'
-								color='primary'
-								variant='contained'
-								onClick={handleEdit}
-							>
+							<StyledButton onClick={(evt) => handleEdit(evt)}>
 								Editar
-							</Button>{' '}
+							</StyledButton>{' '}
 						</Grid>
 					)}
 				</Grid>

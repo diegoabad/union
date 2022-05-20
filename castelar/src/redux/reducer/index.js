@@ -24,6 +24,7 @@ import {
 	CONTEXTUALES,
 	OTRAS,
 	GET_ALL_PROFESSIONAL,
+	PATIENTSEARCH,
 } from '../actions/constants';
 
 const initialState = {
@@ -46,6 +47,7 @@ const initialState = {
 		idPatient: '',
 	},
 	token: '',
+	patienSearch: [],
 	editarFiliatorio: false,
 	codigo: [],
 	solapaPaciente: 'Biografia',
@@ -69,6 +71,12 @@ const rootReducer = (state = initialState, action) => {
 					nutricion: action.payload.nutricion || [],
 					medicacion: action.payload.medicacion || [],
 					ingreso: action.payload.ingreso || [],
+					musicoterapia: action.payload.musicoterapia || [],
+					ed_fisica: action.payload.ed_fisica || [],
+					area_social: action.payload.area_social || [],
+					ocupacional: action.payload.ocupacional || [],
+					contextual: action.payload.contextual || [],
+					otras: action.payload.otras || [],
 					idPatient: action.payload.filiatorios.dni || '',
 				},
 			};
@@ -259,6 +267,12 @@ const rootReducer = (state = initialState, action) => {
 			return {
 				...state,
 				allProfessional: action.payload,
+			};
+
+		case PATIENTSEARCH:
+			return {
+				...state,
+				patienSearch: action.payload,
 			};
 
 		default:

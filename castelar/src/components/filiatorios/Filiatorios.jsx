@@ -40,30 +40,20 @@ const useStyles = makeStyles((theme) => ({
 			width: '100%',
 			backgroundColor: '#FAFAFA',
 		},
-
-		'& .MuiTextField-root': {
-			width: '300px',
-			fontSize: 'medium',
-		},
-		textField: {
-			marginLeft: theme.spacing(1),
-			marginRight: theme.spacing(1),
-			width: '150ch',
-		},
 		'& .MuiTextField-root': {
 			width: '300px',
 			marginLeft: theme.spacing(1),
 			marginRight: theme.spacing(1),
-		},
-		textField: {
-			width: '150ch',
 		},
 		'& .MuiInputBase-input': {
 			fontSize: '1.5rem',
 		},
+    '& .MuiFilledInput-root': {
+      backgroundColor: 'rgba(32, 135, 252, 0.1)',
+    },
 		'& .MuiFormLabel-root': {
 			fontSize: 'medium',
-			backgroundColor: 'white',
+			// backgroundColor: 'white',
 			paddingLeft: '10px',
 			paddingRight: '10px',
 		},
@@ -72,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 		'& .MuiInputLabel-outlined': {
 			fontSize: '1.5rem',
-			backgroundColor: 'white',
+			// backgroundColor: 'white',
 			paddingLeft: '10px',
 			paddingRight: '10px',
 		},
@@ -99,7 +89,7 @@ const Filiatorios = (props) => {
 	const paciente = useSelector((state) => state.pacienteActual.filiatorios);
 	const editarFiliatorio = useSelector((state) => state.editarFiliatorio);
 	let años = '';
-  console.log(paciente)
+
 	const initialStateValues = {
 		nombre: '',
 		apellido: '',
@@ -170,21 +160,22 @@ const Filiatorios = (props) => {
 	};
 
 	const handleDateChange = (date) => {
+    console.log(date)
 		if (date !== null && date !== 'Invalid Date' && date !== undefined) {
-			let today = new Date();
-			let day = today.getDate() - date.getDate();
-			let month = today.getMonth() + 1 - (date.getMonth() + 1);
-			let year = today.getFullYear() - date.getFullYear();
+			
+      let today = new Date();
+      const day = today.getDate();
+      const month = today.getMonth() + 1;
+      const year = today.getFullYear();
+
+      const result = Math.trunc((today - date) / (1000 * 60 * 60 * 24 * 365))
 			if (!day || !month || !year) años = 'error';
-			if (
-				year < 0 ||
-				(year === 0 && month < 0) ||
-				(year === 0 && month === 0 && day < 0)
-			)
-				años = 'error';
-			if ((year > 0 && month < 0) || (year > 0 && month === 0 && day < 0))
-				años = year - 1;
-			if (year >= 0 && month >= 0 && day >= 0) años = year;
+			if ( result >= 0 && result <= 200) {
+        años = result;
+      }else{
+        años = 'error';
+      }
+
 
 			if (años !== 'error') {
 				setAge(`${años} años`);
@@ -198,7 +189,7 @@ const Filiatorios = (props) => {
 	const classes = useStyles();
 
 	return (
-		<Paper className={classes.root} style={{ backgroundColor: '#d7dbca' }}>
+		<Paper className={classes.root} style = { {backgroundColor:'rgb(32, 135, 252)'} }>
 			<Grid container spacing={3}>
 				<Subtitulo titulo='Paciente' />
 
@@ -206,7 +197,7 @@ const Filiatorios = (props) => {
 					<TextField
 						className={classes.textField}
 						fullWidth
-						variant='outlined'
+						variant='filled'
 						error={values.nombre === '' ? true : false}
 						label={values.nombre === '' ? 'Nombre es requerido' : 'Nombre'}
 						name='nombre'
@@ -218,7 +209,7 @@ const Filiatorios = (props) => {
 					<TextField
 						className={classes.textField}
 						fullWidth
-						variant='outlined'
+						variant='filled'
 						error={values.apellido === '' ? true : false}
 						label={
 							values.apellido === '' ? 'Apellido es requerido' : 'Apellido'
@@ -250,7 +241,7 @@ const Filiatorios = (props) => {
 					<TextField
 						className={classes.textField}
 						fullWidth
-						variant='outlined'
+						variant='filled'
 						label='Sexo autopercibido'
 						name='genero'
 						value={values.genero}
@@ -261,7 +252,7 @@ const Filiatorios = (props) => {
 					<TextField
 						className={classes.textField}
 						fullWidth
-						variant='outlined'
+						variant='filled'
 						error={values.dni === 0 || values.dni < 1000000 ? true : false}
 						label={
 							values.dni === 0 || values.dni < 1000000
@@ -277,7 +268,7 @@ const Filiatorios = (props) => {
 					<TextField
 						className={classes.textField}
 						fullWidth
-						variant='outlined'
+						variant='filled'
 						error={values.nacionalidad === '' ? true : false}
 						label={
 							values.nacionalidad === ''
@@ -298,7 +289,7 @@ const Filiatorios = (props) => {
 								format='dd/MM/yyyy'
 								margin='normal'
 								id='date-picker-dialog'
-								label='date-picker-dialog'
+								label='Fecha de nacimiento'
 								name='fechaNacimiento'
 								value={values.fechaNacimiento}
 								onChange={handleDateChange}
@@ -317,12 +308,12 @@ const Filiatorios = (props) => {
 							value={
 								age === '' ? handleDateChange(values.fechaNacimiento) : age
 							}
-							variant='outlined'
+							variant='filled'
 							label={age === 'error' ? 'fecha incorrecta' : 'edad'}
 						/>
 					</Grid>
 					<Grid item xs={12} sm={8} md={2} style={{ margin: '10px' }}>
-						<FormControl className={classes.formControl}>
+						<FormControl className={classes.formControl } style = {{ width: '100%' }}>
 							<InputLabel id='estado-civil'>Estado Civil</InputLabel>
 							<Select
 								labelId='estado-civil'
@@ -330,6 +321,7 @@ const Filiatorios = (props) => {
 								name='estado_civil'
 								value={values.estado_civil}
 								onChange={handleChange}
+
 							>
 								<MenuItem value='casado'>casado/a</MenuItem>
 								<MenuItem value='soltero'>soltero/a</MenuItem>
@@ -346,7 +338,7 @@ const Filiatorios = (props) => {
 							name='historia_clinica'
 							value={values.historia_clinica}
 							fullWidth
-							variant='outlined'
+							variant='filled'
 							label='Historia Clínica Nº'
 						/>
 					</Grid>

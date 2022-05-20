@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 
 import Opcion from '../admision1/componente/Opcion.jsx'
-import TextArea from '../examen_ingreso/componentes/TextArea.jsx'
+import TextoMultiline from '../admision/componentes/TextoMultiline.jsx'
 
 import {Grid, Paper} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -22,13 +22,19 @@ const Diagnostico = ({nutricional, setNutricional, paciente}) => {
 
   const initialStateValues = {
     diagnostico_medico: '',
+    relevancia_nutricional: '',
   }
 
   const [values, setValues] = React.useState(initialStateValues);
 
-  const handleTextarea = (event, name) => {
-    setValues( {...values, [name]: event.target.value });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setValues({
+      ...values,
+      [name]: value
+    });
   }
+
 
   useEffect(() => {
     if (paciente) {
@@ -44,14 +50,14 @@ const Diagnostico = ({nutricional, setNutricional, paciente}) => {
 
   const classes = styles();
   return (
-    <Paper className={classes.root} style = { {backgroundColor:'#d7dbca'} }>
+    <Paper className={classes.root} style = { {backgroundColor: 'rgb(32, 135, 252)'} }>
       <Grid container spacing={3}>
 
         <Opcion titulo = 'Diagnóstico médico' />
-          <TextArea name = 'diagnostico_medico' handleChange = {handleTextarea} value = {values.diagnostico_medico} placeholder = 'Diagnóstico médico'/>
+          <TextoMultiline error = {values.diagnostico_medico === '' ? true : false} name = 'diagnostico_medico' handleChange = {handleChange} value = {values.diagnostico_medico} label = 'Diagnóstico médico' minRows = {4} maxRows = {4}/>
 
         <Opcion titulo = 'Datos de relevancia nutricional' />
-          <TextArea name = 'relevancia_nutricional' handleChange = {handleTextarea} value = {values.relevancia_nutricional} placeholder = 'Datos de relevancia nutricional'/>
+          <TextoMultiline error = {values.relevancia_nutricional === '' ? true : false} name = 'relevancia_nutricional' handleChange = {handleChange} value = {values.relevancia_nutricional} label = 'Datos de relevancia nutricional' minRows = {4} maxRows = {4}/>
 
       </Grid>
     </Paper>

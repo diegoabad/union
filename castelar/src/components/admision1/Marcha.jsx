@@ -12,7 +12,7 @@ const Marcha = ({setSemiologica, semiologica}) => {
   const [values, setValues] = React.useState(initialStateValues)
 
   useEffect(() =>{
-    if (semiologica) {
+    if (semiologica.marcha) {
       setValues({ 
         ...values,
         marcha: semiologica.marcha

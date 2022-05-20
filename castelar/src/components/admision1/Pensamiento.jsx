@@ -11,7 +11,7 @@ const Pensamiento = ({setSemiologica, semiologica}) => {
   const [values, setValues] = React.useState(initialStateValues)
 
   useEffect(() =>{
-    if (semiologica) {
+    if (semiologica.pensamientoCurso && semiologica.pensamientoContenido) {
       setValues({ 
         ...values,
         pensamientoCurso: semiologica.pensamientoCurso,

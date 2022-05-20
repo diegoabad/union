@@ -5,7 +5,7 @@ import { Grid, Paper } from '@material-ui/core';
 import Subtitulo from '../admision1/componente/Subtitulo.jsx'
 import Opcion from '../admision1/componente/Opcion.jsx'
 import RadioButton from '../admision1/componente/RadioButton.jsx'
-import TextArea from './componentes/TextArea.jsx'
+import TextoMultiline from '../admision/componentes/TextoMultiline.jsx'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -54,34 +54,33 @@ const Cardiologico = ({ingreso, setIngreso, paciente}) => {
     setValues( {...values, [event.target.name]: event.target.value });
 }
 
-const handleTextarea = (event, name) => {
-  setValues( {...values, [name]: event.target.value });
-}
 
   const classes = styles();
   return (
-    <Paper className={classes.root} style = { {backgroundColor:'#d7dbca'} }>
+    <Paper className={classes.root} style = { {backgroundColor: 'rgb(32, 135, 252)'} }>
       <Grid container spacing={3}>
 
         <Subtitulo titulo = 'Exámen cardiológico' />
 
         <Opcion titulo = 'Auscultación' />
+          <TextoMultiline error = {false} name = 'auscultacion' handleChange = {handleChange} value = {values.auscultacion} label = 'Auscultación'/>
 
-          <TextArea name = 'auscultacion' handleChange = {handleTextarea} value = {values.auscultacion} placeholder = 'Auscultación'/> 
 
         <Opcion titulo = 'Soplos' />
 
           <RadioButton name = 'soplos' handleChange = {handleChange} datos = {[{name: 'si', label: 'Si'}, {name: 'no', label: 'No'}]} titulo = 'Soplos' value = {values.soplos} />
 
           {values.soplos === 'si' &&
-          <TextArea name = 'soplos_descripcion' handleChange = {handleTextarea} value = {values.soplos_descripcion} placeholder = 'Descripción de soplos'/> }
+            <TextoMultiline error = {false} name = 'soplos_descripcion' handleChange = {handleChange} value = {values.soplos_descripcion} label = 'Descripción'/>
+          }
 
         <Opcion titulo = 'Edemas Periféricos' />
 
           <RadioButton name = 'edemas' handleChange = {handleChange} datos = {[{name: 'si', label: 'Si'}, {name: 'no', label: 'No'}]} titulo = 'Edemas Periféricos' value = {values.edemas} />
 
           {values.edemas === 'si' &&
-          <TextArea name = 'edemas_perifericos' handleChange = {handleTextarea} value = {values.edemas_perifericos} placeholder = 'Descripción de Edemas periféricos'/> }
+          <TextoMultiline error = { false } name = 'edemas_perifericos' handleChange = {handleChange} value = {values.edemas_perifericos} label = 'Descripción de Edemas periféricos'/>
+          }
 
 
       </Grid>

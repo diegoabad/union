@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 		width: '90%',
 		alignItems: 'strech',
 		justifyContent: 'space-between',
-		backgroundColor: '#F0FFFF',
+		backgroundColor: '#FFFFFF',
 	},
 }));
 
@@ -89,7 +89,7 @@ const Musicoterapia = ({setOpenFiliatorio, registro}) => {
 			const result = await addTerapias(data, dni);
 			if (result) {
 				setOpenFiliatorio(false);
-				dispatch(getMusicoterapia(data));
+				dispatch(getMusicoterapia(data, 'musicoterapia' ));
 				//Cerramos el modal, se actualiza el redux, notificacion de envio correcto
 			} else {
 				//notificacion de envio incorrecto

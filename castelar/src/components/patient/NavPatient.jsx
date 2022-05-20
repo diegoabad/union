@@ -1,63 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import s from './Patient.module.css';
-import { getPatientByDNI } from '../../functions/getPatientByDNI';
+
+import { dniPro } from '../../functions/dniPro';
+import { filterPatients } from '../../functions/filterPatients';
 import ModalFiliatorios from '../modals/ModalFiliatorios';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	getPaciente,
-	getFiliatorios,
 	getSolapaPaciente,
 	getActiveSearch,
 	getMenuSolapa,
 } from '../../redux/actions/index';
-export default function NavPatients({ setFlagS }) {
+export default function NavPatients({ setPacientes, inputValue, dni }) {
 	const dispatch = useDispatch();
 	const paciente = useSelector((state) => state.pacienteActual);
 	const activeSearch = useSelector((state) => state.activeSearch);
-	const changeFiliatorio = useSelector((state) => state.editarFiliatorio);
-	const [dni, setDni] = useState('');
-	const [inputValue, setInputValue] = useState('');
+	/* 	const changeFiliatorio = useSelector((state) => state.editarFiliatorio); */
+	const pacientesCopy = useSelector((state) => state.patienSearch);
 	const [openFiliatorio, setOpenFiliatorio] = useState(false);
 
-	useEffect(() => {
+	/* 	useEffect(() => {
 		if (!changeFiliatorio) {
 			setDni(paciente.idPatient);
-			handleSearch(paciente.idPatient);
+			handleSearch(paciente.idPatient); 
 		}
-	}, [changeFiliatorio]);
-
-	function dniPro(dni) {
-		let array = [];
-		let cont = 1;
-
-		for (let i = dni.length - 1; i >= 0; i--) {
-			array.unshift(dni[i].toString());
-			if (cont % 3 == 0 && i !== 0) {
-				array.unshift('.');
-			}
-
-			cont++;
-		}
-
-		let texto = array.join('');
-		return texto;
-	}
+	}, [changeFiliatorio]); */
 
 	function handlePatient(e) {
 		const value = e.target.value.trim().toLowerCase();
 		if (value.length === 0) {
 			dispatch(getActiveSearch(false));
+			setPacientes(pacientesCopy);
+		} else {
+			const filtrado = filterPatients(pacientesCopy, value);
+			setPacientes(filtrado);
 		}
-		setDni(value);
 	}
 
 	function handleClear() {
 		dispatch(getActiveSearch(false));
-		setDni('');
-		setInputValue('');
-		setFlagS(false);
 		dispatch(getSolapaPaciente('Biografia'));
 		dispatch(getMenuSolapa(true));
+		setPacientes(pacientesCopy);
 		dispatch(
 			getPaciente({
 				filiatorios: {},
@@ -68,25 +52,15 @@ export default function NavPatients({ setFlagS }) {
 				nutricion: [],
 				medicacion: [],
 				ingreso: [],
+				musicoterapia: [],
+				ed_fisica: [],
+				area_social: [],
+				ocupacional: [],
+				contextual: [],
+				otras: [],
 				idPatient: '',
 			})
 		);
-	}
-
-	async function handleSearch(dni) {
-		if (dni !== '') {
-			setFlagS(true);
-			const p = await getPatientByDNI(dni);
-			if (p) {
-				const fullName = `${p.filiatorios.nombre} ${p.filiatorios.apellido}`;
-				setInputValue(fullName);
-				dispatch(getFiliatorios(p));
-			}
-			dispatch(getActiveSearch(true));
-			setFlagS(false);
-			return;
-		}
-		handleClear();
 	}
 
 	return (
@@ -129,20 +103,6 @@ export default function NavPatients({ setFlagS }) {
 			) : (
 				''
 			)}
-			{paciente.idPatient === '' && activeSearch ? (
-				<input
-					className={s.searchOk}
-					onChange={(e) => {
-						handlePatient(e);
-					}}
-					type='text'
-					placeholder='Buscar paciente por DNI'
-					value={`NO EXISTE EL PACIENTE CON DNI: ${dniPro(dni)}`}
-					readOnly={true}
-				/>
-			) : (
-				''
-			)}
 
 			{activeSearch ? (
 				<div
@@ -157,27 +117,8 @@ export default function NavPatients({ setFlagS }) {
 						src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAM5JREFUSEvtlMsNwkAMRJ87oJNQAnQAlYYOSAnQCR0YWXKkZPH+DisuyTHyzlvP2CsM/mSwPgeg6vB/LVLVG7CIyCe6qqqegIuIPHKtZDtw8Rl4AdcU4uJP4Azcc5ASwG63AFMKScTf3kXYZTEDF9pB3Ir15kVxq62GHEDsnNlSFW8CWFECsV9N4r2A1RY7FwYfTVKrRVvPTecn+O4x3VizC9SFwunq6qA0itF05ZaxZdHCQBNI/6K5ReOeiuoz2VhQnaJGnWzZAag6ONyiL3UxahlGNu2NAAAAAElFTkSuQmCC'
 					/>
 				</div>
-			) : dni.length > 6 ? (
-				<div
-					onClick={() => {
-						handleSearch(dni);
-					}}
-					class={`${s.containerIcon} ${s.searchActive}`}
-				>
-					<img
-						alt='Icono de busqueda'
-						className={s.search}
-						src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAVVJREFUSEvVVVFRA0EUSxSABFBA6wAcgAJwADgAB8UBOMABoIA6oBKogjBh3nYe7e4thSsz7Mx9XPc2yea9lxI7XtwxPpoEkg4AXAI4BjAJIXMAzwDuSC6+I65KIGkW4EMYM5LXPZINAklWeRQHHwAYyL9Bkm9yBeC83IjkdIjkC0FSvrQ1BXgdIIhs1V7YZdLqWhGE52/x1bQFXlCC5DXeD1s1yQTFdxewqSjLlHQfdjXPZILifVd95RbzVi0ygXyQ5FazIWnw3FgES5L7tSqPZdELSQ/kxvrTIjsaftKmnplJt01jUkurvgM46QzaEwD7fkvypjtoqfVyVLjP3eM5KhyAFwnQexZjUe0arA1QL+xsi785jdxqkvTi2hPt7nD4GdRAfhyAC0m2yJnk/SrJVkNVs6BH8muCaI58kzOSj0XMKASJxBG/Av+MnqE/izH2/j/BB3p8rBlg04KKAAAAAElFTkSuQmCC'
-					/>
-				</div>
 			) : (
-				<div class={`${s.containerIcon} ${s.searchDisabled}`}>
-					<img
-						alt='Icono de busqueda'
-						className={s.search}
-						src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAVVJREFUSEvVVVFRA0EUSxSABFBA6wAcgAJwADgAB8UBOMABoIA6oBKogjBh3nYe7e4thSsz7Mx9XPc2yea9lxI7XtwxPpoEkg4AXAI4BjAJIXMAzwDuSC6+I65KIGkW4EMYM5LXPZINAklWeRQHHwAYyL9Bkm9yBeC83IjkdIjkC0FSvrQ1BXgdIIhs1V7YZdLqWhGE52/x1bQFXlCC5DXeD1s1yQTFdxewqSjLlHQfdjXPZILifVd95RbzVi0ygXyQ5FazIWnw3FgES5L7tSqPZdELSQ/kxvrTIjsaftKmnplJt01jUkurvgM46QzaEwD7fkvypjtoqfVyVLjP3eM5KhyAFwnQexZjUe0arA1QL+xsi785jdxqkvTi2hPt7nD4GdRAfhyAC0m2yJnk/SrJVkNVs6BH8muCaI58kzOSj0XMKASJxBG/Av+MnqE/izH2/j/BB3p8rBlg04KKAAAAAElFTkSuQmCC'
-					/>
-				</div>
+				<div class={`${s.containerIcon} `}></div>
 			)}
 
 			{openFiliatorio ? (

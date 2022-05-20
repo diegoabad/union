@@ -9,9 +9,9 @@ import Grid from '@material-ui/core/Grid';
 
 const GreenCheckbox = withStyles({
   root: {
-    color: green[400],
+    color: 'rgb(32, 135, 252)',
     '&$checked': {
-      color: green[600],
+      color: 'rgb(35, 140, 255)',
     },
   },
   checked: {},
